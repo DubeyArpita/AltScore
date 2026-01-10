@@ -1,0 +1,84 @@
+import streamlit as st
+import pandas as pd
+import numpy as np
+import os
+
+st.set_page_config(page_title="Register User", layout="centered")
+
+# --- Sidebar aur Background styling wahi rahegi jo aapne bheji hai ---
+st.markdown("""
+    <style>
+    [data-testid="stSidebar"] { background-color: #001529 !important; }
+    [data-testid="stSidebar"] hr { border-color: #00D1FF !important; margin-top: 0px !important; margin-bottom: 30px !important; }
+    [data-testid="stSidebar"] .stMarkdown p { color: white !important; }
+    [data-testid="stSidebar"] div.stButton { margin-bottom: 20px !important; padding-top: 0px !important; padding-bottom: 0px !important; }
+    [data-testid="stSidebar"] .stButton button { background-color: #00D1FF !important; color: black !important; border-radius: 10px !important; font-weight: bold !important; border: none !important; transition: 0.3s; }
+    [data-testid="stSidebar"] .stButton button:hover { background-color: #0072FF !important; color: white !important; }
+    [data-testid="stSidebarNav"] { display: none; }
+    .stApp { background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url("https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=1744&q=80"); background-size: cover; }
+    [data-testid="stForm"] { background-color: white !important; padding: 30px !important; border-radius: 10px !important; }
+    label p { color: black !important; font-weight: bold !important; }
+    </style>
+    """, unsafe_allow_html=True)
+
+with st.sidebar:
+    st.markdown("<h2 style='text-align: center; color: #00D1FF;'>New User Registration</h2>", unsafe_allow_html=True)
+    st.write("---")
+    if st.button(" Home", use_container_width=True): st.switch_page("main_app.py")
+    if st.button(" Dashboard", use_container_width=True): st.switch_page("Pages/2_Dashboard.py")
+    st.write("---")
+
+st.markdown("<h1 style='text-align: center; color: #00D1FF;'> User Registration</h1>", unsafe_allow_html=True)
+
+# --- Updated Form with your Specific Columns ---
+with st.form("simple_user_form"):
+    st.subheader("Financial & Alternative Data Details")
+    
+    # In fields ke naam aapke screenshot se match karte hain
+    user_id = st.text_input("User ID ")
+    employment_type = st.selectbox("Employment Type", ["Salaried", "Self-Employed", "Freelancer", "Unemployed"])
+    income_range = st.number_input("Income Range (Annual)", min_value=0)
+    city_tier = st.selectbox("City Tier", [1, 2, 3])
+    bank_account_age_months = st.selectbox("Bank Account Type", ["Savings", "Current", "Salary"])
+    num_bank_accounts = st.number_input("Number of Bank Accounts", min_value=1, step=1)
+    monthly_income = st.number_input("Monthly Income (₹)", min_value=0)
+    rent_paid_on_time = st.number_input("Monthly Rent Paid (₹)", min_value=0)
+    utility_delay_days = st.number_input("Utility Bill Defaults (Count)", min_value=0, step=1)
+    upi_txn_count = st.number_input("Monthly UPI Transaction Count", min_value=0, step=1)
+    avg_month_end_balance = st.number_input("Average Monthly Balance (₹)", min_value=0)
+    overdraft_event = st.selectbox("Overdraft Availed?", ["No", "Yes"])
+
+    submit_button = st.form_submit_button("Save User & Generate Score 🚀", use_container_width=True)
+
+# ... (Aapka existing Imports aur CSS code) ...
+
+if submit_button:
+    if user_id:
+        # 1. Scores Generate karein
+        # Purana code: np.random.randint(400, 750) ...
+        # Naya Code (Score out of 100):
+        lr = np.random.randint(30, 80)
+        rf = np.random.randint(40, 90)
+        xgb = np.random.randint(50, 95)
+        final = int((lr + rf + xgb) / 3)
+
+# ensure kijiye ki new_row aur session_state mein yahi 'final' save ho raha hai
+        
+        # 2. Session State mein data save karein (Naye page ke liye)
+        st.session_state['report_data'] = {
+            'user_id': user_id, 'lr': lr, 'rf': rf, 'xgb': xgb, 'final': final
+        }
+        
+        # 3. CSV Save Logic
+        new_entry = {
+            "user_id": user_id, "employment_type": employment_type, "income_range": income_range,
+            "city_tier": city_tier, "bank_account_age_months": bank_account_age_months, "num_bank_accounts": num_bank_accounts,
+            "monthly_income": monthly_income, "rent_paid_on_time": rent_paid_on_time, "utility_delay_days": utility_delay_days,
+            "upi_txn_count": upi_txn_count, "avg_month_end_balance": avg_month_end_balance, "overdraft_event": overdraft_event,
+            "alt_credit_score": final 
+        }
+        df = pd.read_csv("final_dataset_v3.csv")
+        pd.concat([df, pd.DataFrame([new_entry])], ignore_index=True).to_csv("final_dataset_v3.csv", index=False)
+        
+        # 4. NAYE PAGE PAR JAYEIN
+        st.switch_page("Pages/4_User_Report.py")
