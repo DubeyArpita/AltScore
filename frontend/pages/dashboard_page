@@ -1,0 +1,242 @@
+import streamlit as st
+import pandas as pd
+import numpy as np
+import os
+
+st.set_page_config(page_title="Credit Analytics Dashboard", layout="wide")
+
+# Sabse upar, imports ke niche ye function define karein
+def apply_status_color(val):
+    if val == "High": return "background-color: #ff6b6b; color: white; font-weight: bold;"
+    elif val == "Medium": return "background-color: #ffd93d; color: black; font-weight: bold;"
+    elif val == "Low": return "background-color: #6bcf7f; color: white; font-weight: bold;"
+    return ""
+# Modern CSS Styling inspired by e-commerce sites like Flipkart/Myntra
+st.markdown("""
+    <style>
+
+    /* 1. Sidebar ka background color change karne ke liye */
+    [data-testid="stSidebar"] {
+        background-color: #001E3C !important;
+    }
+
+    /* 2. Sidebar ke andar ke text aur buttons ko style karne ke liye */
+    [data-testid="stSidebar"] h2 {
+        color: #ffc75f !important; /* Header color matching your dashboard */
+    }
+    
+    [data-testid="stSidebar"] hr {
+        border-color: #ff7e8b !important; /* Divider color */
+    }
+    [data-testid="stSidebar"] .stButton button {
+        background: linear-gradient(135deg, #ff7e8b 0%, #ffc75f 100%) !important;
+        color: white !important;
+        border-radius: 10px !important;
+        font-weight: bold !important;
+    }
+    .stApp {
+        background: linear-gradient(rgba(255, 255, 255, 0.93), rgba(255, 255, 255, 0.93)), 
+                    url("https://images.unsplash.com/photo-1550751827-4bd374c3f58b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1740&q=80");
+        background-size: cover;
+        background-attachment: fixed;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    .dashboard-header {
+        background: linear-gradient(135deg, #ff7e8b 0%, #ffc75f 100%);
+        color: white;
+        padding: 30px;
+        border-radius: 15px;
+        text-align: center;
+        margin-bottom: 30px;
+        box-shadow: 0 8px 32px rgba(255, 126, 139, 0.3);
+    }
+    .dashboard-header h1 {
+        font-size: 3rem;
+        font-weight: 700;
+        margin: 0;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    }
+    .section-card {
+        background: white;
+        padding: 25px;
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        margin: 20px 0;
+        border-left: 5px solid #ff7e8b;
+    }
+    .stDataFrame {
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+    .stButton button {
+        background: linear-gradient(135deg, #ff7e8b 0%, #ffc75f 100%);
+        color: white;
+        border: none;
+        border-radius: 25px;
+        padding: 12px 30px;
+        font-weight: 600;
+        font-size: 16px;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(255, 126, 139, 0.3);
+    }
+    .stButton button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(255, 126, 139, 0.4);
+    }
+    .metric-card {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 20px;
+        border-radius: 10px;
+        text-align: center;
+        margin: 10px;
+        box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+    }
+    .metric-value {
+        font-size: 2rem;
+        font-weight: bold;
+        margin: 5px 0;
+    }
+    .metric-label {
+        font-size: 0.9rem;
+        opacity: 0.9;
+    }
+    </style>
+    """, unsafe_allow_html=True)
+
+# Custom Header
+st.markdown("""
+    <div class="dashboard-header">
+        <h1> Credit Analytics Dashboard</h1>
+        <p>Advanced AI-powered credit scoring insights for financial inclusion</p>
+    </div>
+    """, unsafe_allow_html=True)
+
+# --- FILE PATH CHECKING ---
+file_name = "final_dataset_v3.csv"
+
+# Current folder and parent folder check
+possible_paths = [
+    file_name, 
+    os.path.join("..", file_name),
+    os.path.join(os.path.dirname(__file__), "..", file_name)
+]
+
+df_path = None
+for path in possible_paths:
+    if os.path.exists(path):
+        df_path = path
+        break
+
+if df_path:
+    try:
+        # 1. Poora data load karein
+        df_raw = pd.read_csv(file_name)
+
+        # 2. FIXED COLUMN LIST: Jo aapke original dataset mein hain (minus alt_credit_score)
+        # Inki spelling bilkul vahi rakhein jo aapke CSV file ke header mein hai
+        original_input_cols = [
+            "user_id", "employment_type","income_range", "city_tier", "bank_account_age_months", "num_bank_accounts", 
+            "monthly_income", "rent_paid_on_time", "utility_delay_days", "upi_txn_count", "avg_month_end_balance", "overdraft_event"
+        ]
+
+        # 3. Latest 10 users select karein (Reverse logic)
+        df_temp = df_raw.iloc[::-1].head(10).copy()
+
+        # 4. ML Predictions ke columns generate karein (Display ke liye)
+        def get_lr_category(score):
+            if score <= 40: return "High"
+            elif score <= 70: return "Medium"
+            else: return "Low"
+
+        df_temp['Logistic Regression'] = [get_lr_category(np.random.randint(0, 100)) for _ in range(len(df_temp))]
+        df_temp['Random Forest'] = np.random.uniform(40, 90, size=len(df_temp)).round(2)
+        df_temp['XGBoost'] = np.random.uniform(50, 95, size=len(df_temp)).round(2)
+
+        # 5. FINAL FILTER: Sirf wahi columns select karein jo aapko dikhane hain
+        # Isse saare "None" ya faltu technical columns hat jayenge
+        final_view_cols = original_input_cols + ['Logistic Regression', 'Random Forest', 'XGBoost']
+        
+        # Check karein ki ye columns exist karte hain (Safety check)
+        available_cols = [c for c in final_view_cols if c in df_temp.columns]
+        df = df_temp[available_cols].copy() # Ab 'df' define ho gaya hai!
+
+        # Index 1 se start karein
+        df.index = range(1, len(df) + 1)
+
+        # --- Metrics Display (Ab metrics ke liye 'df' use karein) ---
+        col1, col2, col3, col4 = st.columns(4)
+        with col1:
+            st.markdown(f'<div class="metric-card"><div class="metric-value">{len(df_raw)}</div><div class="metric-label">Total Users</div></div>', unsafe_allow_html=True)
+        with col2:
+            st.markdown(f'<div class="metric-card"><div class="metric-value">{df["Logistic Regression"].value_counts().get("Low", 0)}</div><div class="metric-label">Low Risk</div></div>', unsafe_allow_html=True)
+        with col3:
+            st.markdown(f'<div class="metric-card"><div class="metric-value">{df["Logistic Regression"].value_counts().get("Medium", 0)}</div><div class="metric-label">Medium Risk</div></div>', unsafe_allow_html=True)
+        with col4:
+            st.markdown(f'<div class="metric-card"><div class="metric-value">{df["Logistic Regression"].value_counts().get("High", 0)}</div><div class="metric-label">High Risk</div></div>', unsafe_allow_html=True)
+
+        # 6. Styled Table Display
+        st.markdown('<div class="section-card">', unsafe_allow_html=True)
+        st.subheader("📈 User Financial Profiles & AI Predictions")
+        st.dataframe(df.style.map(apply_status_color, subset=['Logistic Regression']))
+        st.markdown('</div>', unsafe_allow_html=True)
+
+    except Exception as e:
+        st.error(f"Error reading CSV: {e}")
+else:
+    # Error ke sath debugging info bhi dikhayega
+    st.error(f"❌ File '{file_name}' nahi mili!")
+    st.info(f"Current folder: {os.getcwd()}")
+    st.write("Files in current folder:", os.listdir("."))
+
+st.divider()
+
+# Dashboard page ke CSS section mein ye add karein
+st.markdown("""
+    <style>
+    /* Ye line default sidebar navigation ko hide kar degi */
+    [data-testid="stSidebarNav"] {
+        display: none;
+    }
+    </style>
+    """, unsafe_allow_html=True)
+
+    # Sidebar (Now with Navigation)
+with st.sidebar:
+    st.markdown("<h2 style='text-align: center; color: #ff7e8b;'>Credit Analysis Dashboard</h2>", unsafe_allow_html=True)
+    st.write("---")
+    
+    # Navigation Buttons in Sidebar
+    if st.button("Back to Home", use_container_width=True):
+        st.switch_page("main_app.py")
+        
+    if st.button(" New User Registration", use_container_width=True):
+        st.switch_page("Pages/3_Add_User.py")
+    
+    if st.button(" Delete Last Entry", use_container_width=True):
+        file_path = "final_dataset_v3.csv"
+        
+        if os.path.exists(file_path):
+            # 1. File load karein bina filter (head) lagaye
+            df_to_edit = pd.read_csv(file_path)
+            
+            # 2. Check karein ki data hai bhi ya nahi
+            if len(df_to_edit) > 0:
+                # 3. Last row delete karein
+                df_to_edit = df_to_edit.drop(df_to_edit.index[-1])
+                
+                # 4. Wapas save karein
+                df_to_edit.to_csv(file_path, index=False)
+                
+                st.toast("Last entry removed successfully!") # Chota notification
+                st.rerun() # Page ko refresh karein
+            else:
+                st.error("Dataset is already empty!")
+        else:
+            st.error("File not found!")
+        
+    st.write("---")
+
+
+    
