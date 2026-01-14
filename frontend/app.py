@@ -9,7 +9,7 @@ with st.sidebar:
     if st.button(" Home", use_container_width=True):
         st.switch_page("main_app.py")
     if st.button(" Dashboard", use_container_width=True):
-        st.switch_page("Pages/2_Dashboard.py")
+        st.switch_page("pages/2_Dashboard.py")
     st.write("---")
 
 # Updated CSS - Focus on Spacing and Box Width
