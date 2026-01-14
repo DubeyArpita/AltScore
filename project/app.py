@@ -7,7 +7,7 @@ with st.sidebar:
     st.markdown("<h2 style='text-align: center; color: #00D1FF;'>ALTSCORE</h2>", unsafe_allow_html=True)
     st.write("---")
     if st.button(" Home", use_container_width=True):
-        st.switch_page("main_app.py")
+        st.switch_page("app.py")
     if st.button(" Dashboard", use_container_width=True):
         st.switch_page("pages/dashboard_page.py")
     st.write("---")
