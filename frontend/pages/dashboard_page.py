@@ -6,10 +6,10 @@ import joblib
 
 # Load models
 try:
-    lr_model = joblib.load('logistic_model.pkl')
-    rf_model = joblib.load('rf_model.pkl')
-    rf_columns = joblib.load('model_columns.pkl')
-    xgb_model = joblib.load('xgb_model.pkl')
+    lr_model = joblib.load('models/logistic_model.pkl')
+    rf_model = joblib.load('models/rf_model.pkl')
+    rf_columns = joblib.load('models/model_columns.pkl')
+    xgb_model = joblib.load('models/xgb_model.pkl')
 except FileNotFoundError as e:
     st.error(f"Model file not found: {e}")
     st.stop()
@@ -236,7 +236,7 @@ st.markdown("""
 # Header
 st.markdown('<div class="dashboard-header"><h1>📊 Credit Analytics Dashboard</h1><p>Advanced AI-powered credit scoring insights</p></div>', unsafe_allow_html=True)
 
-file_name = "final_dataset_v3.csv"
+file_name = "data/dataset.csv"
 if os.path.exists(file_name):
     try:
         df_raw = pd.read_csv(file_name)
@@ -404,13 +404,13 @@ with st.sidebar:
     
     # Navigation Buttons with Icons
     if st.button("🏠 Home", use_container_width=True): 
-        st.switch_page("main_app.py")
+        st.switch_page("app.py")
     
     if st.button("📊 Dashboard", use_container_width=True): 
         st.rerun()
     
     if st.button("➕ New Registration", use_container_width=True): 
-        st.switch_page("Pages/3_Add_User.py")
+        st.switch_page("pages/Add_user_page.py")
     
     st.write("---")
     
