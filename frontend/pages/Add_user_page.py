@@ -6,10 +6,10 @@ import joblib
 
 # Load models
 try:
-    lr_model = joblib.load('logistic_model.pkl')
-    rf_model = joblib.load('rf_model.pkl')
-    rf_columns = joblib.load('model_columns.pkl')
-    xgb_model = joblib.load('xgb_model.pkl')
+    lr_model = joblib.load('models/logistic_model.pkl')
+    rf_model = joblib.load('models/rf_model.pkl')
+    rf_columns = joblib.load('models/model_columns.pkl')
+    xgb_model = joblib.load('models/xgb_model.pkl')
 except FileNotFoundError as e:
     st.error(f"Model file not found: {e}")
     st.stop()
@@ -25,17 +25,17 @@ with st.sidebar:
     st.write("---")
     
     if st.button("🏠 Home", use_container_width=True): 
-        st.switch_page("main_app.py")
+        st.switch_page("app.py")
     
     if st.button("📊 Dashboard", use_container_width=True): 
-        st.switch_page("Pages/2_Dashboard.py")
+        st.switch_page("pages/dashboard_page.py")
     
     st.write("---")
 
 st.markdown("<h1>📝 User Registration</h1>", unsafe_allow_html=True)
 
 # Check if dataset exists
-file_name = "final_dataset_v3.csv"
+file_name = "data/dataset.csv"
 if not os.path.exists(file_name):
     df_template = pd.DataFrame(columns=[
         "user_id", "employment_type", "income_range", "city_tier", 
@@ -179,7 +179,7 @@ if submit_button:
                 if final_score >= 70:
                     eligibility = "✅ ELIGIBLE"
                     risk_level = "Low Risk"
-                elif final_score >= 50:
+                elif final_score >= 40:
                     eligibility = "⚠️ CONDITIONAL"
                     risk_level = "Medium Risk"
                 else:
@@ -251,7 +251,7 @@ if submit_button:
                 # Navigate to report page
                 import time
                 time.sleep(3)
-                st.switch_page("Pages/4_User_Report.py")
+                st.switch_page("pages/user_report_page.py")
                 
             except Exception as e:
                 st.error(f"❌ Error during prediction: {e}")
