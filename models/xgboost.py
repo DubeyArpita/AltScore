@@ -138,13 +138,12 @@ new_score = np.clip(new_score, 0, 100)[0]
 # Credit label
 def credit_label(score):
     if score < 40:
-        return "Poor"
-    elif score < 60:
-        return "Fair"
-    elif score < 80:
-        return "Good"
+        return "High"
+    elif score < 70:
+        return "Medium"
     else:
-        return "Excellent"
+        return "Low"
+   
 
 print("\n🧪 NEW USER CREDIT ASSESSMENT")
 print("Predicted Credit Score :", round(new_score, 2))
