@@ -9,9 +9,9 @@ df.head()
 
 #STEP 3: Create risk category
 def risk_label(score):
-    if score <= 40:
+    if score < 40:
         return "High Risk"
-    elif score <= 70:
+    elif score < 70:
         return "Medium Risk"
     else:
         return "Low Risk"
