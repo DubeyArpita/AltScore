@@ -64,8 +64,15 @@ def predict_all(input_df, lr_sess, xgb_sess, rf_sess):
     xgb_score = float(np.clip(onnx_predict_regressor(xgb_sess, input_df), 0, 100))
     rf_score  = float(np.clip(onnx_predict_regressor(rf_sess, input_df), 0, 100))
 
-    final_score = int(round((lr_score + xgb_score + rf_score) / 3))
-
+    # final_score = int(round((lr_score + xgb_score + rf_score) / 3))
+    
+    if lr_risk == "High Risk":
+        final_score = min(xgb_score, rf_score)
+    elif lr_risk == "Low Risk":
+        final_score = max(xgb_score, rf_score)
+    else:
+        final_score = round((xgb_score + rf_score) / 2)
+        
     if final_score >= 70:
         eligibility = "✅ ELIGIBLE"
         risk_level = "Low Risk"
