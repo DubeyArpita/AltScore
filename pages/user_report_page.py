@@ -427,7 +427,7 @@ with col_table:
         ]
     })
 
-    st.table(report_df)
+    st.table(report_df.style.hide(axis="index"))
 
 # --------------------------------------------------
 # Risk Probability Breakdown (optional)
