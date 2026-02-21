@@ -35,54 +35,53 @@ st.markdown("""
     }
 
     /* ══════════════════════════════════════════
-       SIDEBAR — deep navy dark
-    ══════════════════════════════════════════ */
-    # [data-testid="stSidebar"] {
-    #     background: #040d1a !important;
-    #     border-right: 1px solid rgba(21,101,192,0.22) !important;
-    #     box-shadow: 4px 0 28px rgba(0,0,0,0.45) !important;
-    # }
+   SIDEBAR — deep navy dark
+══════════════════════════════════════════ */
+[data-testid="stSidebar"] {
+    background: #040d1a !important;
+    border-right: 1px solid rgba(21,101,192,0.22) !important;
+    box-shadow: 4px 0 28px rgba(0,0,0,0.45) !important;
+}
 
-    .sidebar-logo {
-        font-family: 'Fraunces', serif !important;
-        font-size: 1.9rem;
-        font-weight: 900;
-        text-align: center;
-        color: #90caf9;
-        letter-spacing: 0.06em;
-        margin-bottom: 2px;
-    }
+.sidebar-logo {
+    font-family: 'Fraunces', serif !important;
+    font-size: 1.9rem;
+    font-weight: 900;
+    text-align: center;
+    color: #90caf9;
+    letter-spacing: 0.06em;
+    margin-bottom: 2px;
+}
 
-    .sidebar-sub {
-        text-align: center;
-        color: #ffffff;
-        font-size: 0.63rem;
-        letter-spacing: 0.28em;
-        text-transform: uppercase;
-        margin-bottom: 20px;
-    }
+.sidebar-sub {
+    text-align: center;
+    color: #0d2a4a;
+    font-size: 0.63rem;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+}
 
-    section[data-testid="stSidebar"] .stButton > button {
-        background: rgba(21,101,192,0.09) !important;
-        border: 1px solid rgba(21,101,192,0.2) !important;
-        color: #3a6ea8 !important;
-        text-transform: none !important;
-        letter-spacing: 0 !important;
-        padding: 10px 16px !important;
-        font-size: 0.9rem !important;
-        border-radius: 10px !important;
-        box-shadow: none !important;
-        transition: background 0.2s, border-color 0.2s, color 0.2s !important;
-    }
+section[data-testid="stSidebar"] .stButton > button {
+    background: rgba(21,101,192,0.09) !important;
+    border: 1px solid rgba(21,101,192,0.2) !important;
+    color: #3a6ea8 !important;
+    text-transform: none !important;
+    letter-spacing: 0 !important;
+    padding: 10px 16px !important;
+    font-size: 0.9rem !important;
+    border-radius: 10px !important;
+    box-shadow: none !important;
+    transition: background 0.2s, border-color 0.2s, color 0.2s !important;
+}
 
-    section[data-testid="stSidebar"] .stButton > button:hover {
-        background: rgba(21,101,192,0.2) !important;
-        border-color: rgba(21,101,192,0.45) !important;
-        color: #ffffff !important;
-        transform: none !important;
-        box-shadow: none !important;
-    }
-
+section[data-testid="stSidebar"] .stButton > button:hover {
+    background: rgba(21,101,192,0.2) !important;
+    border-color: rgba(21,101,192,0.45) !important;
+    color: #90caf9 !important;
+    transform: none !important;
+    box-shadow: none !important;
+}
     /* ══════════════════════════════════════════
        MAIN CONTENT — white frosted card
     ══════════════════════════════════════════ */
