@@ -18,13 +18,13 @@ st.markdown("""
     [data-testid="stSidebarNav"] {
         display: none !important;
     }
-    /* 2. FIX KEYBOARD_DOUBLE (Replace text with Arrow) */
+    /* 2. FIX KEYBOARD_DOUBLE (The Arrow Fix) */
     [data-testid="collapsedControl"] {
         color: transparent !important;
         overflow: visible !important;
     }
     [data-testid="collapsedControl"]::before {
-        content: "»"; /* High-quality arrow symbol */
+        content: "»"; /* High-quality double arrow */
         color: #90caf9;
         font-size: 28px;
         position: absolute;
