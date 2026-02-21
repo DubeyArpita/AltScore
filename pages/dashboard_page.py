@@ -283,35 +283,45 @@ st.markdown("""
 
     /* Header row */
     [data-testid="stDataFrame"] thead tr th {
-        background: linear-gradient(90deg, #5b21b6, #7c3aed) !important;
-        color: #fff !important;
+        background: #1e0a3c !important;
+        color: #a78bfa !important;
         font-family: 'Manrope', sans-serif !important;
         font-weight: 800 !important;
-        font-size: 0.78rem !important;
-        letter-spacing: 0.08em !important;
+        font-size: 0.72rem !important;
+        letter-spacing: 0.12em !important;
         text-transform: uppercase !important;
-        border-bottom: none !important;
+        border-bottom: 2px solid #3b1a7a !important;
     }
 
     /* Alternating rows */
     [data-testid="stDataFrame"] tbody tr:nth-child(odd) td {
-        background: #faf8ff !important;
-        color: #1e0a3c !important;
+        background: #f8f5ff !important;
+        color: #2d0f6b !important;
     }
     [data-testid="stDataFrame"] tbody tr:nth-child(even) td {
-        background: #f3f0ff !important;
+        background: #ede9fe !important;
         color: #1e0a3c !important;
     }
     [data-testid="stDataFrame"] tbody tr:hover td {
-        background: #ede9fe !important;
+        background: #ddd6fe !important;
+        color: #1e0a3c !important;
     }
 
     /* Cell text */
     [data-testid="stDataFrame"] td {
         font-family: 'Manrope', sans-serif !important;
         font-size: 0.88rem !important;
-        font-weight: 600 !important;
-        border-color: #ede9fe !important;
+        font-weight: 500 !important;
+        border-color: #ddd6fe !important;
+    }
+
+    /* Index column */
+    [data-testid="stDataFrame"] th:first-child,
+    [data-testid="stDataFrame"] td:first-child {
+        background: #2d0f6b !important;
+        color: #c4b5fd !important;
+        font-weight: 700 !important;
+        border-right: 1px solid #4c1d95 !important;
     }
 
     /* ══════════════════════════════════════════
@@ -424,7 +434,7 @@ with st.sidebar:
 # -------------------------------------
 st.markdown("""
     <div style='margin-bottom: 0;'>
-        <span class='page-eyebrow'>✦ Analytics Overview</span>
+        <span class='page-eyebrow'>// Analytics Overview</span>
         <h1 class='page-title'>Credit <span class='grad'>Analytics Dashboard</span></h1>
         <p class='page-desc'>Monitor and assess user credit health with AI-powered insights across all registered profiles.</p>
     </div>
