@@ -30,30 +30,6 @@ st.markdown("""
         visibility: visible !important;
     }
 
-    /* 2. SIDEBAR KO DARK BLUE KARNE KE LIYE */
-    [data-testid="stSidebar"] {
-        background-color: #040d1a !important;
-        border-right: 1px solid rgba(21,101,192,0.2) !important;
-    }
-
-    /* 3. SIDEBAR BUTTONS KI STYLING */
-    section[data-testid="stSidebar"] .stButton > button {
-        background: rgba(21,101,192,0.15) !important;
-        border: 1px solid #1565c0 !important;
-        color: #90caf9 !important;
-        border-radius: 12px !important;
-        font-weight: 600 !important;
-        margin-bottom: 10px !important;
-        transition: 0.3s all ease !important;
-    }
-
-    section[data-testid="stSidebar"] .stButton > button:hover {
-        background: #90caf9 !important;
-        color: #040d1a !important;
-        border-color: #ffffff !important;
-    }
-
-
     /* 3. SIDEBAR PANEL STYLING */
     [data-testid="stSidebar"] {
         background: #040d1a !important;
