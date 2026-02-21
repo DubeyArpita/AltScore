@@ -19,7 +19,7 @@ st.markdown("""
     .stApp {
         background: #b9fae5;
         font-family: 'Roboto+Slab';
-        color: #1e0a3c;
+        color: #b9fae5;
     }
 
     /* Subtle static purple radial tint in corners */
