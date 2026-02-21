@@ -6,7 +6,10 @@ import streamlit as st
 from onnx_utils import load_onnx_sessions, onnx_predict_regressor, onnx_predict_classifier_label_and_proba
 
 # --- Page Config ---
-st.set_page_config(page_title="AltScore | Register", layout="wide", page_icon="📝")
+# st.set_page_config(page_title="AltScore | Register", layout="wide", page_icon="📝")
+st.set_page_config(page_title="AltScore India | Home", layout="wide")
+
+
 
 st.markdown("""
     <style>
