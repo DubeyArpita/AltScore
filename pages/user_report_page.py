@@ -428,9 +428,9 @@ with col_table:
         ],
         "Result": [
             data["lr_risk"],
-            f"{data['rf']}/100",
-            f"{data['xgb']}/100",
-            f"{final_score}/100"
+            f"{data['rf']:.2f}/100",
+            f"{data['xgb']:.2f}/100",
+            f"{final_score:.2f}/100"
         ],
         "Remarks": [
             "Probability-based risk classification",
