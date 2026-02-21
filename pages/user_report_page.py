@@ -279,61 +279,32 @@ section.main > div.block-container {
 #     font-size: 1rem !important;
 # }
 
-/* Force consistent layout */
+/* Make table truly full width */
 .stTable table {
-    border-radius: 12px !important;
-    overflow: hidden !important;
-    border: 1px solid rgba(21,101,192,0.15) !important;
     width: 100% !important;
-    table-layout: fixed !important;   /* Important */
+    table-layout: fixed !important;
     border-collapse: collapse !important;
+    border-spacing: 0 !important;
 }
 
-/* Make header + body identical in height */
+/* Remove any internal spacing */
+.stTable thead,
+.stTable tbody,
+.stTable tr {
+    width: 100% !important;
+}
+
+/* Force header + body cells same width */
 .stTable th,
 .stTable td {
     padding: 14px 16px !important;
-    line-height: 1.4 !important;     /* Force uniform text height */
-    height: 56px !important;         /* Fixed row height */
-    vertical-align: middle !important;
+    box-sizing: border-box !important;
+    border: 1px solid #e3f2fd !important;
 }
 
-/* Header Styling */
-.stTable thead tr th {
-    background: #0d47a1 !important;
-    color: #e3f2fd !important;
-    font-family: 'Manrope', sans-serif !important;
-    font-weight: 700 !important;     /* Reduced slightly from 800 */
-    font-size: 0.75rem !important;
-    letter-spacing: 0.08em !important; /* Reduced from 0.14em */
-    text-transform: uppercase !important;
-    border: none !important;
-}
-
-/* Odd Rows */
-.stTable tbody tr:nth-child(odd) td {
-    background: #ffffff !important;
-    color: #374151 !important;
-    font-family: 'Manrope', sans-serif !important;
-    font-weight: 500 !important;
-    border-color: #e3f2fd !important;
-}
-
-/* Even Rows */
-.stTable tbody tr:nth-child(even) td {
-    background: #f0f7ff !important;
-    color: #4b5563 !important;
-    font-family: 'Manrope', sans-serif !important;
-    font-weight: 500 !important;
-    border-color: #e3f2fd !important;
-}
-
-/* Final Score Row */
-.stTable tbody tr:last-child td {
-    background: #e3f2fd !important;
-    color: #0d47a1 !important;
-    font-weight: 700 !important;
-    font-size: 1rem !important;
+/* Remove weird Streamlit internal margin */
+.stTable > div {
+    width: 100% !important;
 }
 
 /* ══════════════════════════════════════════
