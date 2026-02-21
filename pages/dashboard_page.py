@@ -7,69 +7,283 @@ from onnx_utils import load_onnx_sessions, onnx_predict_regressor, onnx_predict_
 # -------------------------------------
 # Page Config
 # -------------------------------------
-st.set_page_config(page_title="Credit Analytics Dashboard", layout="wide", page_icon="📊")
+st.set_page_config(page_title="AltScore | Dashboard", layout="wide", page_icon="📊")
 
 DATA_FILE = "data/dataset.csv"
 
 # -------------------------------------
-# Custom CSS Styling (Modern UI)
+# Custom CSS — matches Register page theme
 # -------------------------------------
 st.markdown("""
-<style>
+    <style>
+    @import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,600;0,700;0,900;1,700&family=Manrope:wght@400;500;600;700;800&display=swap');
 
-/* Global font & text tweaks */
-body {
-    font-family: 'Poppins', sans-serif;
-    background-color: #f6f8fa;
-}
+    /* ══════════════════════════════════════════
+       ROOT — purple/white theme
+    ══════════════════════════════════════════ */
+    .stApp {
+        background: #f3f0ff;
+        font-family: 'Manrope', sans-serif;
+        color: #1e0a3c;
+    }
 
-h1, h2, h3, h4 {
-    color: #222831;
-    font-weight: 600;
-}
+    /* Subtle static purple radial tint in corners */
+    .stApp > div:first-child::before {
+        content: '';
+        position: fixed;
+        inset: 0;
+        background:
+            radial-gradient(ellipse 60vw 50vh at 0%   0%,   rgba(139,92,246,0.12) 0%, transparent 65%),
+            radial-gradient(ellipse 50vw 45vh at 100% 100%, rgba(109,40,217,0.10) 0%, transparent 65%),
+            radial-gradient(ellipse 40vw 40vh at 100% 0%,   rgba(196,181,253,0.15) 0%, transparent 60%);
+        pointer-events: none;
+        z-index: 0;
+    }
 
-/* Sidebar styling */
-[data-testid="stSidebar"] {
-    background-color: #1f2937;
-    color: white;
-}
-[data-testid="stSidebar"] h2 {
-    text-align: center;
-    color: #00D1FF;
-}
-[data-testid="stSidebar"] button {
-    border-radius: 8px !important;
-    font-weight: 600 !important;
-}
+    /* Finance SVG watermark — static, very subtle */
+    .stApp > div:first-child::after {
+        content: '';
+        position: fixed;
+        inset: 0;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='500' viewBox='0 0 800 500'%3E%3Cg opacity='0.045' stroke='%236d28d9' fill='none'%3E%3Cpolyline stroke-width='2' points='0,400 80,340 160,360 240,280 320,300 400,200 480,170 560,120 640,140 720,80 800,50'/%3E%3Cpolyline stroke-width='1.5' stroke='%238b5cf6' points='0,450 100,420 200,430 300,390 400,360 500,310 600,280 700,240 800,200'/%3E%3Cline x1='0' y1='166' x2='800' y2='166' stroke-width='0.8' stroke-dasharray='4 8'/%3E%3Cline x1='0' y1='333' x2='800' y2='333' stroke-width='0.8' stroke-dasharray='4 8'/%3E%3Cline x1='200' y1='0' x2='200' y2='500' stroke-width='0.8' stroke-dasharray='4 8'/%3E%3Cline x1='400' y1='0' x2='400' y2='500' stroke-width='0.8' stroke-dasharray='4 8'/%3E%3Cline x1='600' y1='0' x2='600' y2='500' stroke-width='0.8' stroke-dasharray='4 8'/%3E%3Ccircle cx='680' cy='400' r='48' stroke-width='1.5'/%3E%3Ccircle cx='680' cy='400' r='34' stroke-width='1'/%3E%3Ctext x='666' y='406' font-family='monospace' font-size='16' fill='%236d28d9' opacity='1'%3E%E2%82%B9%3C/text%3E%3Crect x='40' y='60' width='12' height='60' fill='%236d28d9'/%3E%3Crect x='65' y='40' width='12' height='80' fill='%238b5cf6'/%3E%3Crect x='90' y='70' width='12' height='50' fill='%236d28d9'/%3E%3Crect x='115' y='30' width='12' height='90' fill='%238b5cf6'/%3E%3Crect x='140' y='55' width='12' height='65' fill='%236d28d9'/%3E%3C/g%3E%3C/svg%3E");
+        background-size: 800px 500px;
+        background-repeat: repeat;
+        background-position: center;
+        pointer-events: none;
+        z-index: 0;
+    }
 
-/* Metric cards */
-div[data-testid="stMetricValue"] {
-    color: #111827;
-}
-div.stMetric {
-    background: white;
-    border-radius: 10px;
-    padding: 15px;
-    box-shadow: 0px 0px 6px rgba(0,0,0,0.1);
-    text-align: center;
-}
+    /* ══════════════════════════════════════════
+       SIDEBAR — deep dark purple
+    ══════════════════════════════════════════ */
+    [data-testid="stSidebar"] {
+        background: #12002e !important;
+        border-right: 1px solid rgba(139,92,246,0.2) !important;
+        box-shadow: 4px 0 28px rgba(0,0,0,0.5) !important;
+    }
 
-/* Dataframes */
-table {
-    border-radius: 8px!important;
-}
-thead tr th {
-    background-color: #00D1FF;
-    color: white;
-    font-weight: 600;
-}
+    .sidebar-logo {
+        font-family: 'Fraunces', serif;
+        font-size: 2rem;
+        font-weight: 900;
+        text-align: center;
+        color: #c4b5fd;
+        letter-spacing: 0.06em;
+        margin-bottom: 2px;
+    }
 
-/* General spacing */
-.block-container {
-    padding: 1rem 3rem;
-}
+    .sidebar-sub {
+        text-align: center;
+        color: #3b1f6a;
+        font-size: 0.63rem;
+        letter-spacing: 0.28em;
+        text-transform: uppercase;
+        margin-bottom: 20px;
+    }
 
-</style>
+    section[data-testid="stSidebar"] .stButton > button {
+        background: rgba(167,139,250,0.05) !important;
+        border: 1px solid rgba(167,139,250,0.12) !important;
+        color: #4a2e7a !important;
+        text-transform: none !important;
+        letter-spacing: 0 !important;
+        padding: 10px 16px !important;
+        font-size: 0.92rem !important;
+        font-family: 'Manrope', sans-serif !important;
+        border-radius: 10px !important;
+        box-shadow: none !important;
+        transition: background 0.2s, border-color 0.2s, color 0.2s !important;
+    }
+
+    section[data-testid="stSidebar"] .stButton > button:hover {
+        background: rgba(139,92,246,0.14) !important;
+        border-color: rgba(139,92,246,0.35) !important;
+        color: #c4b5fd !important;
+        transform: none !important;
+        box-shadow: none !important;
+    }
+
+    /* ══════════════════════════════════════════
+       MAIN CONTENT — white card
+    ══════════════════════════════════════════ */
+    section.main > div.block-container {
+        background: #ffffff !important;
+        border-radius: 24px !important;
+        border: 1px solid #ede9fe !important;
+        box-shadow:
+            0 0 0 1px rgba(139,92,246,0.06),
+            0 8px 48px rgba(109,40,217,0.09),
+            0 2px 8px rgba(0,0,0,0.04) !important;
+        margin: 20px 20px 20px 8px !important;
+        padding: 44px 52px 52px 52px !important;
+    }
+
+    /* ══════════════════════════════════════════
+       PAGE HEADER
+    ══════════════════════════════════════════ */
+    .page-eyebrow {
+        font-family: 'Manrope', sans-serif;
+        font-size: 0.95rem;
+        letter-spacing: 0.28em;
+        text-transform: uppercase;
+        color: #7c3aed;
+        font-weight: 700;
+        margin-bottom: 10px;
+        display: block;
+    }
+
+    .page-title {
+        font-family: 'Fraunces', serif;
+        font-size: clamp(2.8rem, 4.5vw, 4rem);
+        font-weight: 900;
+        color: #1e0a3c;
+        line-height: 1.08;
+        margin: 0 0 18px 0;
+        letter-spacing: -0.02em;
+    }
+
+    .page-title .grad {
+        color: #7c3aed;
+    }
+
+    .page-desc {
+        color: #3b1f5e;
+        font-size: 1.18rem;
+        font-weight: 500;
+        max-width: 600px;
+        line-height: 1.85;
+    }
+
+    .header-rule {
+        height: 2px;
+        background: linear-gradient(90deg, #7c3aed, #c4b5fd, transparent);
+        border-radius: 2px;
+        margin: 28px 0 36px 0;
+        opacity: 0.5;
+    }
+
+    /* ══════════════════════════════════════════
+       SECTION CARDS
+    ══════════════════════════════════════════ */
+    .sec-card {
+        background: #faf8ff;
+        border: 1px solid #ede9fe;
+        border-radius: 16px;
+        padding: 22px 26px 10px 26px;
+        margin-bottom: 18px;
+        box-shadow: 0 2px 12px rgba(109,40,217,0.05);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .sec-card::before {
+        content: '';
+        position: absolute;
+        top: 0; left: 0; right: 0;
+        height: 3px;
+        background: linear-gradient(90deg, #7c3aed, #a78bfa, #c4b5fd);
+        border-radius: 16px 16px 0 0;
+    }
+
+    .sec-title {
+        font-family: 'Manrope', sans-serif;
+        font-size: 0.78rem;
+        font-weight: 800;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: #6d28d9;
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        margin-bottom: 18px;
+        padding-bottom: 14px;
+        border-bottom: 1px solid #ede9fe;
+    }
+
+    .sec-icon {
+        width: 28px; height: 28px;
+        background: linear-gradient(135deg, #ede9fe, #ddd6fe);
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.85rem;
+        flex-shrink: 0;
+    }
+
+    /* ══════════════════════════════════════════
+       KPI METRIC CARDS
+    ══════════════════════════════════════════ */
+    div.stMetric {
+        background: #faf8ff !important;
+        border: 1px solid #ede9fe !important;
+        border-radius: 16px !important;
+        padding: 20px 18px !important;
+        box-shadow: 0 2px 12px rgba(109,40,217,0.06) !important;
+        position: relative;
+        overflow: hidden;
+    }
+
+    div.stMetric::before {
+        content: '';
+        position: absolute;
+        top: 0; left: 0; right: 0;
+        height: 3px;
+        background: linear-gradient(90deg, #7c3aed, #a78bfa, #c4b5fd);
+        border-radius: 16px 16px 0 0;
+    }
+
+    div[data-testid="stMetricValue"] {
+        color: #1e0a3c !important;
+        font-family: 'Fraunces', serif !important;
+        font-size: 2rem !important;
+        font-weight: 900 !important;
+    }
+
+    div[data-testid="stMetricLabel"] {
+        color: #6d28d9 !important;
+        font-family: 'Manrope', sans-serif !important;
+        font-size: 0.78rem !important;
+        font-weight: 800 !important;
+        letter-spacing: 0.1em !important;
+        text-transform: uppercase !important;
+    }
+
+    /* ══════════════════════════════════════════
+       DATAFRAMES
+    ══════════════════════════════════════════ */
+    [data-testid="stDataFrame"] {
+        border-radius: 12px !important;
+        border: 1px solid #ede9fe !important;
+        overflow: hidden !important;
+    }
+
+    /* ══════════════════════════════════════════
+       INFO / WARNING / ERROR
+    ══════════════════════════════════════════ */
+    [data-testid="stInfo"] {
+        background: #f5f3ff !important;
+        border: 1px solid #ddd6fe !important;
+        border-radius: 10px !important;
+        color: #5b21b6 !important;
+        font-family: 'Manrope', sans-serif !important;
+        font-weight: 600 !important;
+    }
+
+    /* ══════════════════════════════════════════
+       STATUS + MISC
+    ══════════════════════════════════════════ */
+    hr {
+        border: none !important;
+        border-top: 1px solid rgba(139,92,246,0.1) !important;
+        margin: 14px 0 !important;
+    }
+
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: rgba(124,58,237,0.2); border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: rgba(124,58,237,0.36); }
+    </style>
 """, unsafe_allow_html=True)
 
 
@@ -114,20 +328,22 @@ def build_input_df_from_row(row: pd.Series) -> pd.DataFrame:
 # Sidebar
 # -------------------------------------
 with st.sidebar:
-    st.markdown("<h2>ALTSCORE</h2>", unsafe_allow_html=True)
+    st.markdown("<div class='sidebar-logo'>AltScore</div>", unsafe_allow_html=True)
+    st.markdown("<div class='sidebar-sub'>AI Credit Intelligence</div>", unsafe_allow_html=True)
     st.write("---")
 
-    if st.button("🏠 Home", use_container_width=True):
+    if st.button("🏠  Home", use_container_width=True):
         st.switch_page("app.py")
 
-    if st.button("📊 Dashboard", use_container_width=True):
+    if st.button("📊  Dashboard", use_container_width=True):
         st.rerun()
 
-    if st.button("➕ New Registration", use_container_width=True):
+    if st.button("➕  New Registration", use_container_width=True):
         st.switch_page("pages/Add_user_page.py")
 
     st.write("---")
-    if st.button("🗑️ Delete Last Entry", use_container_width=True):
+
+    if st.button("🗑️  Delete Last Entry", use_container_width=True):
         if os.path.exists(DATA_FILE):
             try:
                 df_del = pd.read_csv(DATA_FILE)
@@ -144,12 +360,20 @@ with st.sidebar:
         else:
             st.warning("No dataset found.")
 
+    st.write("---")
+    st.markdown("<p style='text-align:center;color:#2a1550;font-size:0.65rem;letter-spacing:0.1em;'>v2.1 · Secure & Encrypted</p>", unsafe_allow_html=True)
 
 # -------------------------------------
-# Header
+# Page Header
 # -------------------------------------
-st.markdown("<h1 style='color:#00B4D8'>📊 Credit Analytics Dashboard</h1>", unsafe_allow_html=True)
-st.caption("Monitor and assess user credit health with AI-powered insights.")
+st.markdown("""
+    <div style='margin-bottom: 0;'>
+        <span class='page-eyebrow'>✦ Analytics Overview</span>
+        <h1 class='page-title'>Credit <span class='grad'>Analytics Dashboard</span></h1>
+        <p class='page-desc'>Monitor and assess user credit health with AI-powered insights across all registered profiles.</p>
+    </div>
+    <div class='header-rule'></div>
+""", unsafe_allow_html=True)
 
 # -------------------------------------
 # Data Load
@@ -187,43 +411,56 @@ except Exception as e:
     st.stop()
 
 # -------------------------------------
-# KPIs
+# Section: KPI Summary
 # -------------------------------------
-col1, col2, col3, col4 = st.columns(4)
+st.markdown("""<div class='sec-card'>
+    <div class='sec-title'><div class='sec-icon'>📈</div>Portfolio Summary</div>
+</div>""", unsafe_allow_html=True)
+
 total_users = len(df_raw)
-low_users = (df_raw["credit_score"] >= 70).sum()
-high_users = (df_raw["credit_score"] < 40).sum()
+low_users   = (df_raw["credit_score"] >= 70).sum()
+high_users  = (df_raw["credit_score"] < 40).sum()
 medium_users = df_raw["credit_score"].between(40, 70).sum()
 
-col1.metric("👥 Total Users", f"{total_users}")
-col2.metric("🟢 Low Risk (≥70)", f"{low_users}")
+col1, col2, col3, col4 = st.columns(4)
+col1.metric("👥 Total Users",          f"{total_users}")
+col2.metric("🟢 Low Risk (≥70)",       f"{low_users}")
 col3.metric("🟡 Medium Risk (40–69)", f"{medium_users}")
-col4.metric("🔴 High Risk (<40)", f"{high_users}")
+col4.metric("🔴 High Risk (<40)",      f"{high_users}")
 
-st.write("")
+st.markdown("<div style='height:28px'></div>", unsafe_allow_html=True)
 
 # -------------------------------------
-# Main Data Table
+# Section: All Users Overview Table
 # -------------------------------------
-st.markdown("### ✅ All Users Overview")
+st.markdown("""<div class='sec-card'>
+    <div class='sec-title'><div class='sec-icon'>👥</div>All Users Overview</div>
+</div>""", unsafe_allow_html=True)
 
-cols = ["user_id","employment_type","income_range","city_tier","monthly_income",
-        "bank_account_age_months","num_bank_accounts","rent_paid_on_time",
-        "utility_delay_days","upi_txn_count","avg_month_end_balance",
-        "overdraft_event","credit_score","risk_level"]
+cols = [
+    "user_id", "employment_type", "income_range", "city_tier", "monthly_income",
+    "bank_account_age_months", "num_bank_accounts", "rent_paid_on_time",
+    "utility_delay_days", "upi_txn_count", "avg_month_end_balance",
+    "overdraft_event", "credit_score", "risk_level"
+]
 
 display_df = df_raw.head(2000)[cols].copy()
-display_df.index = range(1, len(display_df)+1)
+display_df.index = range(1, len(display_df) + 1)
 
 st.dataframe(
     display_df.style.map(color_risk, subset=["risk_level"]),
-    use_container_width=True, height=500
+    use_container_width=True,
+    height=500
 )
 
+st.markdown("<div style='height:28px'></div>", unsafe_allow_html=True)
+
 # -------------------------------------
-# Predictions (Last 5 Added)
+# Section: AI Predictions (Last 5 Users)
 # -------------------------------------
-st.markdown("### 🤖 AI Predictions (Last 5 Registered Users)")
+st.markdown("""<div class='sec-card'>
+    <div class='sec-title'><div class='sec-icon'>🤖</div>AI Predictions — Last 5 Registered Users</div>
+</div>""", unsafe_allow_html=True)
 
 df_predict = df_added_order.tail(5).copy().iloc[::-1].reset_index(drop=True)
 
@@ -232,18 +469,18 @@ for idx, row in df_predict.iterrows():
     try:
         input_df = build_input_df_from_row(row)
         lr_risk, _ = onnx_predict_classifier_label_and_proba(lr_sess, input_df)
-        xgb_score = float(np.clip(onnx_predict_regressor(xgb_sess, input_df), 0, 100))
-        rf_score  = float(np.clip(onnx_predict_regressor(rf_sess, input_df), 0, 100))
+        xgb_score  = float(np.clip(onnx_predict_regressor(xgb_sess, input_df), 0, 100))
+        rf_score   = float(np.clip(onnx_predict_regressor(rf_sess, input_df), 0, 100))
     except Exception:
         lr_risk, xgb_score, rf_score = "Error", "Error", "Error"
 
     pred_rows.append({
-        "User ID": row.get("user_id", f"User_{idx+1}"),
-        "Credit Score": row.get("credit_score", np.nan),
+        "User ID":           row.get("user_id", f"User_{idx+1}"),
+        "Credit Score":      row.get("credit_score", np.nan),
         "Predicted LR Risk": lr_risk,
-        "XGB Score": xgb_score,
-        "RF Score": rf_score,
-        "Risk Level": compute_risk_level(row.get("credit_score", np.nan)),
+        "XGB Score":         xgb_score,
+        "RF Score":          rf_score,
+        "Risk Level":        compute_risk_level(row.get("credit_score", np.nan)),
     })
 
 pred_df = pd.DataFrame(pred_rows)
@@ -251,5 +488,6 @@ pred_df.index = range(1, len(pred_df) + 1)
 
 st.dataframe(
     pred_df.style.map(color_risk, subset=["Risk Level"]),
-    use_container_width=True, height=300
+    use_container_width=True,
+    height=300
 )
