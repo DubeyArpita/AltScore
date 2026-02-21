@@ -62,11 +62,22 @@ st.markdown("""
 
 .sidebar-sub {
     text-align: center;
-    color: #0d2a4a;
+    color: #ffffff;
     font-size: 0.63rem;
     letter-spacing: 0.28em;
     text-transform: uppercase;
     margin-bottom: 20px;
+}
+
+/* Fix for the keyboard_double icon issue */
+button[kind="header"] div:contains("keyboard_double") {
+    font-size: 0px !important;
+}
+
+button[kind="header"] div:contains("keyboard_double"):before {
+    content: "«"; /* This replaces the text with a double arrow symbol */
+    font-size: 24px !important;
+    color: #90caf9;
 }
 
 section[data-testid="stSidebar"] .stButton > button {
