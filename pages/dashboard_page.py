@@ -2,96 +2,109 @@ import os
 import numpy as np
 import pandas as pd
 import streamlit as st
-
 from onnx_utils import load_onnx_sessions, onnx_predict_regressor
 
-# --------------------------------------------------
-# Page Config
-# --------------------------------------------------
-st.set_page_config(
-    page_title="Credit Analytics",
-    page_icon="💳",
-    layout="wide"
-)
+st.set_page_config(page_title="AltScore", page_icon="⚡", layout="wide")
 
 DATA_FILE = "data/dataset.csv"
 
-# --------------------------------------------------
-# CLEAN PROFESSIONAL UI CSS
-# --------------------------------------------------
+# -----------------------------------------------------
+# 🌌 FUTURISTIC GLASSMORPHISM THEME
+# -----------------------------------------------------
 st.markdown("""
 <style>
 
-/* Global Background */
+/* Background Glow */
 .stApp {
-    background-color: #F8FAFC;
+    background: radial-gradient(circle at 20% 20%, #3b1c71 0%, transparent 40%),
+                radial-gradient(circle at 80% 80%, #0f3460 0%, transparent 40%),
+                linear-gradient(135deg, #0f0c29, #1a1a2e, #16213e);
+    color: white;
+    font-family: 'Inter', sans-serif;
 }
 
-/* Main Container Width */
+/* Main container tighter spacing */
 .block-container {
     padding-top: 2rem;
     padding-bottom: 2rem;
+    max-width: 1400px;
 }
 
 /* Title */
-.page-title {
-    font-size: 34px;
+.main-title {
+    font-size: 40px;
     font-weight: 700;
-    color: #0F172A;
-    margin-bottom: 5px;
+    background: linear-gradient(90deg,#8E2DE2,#4A00E0);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 10px;
 }
 
-.page-subtitle {
-    color: #64748B;
+/* Subtitle */
+.subtitle {
+    color: #cbd5e1;
     font-size: 16px;
     margin-bottom: 30px;
 }
 
-/* Section Header */
+/* Section headers */
 .section-title {
-    font-size: 20px;
+    font-size: 22px;
     font-weight: 600;
-    color: #0F172A;
-    margin-top: 40px;
+    margin-top: 30px;
     margin-bottom: 15px;
 }
 
-/* Cards */
-.card {
-    background: #FFFFFF;
-    padding: 22px;
-    border-radius: 14px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-    text-align: center;
+/* Glass Card */
+.glass {
+    background: rgba(255,255,255,0.08);
+    border-radius: 18px;
+    padding: 25px;
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border: 1px solid rgba(255,255,255,0.15);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+    transition: all 0.3s ease-in-out;
 }
 
-/* Metric Numbers */
+.glass:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.6);
+}
+
+/* Metric number */
 .metric-number {
-    font-size: 28px;
+    font-size: 30px;
     font-weight: 700;
     margin-top: 8px;
 }
 
-/* Risk Colors */
-.low { color: #16A34A; }
-.medium { color: #F59E0B; }
-.high { color: #DC2626; }
+/* Risk colors */
+.low { color: #00ffae; }
+.medium { color: #ffd166; }
+.high { color: #ff4d6d; }
+
+/* Table styling */
+[data-testid="stDataFrame"] {
+    background: rgba(255,255,255,0.05);
+    border-radius: 15px;
+    padding: 10px;
+}
 
 /* Sidebar */
 section[data-testid="stSidebar"] {
-    background-color: #FFFFFF;
-    border-right: 1px solid #E2E8F0;
+    background: rgba(0,0,0,0.6);
+    backdrop-filter: blur(20px);
+    border-right: 1px solid rgba(255,255,255,0.1);
 }
 
 </style>
 """, unsafe_allow_html=True)
 
-# --------------------------------------------------
-# Helpers
-# --------------------------------------------------
-def compute_risk_level(score):
-    if pd.isna(score):
-        return "Unknown"
+# -----------------------------------------------------
+# Helper
+# -----------------------------------------------------
+def compute_risk(score):
     if score >= 70:
         return "Low"
     elif score >= 40:
@@ -99,119 +112,81 @@ def compute_risk_level(score):
     else:
         return "High"
 
-def risk_class(val):
-    if val == "Low":
-        return "low"
-    if val == "Medium":
-        return "medium"
-    if val == "High":
-        return "high"
-    return ""
-
-# --------------------------------------------------
+# -----------------------------------------------------
 # Sidebar
-# --------------------------------------------------
+# -----------------------------------------------------
 with st.sidebar:
-    st.markdown("## ALTSCORE")
-    st.write("Credit Intelligence Platform")
+    st.markdown("## ⚡ AltScore")
+    st.caption("AI Credit Intelligence")
     st.divider()
-
     st.page_link("app.py", label="🏠 Home")
-    st.page_link("pages/Add_user_page.py", label="➕ Add User")
+    st.page_link("pages/Add_user_page.py", label="➕ Register User")
 
-# --------------------------------------------------
+# -----------------------------------------------------
 # Header
-# --------------------------------------------------
-st.markdown('<div class="page-title">Credit Analytics Dashboard</div>', unsafe_allow_html=True)
-st.markdown('<div class="page-subtitle">Monitor alternative credit risk portfolio performance</div>', unsafe_allow_html=True)
+# -----------------------------------------------------
+st.markdown('<div class="main-title">Credit Analytics Dashboard</div>', unsafe_allow_html=True)
+st.markdown('<div class="subtitle">Next-Gen Alternative Credit Risk Intelligence</div>', unsafe_allow_html=True)
 
-# --------------------------------------------------
+# -----------------------------------------------------
 # Load Data
-# --------------------------------------------------
+# -----------------------------------------------------
 if not os.path.exists(DATA_FILE):
-    st.warning("Dataset not found.")
+    st.warning("No dataset found.")
     st.stop()
 
 df = pd.read_csv(DATA_FILE)
 
-if df.empty:
-    st.warning("No users registered yet.")
-    st.stop()
-
 if "alt_credit_score" in df.columns and "credit_score" not in df.columns:
-    df = df.rename(columns={"alt_credit_score": "credit_score"})
+    df.rename(columns={"alt_credit_score": "credit_score"}, inplace=True)
 
 df["credit_score"] = pd.to_numeric(df["credit_score"], errors="coerce")
-df["risk_level"] = df["credit_score"].apply(compute_risk_level)
+df["risk"] = df["credit_score"].apply(compute_risk)
 
-# --------------------------------------------------
-# Metrics Section
-# --------------------------------------------------
+# -----------------------------------------------------
+# Metrics (Glass Cards)
+# -----------------------------------------------------
 st.markdown('<div class="section-title">Portfolio Overview</div>', unsafe_allow_html=True)
 
 total = len(df)
-low = int((df["credit_score"] >= 70).sum())
-medium = int(df["credit_score"].between(40, 69).sum())
-high = int((df["credit_score"] < 40).sum())
+low = (df["risk"] == "Low").sum()
+medium = (df["risk"] == "Medium").sum()
+high = (df["risk"] == "High").sum()
 
-col1, col2, col3, col4 = st.columns(4)
+cols = st.columns(4)
 
-with col1:
-    st.markdown(f"""
-    <div class="card">
-        Total Users
-        <div class="metric-number">{total}</div>
-    </div>
-    """, unsafe_allow_html=True)
+metrics = [
+    ("Total Users", total, ""),
+    ("Low Risk", low, "low"),
+    ("Medium Risk", medium, "medium"),
+    ("High Risk", high, "high"),
+]
 
-with col2:
-    st.markdown(f"""
-    <div class="card">
-        Low Risk
-        <div class="metric-number low">{low}</div>
-    </div>
-    """, unsafe_allow_html=True)
+for col, (title, value, color) in zip(cols, metrics):
+    with col:
+        st.markdown(f"""
+        <div class="glass">
+            {title}
+            <div class="metric-number {color}">{value}</div>
+        </div>
+        """, unsafe_allow_html=True)
 
-with col3:
-    st.markdown(f"""
-    <div class="card">
-        Medium Risk
-        <div class="metric-number medium">{medium}</div>
-    </div>
-    """, unsafe_allow_html=True)
-
-with col4:
-    st.markdown(f"""
-    <div class="card">
-        High Risk
-        <div class="metric-number high">{high}</div>
-    </div>
-    """, unsafe_allow_html=True)
-
-# --------------------------------------------------
+# -----------------------------------------------------
 # Users Table
-# --------------------------------------------------
+# -----------------------------------------------------
 st.markdown('<div class="section-title">Registered Users</div>', unsafe_allow_html=True)
 
-df_sorted = df.sort_values("credit_score", ascending=False).reset_index(drop=True)
-df_sorted.index += 1
-
+df_sorted = df.sort_values("credit_score", ascending=False)
 st.dataframe(
-    df_sorted[[
-        "user_id",
-        "employment_type",
-        "monthly_income",
-        "credit_score",
-        "risk_level"
-    ]],
+    df_sorted[["user_id","employment_type","monthly_income","credit_score","risk"]],
     use_container_width=True,
-    height=500
+    height=420
 )
 
-# --------------------------------------------------
-# AI Predictions (Last 5)
-# --------------------------------------------------
-st.markdown('<div class="section-title">Latest 5 Model Predictions</div>', unsafe_allow_html=True)
+# -----------------------------------------------------
+# AI Prediction Section
+# -----------------------------------------------------
+st.markdown('<div class="section-title">Latest Model Predictions</div>', unsafe_allow_html=True)
 
 @st.cache_resource
 def load_models():
@@ -224,7 +199,6 @@ except:
     st.stop()
 
 latest = df.tail(5).iloc[::-1]
-
 pred_rows = []
 
 for _, row in latest.iterrows():
@@ -238,9 +212,7 @@ for _, row in latest.iterrows():
         "User ID": row["user_id"],
         "Actual Score": row["credit_score"],
         "Predicted Score": score,
-        "Risk": row["risk_level"]
+        "Risk": row["risk"]
     })
 
-pred_df = pd.DataFrame(pred_rows)
-
-st.dataframe(pred_df, use_container_width=True)
+st.dataframe(pd.DataFrame(pred_rows), use_container_width=True)
