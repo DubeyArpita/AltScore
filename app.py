@@ -97,15 +97,14 @@ section[data-testid="stSidebar"] .stButton > button:hover {
     # }
 
     .stApp {
-        # background: linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)),
-        #             url("https://images.unsplash.com/photo-1705313382153-ed294af4b0a7?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
+        background: linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)),
+                    url("https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=1772&q=80");
         background-size: cover;
         background-attachment: fixed;
-        background-colour:blue
     }
 
     .hero-container { text-align: center; padding-top: 60px; }
-    .app-name { font-size: 50px; font-weight: 900; letter-spacing: 6px; color: #24bcdd; margin-bottom: 16px; }
+    .app-name { font-size: 50px; font-weight: 900; letter-spacing: 6px; color: #1565c0; margin-bottom: 16px; }
     .hero-headline { font-size: 56px; font-weight: 800; color: #fff; margin-bottom: 10px; }
     .hero-subtext { font-size: 22px; color: #e0e0e0; max-width: 900px; margin: 0 auto; line-height: 1.6; }
 
