@@ -73,7 +73,7 @@ st.markdown("""
 
     section[data-testid="stSidebar"] .stButton > button:hover {
         background: #00D1FF !important;
-        color: #000 !important;
+        color: #00000 !important;
         border-color: #00D1FF !important;
     }
 
