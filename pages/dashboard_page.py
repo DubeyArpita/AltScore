@@ -57,7 +57,7 @@ st.markdown("""
        SIDEBAR — deep dark purple
     ══════════════════════════════════════════ */
     [data-testid="stSidebar"] {
-        background: #8B5CF6 !important;
+        background: #12002e  !important;
         border-right: 1px solid rgba(139,92,246,0.2) !important;
         box-shadow: 4px 0 28px rgba(0,0,0,0.5) !important;
     }
