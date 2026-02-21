@@ -406,54 +406,29 @@ with col_table:
         <div class='sec-title'><div class='sec-icon'>📊</div>Model-by-Model Breakdown</div>
     </div>""", unsafe_allow_html=True)
 
-    # report_df = pd.DataFrame({
-    #     "Model": [
-    #         "Logistic Regression",
-    #         "Random Forest",
-    #         "XGBoost",
-    #         "FINAL SCORE"
-    #     ],
-    #     "Result": [
-    #         data["lr_risk"],
-    #         f"{data['rf']}/100",
-    #         f"{data['xgb']}/100",
-    #         f"{final_score}/100"
-    #     ],
-    #     "Remarks": [
-    #         "Probability-based risk classification",
-    #         "Ensemble regression estimate",
-    #         "Gradient boosting estimate",
-    #         data["eligibility"]
-    #     ]
-    # })
+    report_df = pd.DataFrame({
+        "Model": [
+            "Logistic Regression",
+            "Random Forest",
+            "XGBoost",
+            "FINAL SCORE"
+        ],
+        "Result": [
+            data["lr_risk"],
+            f"{data['rf']}/100",
+            f"{data['xgb']}/100",
+            f"{final_score}/100"
+        ],
+        "Remarks": [
+            "Probability-based risk classification",
+            "Ensemble regression estimate",
+            "Gradient boosting estimate",
+            data["eligibility"]
+        ]
+    })
 
-    # st.table(report_df.style.hide(axis="index"))
+    st.table(report_df.style.hide(axis="index"))
 
-
-   report_df = pd.DataFrame({
-    "Model": [
-        "Logistic Regression",
-        "Random Forest",
-        "XGBoost",
-        "FINAL SCORE"
-    ],
-    "Result": [
-        data["lr_risk"],
-        f"{data['rf']}/100",
-        f"{data['xgb']}/100",
-        f"{final_score}/100"
-    ],
-    "Remarks": [
-        "Probability-based risk classification",
-        "Ensemble regression estimate",
-        "Gradient boosting estimate",
-        data["eligibility"]
-    ]
-})
-
-report_df.index = ["", "", "", ""]   # 🔥 THIS LINE FIXES IT
-
-report_df.index = ["", "", "", ""]   # 🔥 THIS LINE FIXES IT
 
 # --------------------------------------------------
 # Risk Probability Breakdown (optional)
