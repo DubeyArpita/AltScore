@@ -16,9 +16,9 @@ st.markdown("""
        ROOT — purple/white theme
     ══════════════════════════════════════════ */
     .stApp {
-        background: #b9fae5;
+        background: #dab9fa;
         font-family: 'Roboto+Slab';
-        color: #b9fae5;
+        color: #0c0524;
     }
 
     /* Subtle static purple radial tint in corners */
