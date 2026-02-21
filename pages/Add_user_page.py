@@ -41,26 +41,7 @@ st.markdown("""
         background: #040d1a !important;
         border-right: 1px solid rgba(21,101,192,0.22) !important;
     }
-    #  /* ══════════════════════════════════════════
-    #    Hides the default Streamlit Page List
-    # ══════════════════════════════════════════ */
-    # [data-testid="stSidebarNav"] {
-    #     display: none !important;
-    # }
-    # /* 2. FIX KEYBOARD_DOUBLE (The Arrow Fix) */
-    # [data-testid="collapsedControl"] {
-    #     color: transparent !important;
-    #     overflow: visible !important;
-    # }
-    # [data-testid="collapsedControl"]::before {
-    #     content: "»"; /* High-quality double arrow */
-    #     color: #90caf9;
-    #     font-size: 28px;
-    #     position: absolute;
-    #     left: 10px;
-    #     top: 5px;
-    #     visibility: visible;
-    # }
+    
     /* ══════════════════════════════════════════
        GLOBAL
     ══════════════════════════════════════════ */
@@ -83,26 +64,7 @@ st.markdown("""
         color: #071a2e;
     }
 
-/* ══════════════════════════════════════════
-   FIX KEYBOARD_DOUBLE (Arrow Navigation)
-══════════════════════════════════════════ */
 
-/* Hides the raw 'keyboard_double' text */
-[data-testid="collapsedControl"] {
-    color: transparent !important;
-    overflow: visible !important;
-}
-
-/* Injects a clean arrow icon in its place */
-[data-testid="collapsedControl"]::before {
-    content: "»"; /* High-quality double arrow symbol */
-    color: #90caf9; /* Matches your blue theme */
-    font-size: 28px;
-    position: absolute;
-    left: 10px;
-    top: 5px;
-    visibility: visible;
-}
     /* ══════════════════════════════════════════
    SIDEBAR — deep navy dark
 ══════════════════════════════════════════ */
@@ -537,7 +499,7 @@ with st.sidebar:
 # --- Page Header ---
 st.markdown("""
     <div style='margin-bottom: 0;'>
-        <span class='page-eyebrow'>✦ New Application</span>
+        <span class='page-eyebrow'>New Application</span>
         <h1 class='page-title'>Register <span class='grad'>User Profile</span></h1>
         <p class='page-desc'>Complete the financial profile below to generate an instant AI-powered alternative credit score tailored to your unique financial footprint.</p>
     </div>
@@ -610,7 +572,7 @@ if submitted:
     }])
 
     with st.status("🧠  Running AI analysis...", expanded=True) as status:
-        st.write("Initialising ONNX inference sessions...")
+        # st.write("Initialising ONNX inference sessions...")
         import time; time.sleep(1)
         out = predict_all(input_df, lr_sess, xgb_sess, rf_sess)
         st.write("Aggregating multi-model insights...")
