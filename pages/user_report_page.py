@@ -386,7 +386,7 @@ with st.sidebar:
     if st.button("🏠 Home", use_container_width=True):
         st.switch_page("app.py")
     if st.button("📊 Dashboard", use_container_width=True):
-        st.switch_page("pages/dashboard.py")
+        st.switch_page("pages/dashboard_page.py")
     if st.button("➕ New Registration", use_container_width=True):
         st.switch_page("pages/Add_user_page.py")
     st.write("---")
