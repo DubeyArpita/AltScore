@@ -98,7 +98,7 @@ section[data-testid="stSidebar"] .stButton > button:hover {
 
     .stApp {
         background: linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)),
-                    url("https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=1772&q=80");
+                    url("https://unsplash.com/photos/scrabbled-letters-spelling-credit-on-a-wooden-surface-XVOdewJdmEs?utm_source=unsplash&utm_medium=referral&utm_content=creditShareLink");
         background-size: cover;
         background-attachment: fixed;
     }
