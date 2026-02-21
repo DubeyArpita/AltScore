@@ -18,28 +18,28 @@ st.markdown("""
     * { font-family: 'Manrope', sans-serif !important; box-sizing: border-box; }
 
     /* ══════════════════════════════════════════
-       APP BG — pink gradient + money SVG watermark
+       APP BG — green gradient + money SVG watermark
     ══════════════════════════════════════════ */
     .stApp {
-        background-color: #fce4ec;
+        background-color: #e8f5e9;
         background-image:
-            url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1000' height='700' viewBox='0 0 1000 700'%3E%3Cdefs%3E%3ClinearGradient id='g1' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23e91e8c' stop-opacity='0.13'/%3E%3Cstop offset='1' stop-color='%23c2185b' stop-opacity='0.07'/%3E%3C/linearGradient%3E%3C/defs%3E%3C!-- Large banknote shape top-right --%3E%3Crect x='680' y='30' width='280' height='140' rx='18' fill='none' stroke='%23e91e8c' stroke-width='2' opacity='0.18'/%3E%3Crect x='700' y='50' width='240' height='100' rx='10' fill='none' stroke='%23e91e8c' stroke-width='1' opacity='0.12'/%3E%3Ccircle cx='820' cy='100' r='30' fill='none' stroke='%23e91e8c' stroke-width='1.5' opacity='0.18'/%3E%3Ccircle cx='820' cy='100' r='20' fill='none' stroke='%23e91e8c' stroke-width='1' opacity='0.12'/%3E%3Ctext x='808' y='107' font-family='monospace' font-size='18' fill='%23e91e8c' opacity='0.28' font-weight='bold'%3E%E2%82%B9%3C/text%3E%3Ctext x='695' y='80' font-family='monospace' font-size='8' fill='%23e91e8c' opacity='0.2'%3EALT SCORE CREDIT%3C/text%3E%3Ctext x='695' y='148' font-family='monospace' font-size='8' fill='%23e91e8c' opacity='0.2'%3E100 00000 0001%3C/text%3E%3C!-- Coin stack bottom-left --%3E%3Cellipse cx='90' cy='590' rx='55' ry='14' fill='none' stroke='%23c2185b' stroke-width='1.5' opacity='0.2'/%3E%3Cellipse cx='90' cy='572' rx='55' ry='14' fill='none' stroke='%23c2185b' stroke-width='1.5' opacity='0.2'/%3E%3Cellipse cx='90' cy='554' rx='55' ry='14' fill='none' stroke='%23c2185b' stroke-width='1.5' opacity='0.2'/%3E%3Cellipse cx='90' cy='536' rx='55' ry='14' fill='none' stroke='%23c2185b' stroke-width='1.5' opacity='0.2'/%3E%3Cline x1='35' y1='536' x2='35' y2='590' stroke='%23c2185b' stroke-width='1.5' opacity='0.2'/%3E%3Cline x1='145' y1='536' x2='145' y2='590' stroke='%23c2185b' stroke-width='1.5' opacity='0.2'/%3E%3Ctext x='73' y='567' font-family='monospace' font-size='14' fill='%23c2185b' opacity='0.25' font-weight='bold'%3E%E2%82%B9%3C/text%3E%3C!-- Rupee symbols scattered --%3E%3Ctext x='50' y='80' font-family='monospace' font-size='42' fill='%23e91e8c' opacity='0.07' font-weight='bold'%3E%E2%82%B9%3C/text%3E%3Ctext x='880' y='620' font-family='monospace' font-size='56' fill='%23e91e8c' opacity='0.06' font-weight='bold'%3E%E2%82%B9%3C/text%3E%3Ctext x='430' y='660' font-family='monospace' font-size='36' fill='%23c2185b' opacity='0.06' font-weight='bold'%3E%E2%82%B9%3C/text%3E%3C!-- Percent symbol --%3E%3Ctext x='910' y='200' font-family='monospace' font-size='80' fill='%23e91e8c' opacity='0.05' font-weight='bold'%3E%25%3C/text%3E%3C!-- Mini banknote bottom-right --%3E%3Crect x='750' y='560' width='210' height='110' rx='14' fill='none' stroke='%23c2185b' stroke-width='1.5' opacity='0.15'/%3E%3Crect x='766' y='576' width='178' height='78' rx='8' fill='none' stroke='%23c2185b' stroke-width='0.8' opacity='0.1'/%3E%3Ccircle cx='855' cy='615' r='22' fill='none' stroke='%23c2185b' stroke-width='1.2' opacity='0.15'/%3E%3Ctext x='845' y='621' font-family='monospace' font-size='13' fill='%23c2185b' opacity='0.22' font-weight='bold'%3E%E2%82%B9%3C/text%3E%3C!-- Graph trend line middle --%3E%3Cpolyline points='200,680 270,640 340,655 420,590 500,600 580,520 660,490 740,440 820,420' fill='none' stroke='%23e91e8c' stroke-width='1.8' opacity='0.1'/%3E%3C!-- Credit score arc top-left --%3E%3Cpath d='M 30 220 A 120 120 0 0 1 230 180' fill='none' stroke='%23c2185b' stroke-width='1.5' opacity='0.12' stroke-dasharray='6 6'/%3E%3Cpath d='M 30 240 A 140 140 0 0 1 250 180' fill='none' stroke='%23e91e8c' stroke-width='1' opacity='0.08' stroke-dasharray='3 9'/%3E%3Ctext x='30' y='270' font-family='monospace' font-size='9' fill='%23c2185b' opacity='0.2'%3ECREDIT SCORE%3C/text%3E%3C!-- Bar chart mid-left --%3E%3Crect x='30' y='370' width='14' height='50' rx='3' fill='%23e91e8c' opacity='0.1'/%3E%3Crect x='52' y='350' width='14' height='70' rx='3' fill='%23c2185b' opacity='0.1'/%3E%3Crect x='74' y='360' width='14' height='60' rx='3' fill='%23e91e8c' opacity='0.1'/%3E%3Crect x='96' y='335' width='14' height='85' rx='3' fill='%23c2185b' opacity='0.1'/%3E%3Crect x='118' y='345' width='14' height='75' rx='3' fill='%23e91e8c' opacity='0.1'/%3E%3C/svg%3E"),
-            radial-gradient(ellipse 55vw 45vh at 5%  5%,  rgba(233,30,140,0.10) 0%, transparent 65%),
-            radial-gradient(ellipse 45vw 50vh at 95% 8%,  rgba(194,24,91,0.08)  0%, transparent 60%),
-            radial-gradient(ellipse 50vw 40vh at 80% 92%, rgba(233,30,140,0.09) 0%, transparent 60%),
-            radial-gradient(ellipse 40vw 45vh at 10% 90%, rgba(194,24,91,0.07)  0%, transparent 55%),
-            linear-gradient(150deg, #fce4ec 0%, #fdf2f8 40%, #fce4ec 70%, #fdeef5 100%);
+            url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1000' height='700' viewBox='0 0 1000 700'%3E%3C!-- Large banknote top-right --%3E%3Crect x='680' y='30' width='280' height='140' rx='18' fill='none' stroke='%232e7d32' stroke-width='2' opacity='0.18'/%3E%3Crect x='700' y='50' width='240' height='100' rx='10' fill='none' stroke='%232e7d32' stroke-width='1' opacity='0.12'/%3E%3Ccircle cx='820' cy='100' r='30' fill='none' stroke='%232e7d32' stroke-width='1.5' opacity='0.18'/%3E%3Ccircle cx='820' cy='100' r='20' fill='none' stroke='%232e7d32' stroke-width='1' opacity='0.12'/%3E%3Ctext x='808' y='107' font-family='monospace' font-size='18' fill='%232e7d32' opacity='0.28' font-weight='bold'%3E%E2%82%B9%3C/text%3E%3Ctext x='695' y='80' font-family='monospace' font-size='8' fill='%232e7d32' opacity='0.2'%3EALT SCORE CREDIT%3C/text%3E%3Ctext x='695' y='148' font-family='monospace' font-size='8' fill='%232e7d32' opacity='0.2'%3E100 00000 0001%3C/text%3E%3C!-- Coin stack bottom-left --%3E%3Cellipse cx='90' cy='590' rx='55' ry='14' fill='none' stroke='%231b5e20' stroke-width='1.5' opacity='0.2'/%3E%3Cellipse cx='90' cy='572' rx='55' ry='14' fill='none' stroke='%231b5e20' stroke-width='1.5' opacity='0.2'/%3E%3Cellipse cx='90' cy='554' rx='55' ry='14' fill='none' stroke='%231b5e20' stroke-width='1.5' opacity='0.2'/%3E%3Cellipse cx='90' cy='536' rx='55' ry='14' fill='none' stroke='%231b5e20' stroke-width='1.5' opacity='0.2'/%3E%3Cline x1='35' y1='536' x2='35' y2='590' stroke='%231b5e20' stroke-width='1.5' opacity='0.2'/%3E%3Cline x1='145' y1='536' x2='145' y2='590' stroke='%231b5e20' stroke-width='1.5' opacity='0.2'/%3E%3Ctext x='73' y='567' font-family='monospace' font-size='14' fill='%231b5e20' opacity='0.25' font-weight='bold'%3E%E2%82%B9%3C/text%3E%3C!-- Large rupee symbols --%3E%3Ctext x='50' y='80' font-family='monospace' font-size='42' fill='%232e7d32' opacity='0.07' font-weight='bold'%3E%E2%82%B9%3C/text%3E%3Ctext x='880' y='620' font-family='monospace' font-size='56' fill='%232e7d32' opacity='0.06' font-weight='bold'%3E%E2%82%B9%3C/text%3E%3Ctext x='430' y='660' font-family='monospace' font-size='36' fill='%231b5e20' opacity='0.06' font-weight='bold'%3E%E2%82%B9%3C/text%3E%3C!-- Percent symbol --%3E%3Ctext x='910' y='200' font-family='monospace' font-size='80' fill='%232e7d32' opacity='0.05' font-weight='bold'%3E%25%3C/text%3E%3C!-- Mini banknote bottom-right --%3E%3Crect x='750' y='560' width='210' height='110' rx='14' fill='none' stroke='%231b5e20' stroke-width='1.5' opacity='0.15'/%3E%3Crect x='766' y='576' width='178' height='78' rx='8' fill='none' stroke='%231b5e20' stroke-width='0.8' opacity='0.1'/%3E%3Ccircle cx='855' cy='615' r='22' fill='none' stroke='%231b5e20' stroke-width='1.2' opacity='0.15'/%3E%3Ctext x='845' y='621' font-family='monospace' font-size='13' fill='%231b5e20' opacity='0.22' font-weight='bold'%3E%E2%82%B9%3C/text%3E%3C!-- Stock trend line --%3E%3Cpolyline points='200,680 270,640 340,655 420,590 500,600 580,520 660,490 740,440 820,420' fill='none' stroke='%232e7d32' stroke-width='1.8' opacity='0.1'/%3E%3C!-- Credit score arc --%3E%3Cpath d='M 30 220 A 120 120 0 0 1 230 180' fill='none' stroke='%231b5e20' stroke-width='1.5' opacity='0.12' stroke-dasharray='6 6'/%3E%3Cpath d='M 30 240 A 140 140 0 0 1 250 180' fill='none' stroke='%232e7d32' stroke-width='1' opacity='0.08' stroke-dasharray='3 9'/%3E%3Ctext x='30' y='270' font-family='monospace' font-size='9' fill='%231b5e20' opacity='0.2'%3ECREDIT SCORE%3C/text%3E%3C!-- Bar chart --%3E%3Crect x='30' y='370' width='14' height='50' rx='3' fill='%232e7d32' opacity='0.1'/%3E%3Crect x='52' y='350' width='14' height='70' rx='3' fill='%231b5e20' opacity='0.1'/%3E%3Crect x='74' y='360' width='14' height='60' rx='3' fill='%232e7d32' opacity='0.1'/%3E%3Crect x='96' y='335' width='14' height='85' rx='3' fill='%231b5e20' opacity='0.1'/%3E%3Crect x='118' y='345' width='14' height='75' rx='3' fill='%232e7d32' opacity='0.1'/%3E%3C/svg%3E"),
+            radial-gradient(ellipse 55vw 45vh at 5%  5%,  rgba(46,125,50,0.10)  0%, transparent 65%),
+            radial-gradient(ellipse 45vw 50vh at 95% 8%,  rgba(27,94,32,0.08)   0%, transparent 60%),
+            radial-gradient(ellipse 50vw 40vh at 80% 92%, rgba(46,125,50,0.09)  0%, transparent 60%),
+            radial-gradient(ellipse 40vw 45vh at 10% 90%, rgba(27,94,32,0.07)   0%, transparent 55%),
+            linear-gradient(150deg, #e8f5e9 0%, #f1f8f1 40%, #e8f5e9 70%, #edf7ed 100%);
         background-size: 1000px 700px, cover, cover, cover, cover, cover;
         background-repeat: repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat;
-        color: #3a0030;
+        color: #0a1f0a;
     }
 
     /* ══════════════════════════════════════════
-       SIDEBAR — deep magenta-dark
+       SIDEBAR — deep forest dark
     ══════════════════════════════════════════ */
     [data-testid="stSidebar"] {
-        background: #1a0020 !important;
-        border-right: 1px solid rgba(233,30,140,0.2) !important;
+        background: #071a07 !important;
+        border-right: 1px solid rgba(46,125,50,0.22) !important;
         box-shadow: 4px 0 28px rgba(0,0,0,0.45) !important;
     }
 
@@ -48,14 +48,14 @@ st.markdown("""
         font-size: 1.9rem;
         font-weight: 900;
         text-align: center;
-        color: #f8b4d9;
+        color: #a5d6a7;
         letter-spacing: 0.06em;
         margin-bottom: 2px;
     }
 
     .sidebar-sub {
         text-align: center;
-        color: #4a1040;
+        color: #1b3a1b;
         font-size: 0.63rem;
         letter-spacing: 0.28em;
         text-transform: uppercase;
@@ -63,9 +63,9 @@ st.markdown("""
     }
 
     section[data-testid="stSidebar"] .stButton > button {
-        background: rgba(233,30,140,0.08) !important;
-        border: 1px solid rgba(233,30,140,0.18) !important;
-        color: #c4587e !important;
+        background: rgba(46,125,50,0.09) !important;
+        border: 1px solid rgba(46,125,50,0.2) !important;
+        color: #4a7c4a !important;
         text-transform: none !important;
         letter-spacing: 0 !important;
         padding: 10px 16px !important;
@@ -76,23 +76,23 @@ st.markdown("""
     }
 
     section[data-testid="stSidebar"] .stButton > button:hover {
-        background: rgba(233,30,140,0.18) !important;
-        border-color: rgba(233,30,140,0.4) !important;
-        color: #f8b4d9 !important;
+        background: rgba(46,125,50,0.2) !important;
+        border-color: rgba(46,125,50,0.45) !important;
+        color: #a5d6a7 !important;
         transform: none !important;
         box-shadow: none !important;
     }
 
     /* ══════════════════════════════════════════
-       MAIN CONTENT — white card floating on pink
+       MAIN CONTENT — white frosted card
     ══════════════════════════════════════════ */
     section.main > div.block-container {
-        background: rgba(255, 255, 255, 0.92) !important;
+        background: rgba(255, 255, 255, 0.93) !important;
         border-radius: 22px !important;
-        border: 1px solid rgba(233,30,140,0.12) !important;
+        border: 1px solid rgba(46,125,50,0.13) !important;
         box-shadow:
-            0 0 0 1px rgba(233,30,140,0.05),
-            0 8px 48px rgba(194,24,91,0.10),
+            0 0 0 1px rgba(46,125,50,0.05),
+            0 8px 48px rgba(27,94,32,0.10),
             0 2px 10px rgba(0,0,0,0.05) !important;
         margin: 20px 20px 20px 8px !important;
         padding: 44px 52px 52px 52px !important;
@@ -106,7 +106,7 @@ st.markdown("""
         font-size: 0.9rem;
         letter-spacing: 0.3em;
         text-transform: uppercase;
-        color: #c2185b;
+        color: #2e7d32;
         font-weight: 700;
         margin-bottom: 10px;
         display: block;
@@ -116,18 +116,16 @@ st.markdown("""
         font-family: 'Fraunces', serif !important;
         font-size: clamp(2.6rem, 4.5vw, 3.8rem);
         font-weight: 900;
-        color: #1a0020;
+        color: #071a07;
         line-height: 1.08;
         margin: 0 0 16px 0;
         letter-spacing: -0.02em;
     }
 
-    .page-title .grad {
-        color: #c2185b;
-    }
+    .page-title .grad { color: #2e7d32; }
 
     .page-desc {
-        color: #5a2040;
+        color: #1b4d1b;
         font-size: 1.15rem;
         font-weight: 500;
         max-width: 600px;
@@ -136,7 +134,7 @@ st.markdown("""
 
     .header-rule {
         height: 2px;
-        background: linear-gradient(90deg, #e91e8c, #f48fb1, transparent);
+        background: linear-gradient(90deg, #2e7d32, #81c784, transparent);
         border-radius: 2px;
         margin: 26px 0 34px 0;
         opacity: 0.45;
@@ -146,12 +144,12 @@ st.markdown("""
        SECTION CARDS
     ══════════════════════════════════════════ */
     .sec-card {
-        background: #fff5f8;
-        border: 1px solid rgba(233,30,140,0.12);
+        background: #f1f8f1;
+        border: 1px solid rgba(46,125,50,0.13);
         border-radius: 16px;
         padding: 22px 26px 10px 26px;
         margin-bottom: 18px;
-        box-shadow: 0 2px 12px rgba(194,24,91,0.06);
+        box-shadow: 0 2px 12px rgba(27,94,32,0.06);
         position: relative;
         overflow: hidden;
     }
@@ -161,7 +159,7 @@ st.markdown("""
         position: absolute;
         top: 0; left: 0; right: 0;
         height: 3px;
-        background: linear-gradient(90deg, #c2185b, #e91e8c, #f48fb1);
+        background: linear-gradient(90deg, #1b5e20, #2e7d32, #81c784);
         border-radius: 16px 16px 0 0;
     }
 
@@ -170,18 +168,18 @@ st.markdown("""
         font-weight: 800;
         letter-spacing: 0.22em;
         text-transform: uppercase;
-        color: #c2185b;
+        color: #2e7d32;
         display: flex;
         align-items: center;
         gap: 9px;
         margin-bottom: 18px;
         padding-bottom: 12px;
-        border-bottom: 1px solid rgba(233,30,140,0.1);
+        border-bottom: 1px solid rgba(46,125,50,0.11);
     }
 
     .sec-icon {
         width: 27px; height: 27px;
-        background: linear-gradient(135deg, #fce4ec, #f8bbd0);
+        background: linear-gradient(135deg, #c8e6c9, #a5d6a7);
         border-radius: 8px;
         display: flex;
         align-items: center;
@@ -191,48 +189,48 @@ st.markdown("""
     }
 
     /* ══════════════════════════════════════════
-       INPUTS — white, dark text
+       INPUTS
     ══════════════════════════════════════════ */
     .stNumberInput input,
     .stTextInput input {
         background: #ffffff !important;
-        color: #1a0020 !important;
-        border: 1.5px solid #f8bbd0 !important;
+        color: #071a07 !important;
+        border: 1.5px solid #a5d6a7 !important;
         border-radius: 10px !important;
         font-size: 0.97rem !important;
         font-weight: 600 !important;
-        box-shadow: 0 1px 3px rgba(194,24,91,0.07) !important;
+        box-shadow: 0 1px 3px rgba(27,94,32,0.07) !important;
         transition: border-color 0.2s, box-shadow 0.2s !important;
     }
 
     .stNumberInput input:focus,
     .stTextInput input:focus {
-        border-color: #c2185b !important;
-        box-shadow: 0 0 0 3px rgba(194,24,91,0.12) !important;
+        border-color: #2e7d32 !important;
+        box-shadow: 0 0 0 3px rgba(46,125,50,0.13) !important;
     }
 
     .stSelectbox [data-baseweb="select"] > div:first-child {
         background: #ffffff !important;
-        border: 1.5px solid #f8bbd0 !important;
+        border: 1.5px solid #a5d6a7 !important;
         border-radius: 10px !important;
-        color: #1a0020 !important;
+        color: #071a07 !important;
         font-weight: 600 !important;
         font-size: 0.97rem !important;
-        box-shadow: 0 1px 3px rgba(194,24,91,0.07) !important;
+        box-shadow: 0 1px 3px rgba(27,94,32,0.07) !important;
     }
 
-    /* Dropdown menu */
+    /* Dropdown */
     [data-baseweb="popover"] [role="listbox"] {
         background: #fff !important;
-        border: 1px solid #f8bbd0 !important;
+        border: 1px solid #a5d6a7 !important;
         border-radius: 10px !important;
-        box-shadow: 0 8px 24px rgba(194,24,91,0.12) !important;
+        box-shadow: 0 8px 24px rgba(27,94,32,0.12) !important;
     }
-    [data-baseweb="popover"] [role="option"] { color: #1a0020 !important; }
+    [data-baseweb="popover"] [role="option"] { color: #071a07 !important; }
     [data-baseweb="popover"] [role="option"]:hover,
     [data-baseweb="popover"] [aria-selected="true"] {
-        background: #fce4ec !important;
-        color: #c2185b !important;
+        background: #e8f5e9 !important;
+        color: #2e7d32 !important;
     }
 
     /* All labels */
@@ -243,105 +241,89 @@ st.markdown("""
     .stRadio > label,
     .stToggle label,
     div[data-testid="stWidgetLabel"] p {
-        color: #5a2040 !important;
+        color: #1b4d1b !important;
         font-size: 0.9rem !important;
         font-weight: 700 !important;
     }
 
-    /* Radio option text */
     .stRadio [role="radiogroup"] label div p {
-        color: #3a0030 !important;
+        color: #0a1f0a !important;
         font-size: 0.94rem !important;
         font-weight: 600 !important;
     }
 
     /* ══════════════════════════════════════════
-       RADIO BUTTONS — purple
+       RADIO — purple
     ══════════════════════════════════════════ */
-    /* Unchecked circle */
     .stRadio [role="radiogroup"] label span:first-child {
         border-color: #7c3aed !important;
     }
-    /* Checked fill */
     .stRadio [role="radiogroup"] [aria-checked="true"] span:first-child {
         background-color: #7c3aed !important;
         border-color: #7c3aed !important;
         box-shadow: 0 0 0 3px rgba(124,58,237,0.18) !important;
     }
-    /* Inner dot */
     .stRadio [role="radiogroup"] [aria-checked="true"] span:first-child::after {
         background: #ffffff !important;
     }
-    /* Target all radio input elements */
     input[type="radio"] { accent-color: #7c3aed !important; }
 
     /* ══════════════════════════════════════════
        SLIDER — purple
     ══════════════════════════════════════════ */
-    /* Track */
-    [data-baseweb="slider"] div[data-testid="stSlider"] > div > div > div {
-        background: #ddd6fe !important;
-    }
-    /* Fill (progress) */
     [data-baseweb="slider"] [role="progressbar"],
     [data-baseweb="slider"] div[style*="background"] {
         background: #7c3aed !important;
     }
-    /* Thumb */
     [data-baseweb="slider"] [role="slider"] {
         background: #7c3aed !important;
         border: 2.5px solid #ffffff !important;
         box-shadow: 0 0 0 3px rgba(124,58,237,0.22), 0 2px 8px rgba(124,58,237,0.3) !important;
     }
-    /* Global accent for range inputs */
     input[type="range"] { accent-color: #7c3aed !important; }
 
     /* ══════════════════════════════════════════
        TOGGLE — purple
     ══════════════════════════════════════════ */
-    /* Track unchecked */
     div[data-testid="stToggle"] > label > div:first-child {
         background-color: #e9d5ff !important;
         border-color: #c4b5fd !important;
     }
-    /* Track checked */
     div[data-testid="stToggle"] > label > div[data-checked="true"],
     div[data-testid="stToggle"] input:checked + div {
         background-color: #7c3aed !important;
         border-color: #7c3aed !important;
     }
-    /* Thumb (circle) */
     div[data-testid="stToggle"] > label > div > div {
         background-color: #ffffff !important;
         box-shadow: 0 1px 4px rgba(124,58,237,0.25) !important;
     }
-    /* Global checkbox accent */
     input[type="checkbox"] { accent-color: #7c3aed !important; }
 
     div[data-testid="stToggle"] p {
-        color: #5a2040 !important;
+        color: #1b4d1b !important;
         font-weight: 700 !important;
         font-size: 0.9rem !important;
     }
 
     /* Info box */
     [data-testid="stInfo"] {
-        background: #fce4ec !important;
-        border: 1px solid #f8bbd0 !important;
+        background: #e8f5e9 !important;
+        border: 1px solid #a5d6a7 !important;
         border-radius: 10px !important;
-        color: #880e4f !important;
+        color: #1b5e20 !important;
         font-weight: 600 !important;
     }
 
     /* Number input step buttons */
     .stNumberInput [data-testid="stNumberInputContainer"] button {
-        background: #fce4ec !important;
-        border-color: #f8bbd0 !important;
-        color: #c2185b !important;
+        background: #e8f5e9 !important;
+        border-color: #a5d6a7 !important;
+        color: #2e7d32 !important;
     }
 
     /* ══════════════════════════════════════════
-       CENTERED SUBMIT BUTTON — deep pink gradient
+       CENTERED SUBMIT BUTTON — forest green gradient
     ══════════════════════════════════════════ */
     .stForm [data-testid="stFormSubmitButton"] {
         display: flex !important;
@@ -354,42 +336,42 @@ st.markdown("""
         padding: 17px 62px !important;
         border-radius: 50px !important;
         border: none !important;
-        background: linear-gradient(135deg, #880e4f 0%, #c2185b 45%, #e91e8c 100%) !important;
+        background: linear-gradient(135deg, #1b5e20 0%, #2e7d32 45%, #43a047 100%) !important;
         color: #ffffff !important;
         font-size: 1.02rem !important;
         font-weight: 800 !important;
         letter-spacing: 0.1em !important;
         text-transform: uppercase !important;
         cursor: pointer !important;
-        box-shadow: 0 5px 24px rgba(194,24,91,0.35), 0 2px 8px rgba(0,0,0,0.1) !important;
+        box-shadow: 0 5px 24px rgba(46,125,50,0.35), 0 2px 8px rgba(0,0,0,0.1) !important;
         transition: transform 0.18s ease, box-shadow 0.18s ease !important;
     }
 
     .stForm [data-testid="stFormSubmitButton"] > button:hover {
         transform: translateY(-2px) !important;
-        box-shadow: 0 10px 36px rgba(194,24,91,0.48), 0 4px 12px rgba(0,0,0,0.12) !important;
+        box-shadow: 0 10px 36px rgba(46,125,50,0.48), 0 4px 12px rgba(0,0,0,0.12) !important;
     }
 
     /* ══════════════════════════════════════════
        STATUS + MISC
     ══════════════════════════════════════════ */
     [data-testid="stStatus"] {
-        background: #fff5f8 !important;
-        border: 1px solid #f8bbd0 !important;
+        background: #f1f8f1 !important;
+        border: 1px solid #a5d6a7 !important;
         border-radius: 12px !important;
-        color: #880e4f !important;
+        color: #1b5e20 !important;
     }
 
     hr {
         border: none !important;
-        border-top: 1px solid rgba(233,30,140,0.1) !important;
+        border-top: 1px solid rgba(46,125,50,0.12) !important;
         margin: 14px 0 !important;
     }
 
     ::-webkit-scrollbar { width: 5px; }
     ::-webkit-scrollbar-track { background: transparent; }
-    ::-webkit-scrollbar-thumb { background: rgba(194,24,91,0.2); border-radius: 3px; }
-    ::-webkit-scrollbar-thumb:hover { background: rgba(194,24,91,0.38); }
+    ::-webkit-scrollbar-thumb { background: rgba(46,125,50,0.22); border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: rgba(46,125,50,0.4); }
     </style>
 """, unsafe_allow_html=True)
 
@@ -470,7 +452,7 @@ with st.sidebar:
     if st.button("🏠  Home", use_container_width=True): st.switch_page("app.py")
     if st.button("📊  Dashboard", use_container_width=True): st.switch_page("pages/dashboard_page.py")
     st.write("---")
-    st.markdown("<p style='text-align:center;color:#3a1030;font-size:0.65rem;letter-spacing:0.1em;'>v2.1 · Secure & Encrypted</p>", unsafe_allow_html=True)
+    st.markdown("<p style='text-align:center;color:#1a3a1a;font-size:0.65rem;letter-spacing:0.1em;'>v2.1 · Secure & Encrypted</p>", unsafe_allow_html=True)
 
 # --- Page Header ---
 st.markdown("""
