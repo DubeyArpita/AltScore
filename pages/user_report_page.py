@@ -292,6 +292,35 @@ section.main > div.block-container {
     font-size: 1rem !important;
 }
 
+/* Prevent text wrapping */
+.stTable td {
+    white-space: nowrap !important;
+}
+
+/* Since index is hidden, column order is:
+   1 = Model
+   2 = Result
+   3 = Remarks
+*/
+
+/* Make MODEL column smaller */
+.stTable th:nth-child(1),
+.stTable td:nth-child(1) {
+    width: 28% !important;
+}
+
+/* Make RESULT column wider */
+.stTable th:nth-child(2),
+.stTable td:nth-child(2) {
+    width: 22% !important;
+}
+
+/* Let REMARKS take remaining space */
+.stTable th:nth-child(3),
+.stTable td:nth-child(3) {
+    width: 50% !important;
+}
+
 
 
 /* ══════════════════════════════════════════
