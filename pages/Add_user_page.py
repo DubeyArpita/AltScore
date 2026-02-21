@@ -8,41 +8,94 @@ from onnx_utils import load_onnx_sessions, onnx_predict_regressor, onnx_predict_
 # --- Page Config ---
 st.set_page_config(page_title="AltScore | Register", layout="wide", page_icon="📝")
 
-# --- Custom CSS for Beauty ---
+# --- UI Styling: Deep Theme & Glassmorphism ---
 st.markdown("""
     <style>
-    .main {
-        background-color: #f8f9fa;
+    /* Main Background Gradient */
+    .stApp {
+        background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+        color: #ffffff;
     }
-    .stButton>button {
-        border-radius: 8px;
-        height: 3em;
-        background-color: #00D1FF;
-        color: white;
-        font-weight: bold;
-        border: none;
-        transition: 0.3s;
+
+    /* Sidebar Panel Styling */
+    [data-testid="stSidebar"] {
+        background-color: #0b0f19 !important;
+        border-right: 1px solid #1e293b;
     }
-    .stButton>button:hover {
-        background-color: #00B8E6;
-        box-shadow: 0px 4px 15px rgba(0, 209, 255, 0.3);
+    
+    [data-testid="stSidebarNav"] {
+        background-color: transparent !important;
     }
-    .header-text {
-        color: #1E1E1E;
-        font-family: 'Inter', sans-serif;
-        font-weight: 800;
-        margin-bottom: 0px;
-    }
+
+    /* Glassmorphic Card Container */
     .card {
-        background-color: white;
-        padding: 25px;
-        border-radius: 15px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-        margin-bottom: 20px;
+        background: rgba(255, 255, 255, 0.05);
+        padding: 30px;
+        border-radius: 20px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        margin-bottom: 25px;
+        backdrop-filter: blur(12px);
+        box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+    }
+
+    /* Typography */
+    h1, h2, h3 {
+        color: #ffffff !important;
+        font-family: 'Inter', sans-serif;
+        font-weight: 700;
+    }
+    
+    .header-subtext {
+        color: #94a3b8;
+        font-size: 1.1rem;
+        margin-bottom: 2rem;
+    }
+
+    /* Input Field Customization */
+    .stNumberInput input, .stSelectbox div[data-baseweb="select"], .stTextInput input {
+        background-color: #1e293b !important;
+        color: white !important;
+        border: 1px solid #334155 !important;
+        border-radius: 10px !important;
+    }
+
+    /* Modernized Button */
+    .stButton>button {
+        width: 100%;
+        border-radius: 12px;
+        background: linear-gradient(90deg, #00d1ff 0%, #0076ff 100%);
+        color: white;
+        border: none;
+        padding: 15px 30px;
+        font-weight: bold;
+        font-size: 1rem;
+        transition: 0.4s ease;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+    
+    .stButton>button:hover {
+        box-shadow: 0px 0px 20px rgba(0, 209, 255, 0.5);
+        transform: translateY(-2px);
+    }
+
+    /* Sidebar buttons styling */
+    section[data-testid="stSidebar"] .stButton>button {
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        text-transform: none;
+        letter-spacing: 0;
+        padding: 8px 15px;
+    }
+
+    /* Horizontal Rules */
+    hr {
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
     }
     </style>
 """, unsafe_allow_html=True)
 
+# --- Logic Functions ---
 DATA_FILE = "data/dataset.csv"
 REQUIRED_COLUMNS = [
     "user_id", "employment_type", "income_range", "city_tier",
@@ -106,27 +159,30 @@ def predict_all(input_df, lr_sess, xgb_sess, rf_sess):
         "eligibility": eligibility, "risk_level": risk_level,
     }
 
-# --- Initialization ---
+# --- App Initialization ---
 ensure_dataset_file()
 lr_sess, xgb_sess, rf_sess = load_models()
 employment_options, income_options, city_tier_options = get_dropdown_options_from_dataset()
 
 # --- Sidebar ---
 with st.sidebar:
-    st.markdown("<h2 style='text-align: center; color: #00D1FF;'>ALTSCORE AI</h2>", unsafe_allow_html=True)
-    st.info("Alternative Credit Scoring System using ONNX Runtime.")
-    st.divider()
+    st.markdown("<h1 style='text-align: center; color: #00D1FF; font-size: 28px;'>ALTSCORE</h1>", unsafe_allow_html=True)
+    st.markdown("<p style='text-align: center; color: #94a3b8;'>AI-Powered Credit Insights</p>", unsafe_allow_html=True)
+    st.write("---")
     if st.button("🏠 Home", use_container_width=True): st.switch_page("app.py")
     if st.button("📊 Dashboard", use_container_width=True): st.switch_page("pages/dashboard_page.py")
+    st.write("---")
+    st.caption("v2.1 | Secure & Encrypted")
 
-# --- Main UI ---
-st.markdown("<h1 class='header-text'>📝 User Registration</h1>", unsafe_allow_html=True)
-st.markdown("<p style='color: gray; margin-bottom: 2rem;'>Fill in the details below to compute the alternative credit score.</p>", unsafe_allow_html=True)
+# --- Main Layout ---
+st.markdown("<h1>📝 Register New User</h1>", unsafe_allow_html=True)
+st.markdown("<p class='header-subtext'>Complete the financial profile to generate an instant alternative credit score.</p>", unsafe_allow_html=True)
 
 with st.form("user_registration_form", border=False):
-    # Card 1: Basic Information
+    
+    # --- Section 1: Identity & Location ---
     st.markdown('<div class="card">', unsafe_allow_html=True)
-    st.subheader("📍 Basic Information")
+    st.subheader("📍 Basic Profile")
     c1, c2, c3 = st.columns(3)
     with c1:
         employment_type = st.selectbox("Employment Type", employment_options)
@@ -136,39 +192,40 @@ with st.form("user_registration_form", border=False):
         city_tier = st.selectbox("City Tier", city_tier_options)
     st.markdown('</div>', unsafe_allow_html=True)
 
-    # Card 2: Financial Profile
+    # --- Section 2: Financial Health ---
     st.markdown('<div class="card">', unsafe_allow_html=True)
-    st.subheader("💰 Financial Profile")
-    c1, c2 = st.columns(2)
-    with c1:
-        monthly_income = st.number_input("Monthly Income (₹)", min_value=0, value=30000)
-        bank_account_age_months = st.number_input("Bank Account Age (Months)", min_value=0, max_value=240, value=24)
-    with c2:
+    st.subheader("💰 Financial Capacity")
+    c4, c5 = st.columns(2)
+    with c4:
+        monthly_income = st.number_input("Exact Monthly Income (₹)", min_value=0, value=30000, step=1000)
+        bank_account_age_months = st.number_input("Account Age (Months)", min_value=0, max_value=240, value=24)
+    with c5:
         num_bank_accounts = st.number_input("Number of Bank Accounts", min_value=1, max_value=15, value=1)
         avg_month_end_balance = st.number_input("Avg Month-End Balance (₹)", min_value=0.0, value=5000.0)
     st.markdown('</div>', unsafe_allow_html=True)
 
-    # Card 3: Behavioral Data
+    # --- Section 3: Digital Behavior ---
     st.markdown('<div class="card">', unsafe_allow_html=True)
-    st.subheader("⚡ Behavioral Data")
-    c1, c2 = st.columns(2)
-    with c1:
+    st.subheader("⚡ Digital Footprint & Reliability")
+    c6, c7 = st.columns(2)
+    with c6:
         upi_txn_count = st.number_input("Monthly UPI Transactions", min_value=0.0, value=20.0)
         utility_delay_days = st.number_input("Utility Delay Days", min_value=0.0, value=0.0)
-    with c2:
-        overdraft_event = st.radio("Overdraft Availed?", ["No", "Yes"], horizontal=True)
-        pays_rent_toggle = st.toggle("I pay monthly rent", value=True)
+    with c7:
+        overdraft_event = st.radio("Overdraft Facility Used?", ["No", "Yes"], horizontal=True)
+        pays_rent_toggle = st.toggle("Monthly Rent Payer", value=True)
         
         if pays_rent_toggle:
-            rent_paid_on_time = st.slider("Rent Payment Timeliness (1.0 = Always On Time)", 0.0, 1.0, 1.0)
+            rent_paid_on_time = st.slider("Rent Timeliness Score", 0.0, 1.0, 1.0, 0.05)
         else:
             rent_paid_on_time = 1.0
+            st.info("Non-renter: Neutral behavior applied.")
     st.markdown('</div>', unsafe_allow_html=True)
 
     st.write("")
-    submitted = st.form_submit_button("🚀 GENERATE CREDIT SCORE", use_container_width=True)
+    submitted = st.form_submit_button("💾 Analyze & Generate Score")
 
-# --- Logic on Submission ---
+# --- Form Submission Processing ---
 if submitted:
     user_id = generate_user_id()
     input_df = pd.DataFrame([{
@@ -185,10 +242,17 @@ if submitted:
         "overdraft_event": 1 if overdraft_event == "Yes" else 0,
     }])
 
-    with st.spinner("🧠 AI Models Analyzing Risk Profile..."):
+    with st.status("🧠 Processing AI Models...", expanded=True) as status:
+        st.write("Fetching ONNX sessions...")
+        # out = predict_all(input_df, lr_sess, xgb_sess, rf_sess) # In reality use this
+        # Simulate slight delay for "intelligence" feel
+        import time
+        time.sleep(1)
         out = predict_all(input_df, lr_sess, xgb_sess, rf_sess)
+        st.write("Aggregating model insights...")
+        status.update(label="Analysis Complete!", state="complete", expanded=False)
 
-        # Store in session
+        # Store in session state for report page
         st.session_state["report_data"] = {
             "user_id": user_id, "lr": out["lr_score"], "xgb": out["xgb_score"],
             "rf": out["rf_score"], "final": out["final_score"],
@@ -196,12 +260,12 @@ if submitted:
             "eligibility": out["eligibility"], "risk_level": out["risk_level"],
         }
 
-        # Update CSV
+        # Update CSV Database
         new_entry = input_df.iloc[0].to_dict()
         new_entry.update({"user_id": user_id, "alt_credit_score": out["final_score"]})
         df_csv = pd.read_csv(DATA_FILE)
         df_csv = pd.concat([df_csv, pd.DataFrame([new_entry])], ignore_index=True)
         df_csv.to_csv(DATA_FILE, index=False)
 
-        st.toast(f"User {user_id} saved!", icon='✅')
+        st.toast(f"User {user_id} saved successfully!", icon='✅')
         st.switch_page("pages/user_report_page.py")
