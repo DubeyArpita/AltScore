@@ -22,7 +22,7 @@ st.markdown("""
        ROOT — dark navy background like reference
     ══════════════════════════════════════════ */
     .stApp {
-        background: #0f0f1a;
+        background: #f8f8f8;
         font-family: 'Inter', sans-serif;
         color: #e2e8f0;
     }
