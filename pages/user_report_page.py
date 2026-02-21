@@ -235,47 +235,104 @@ section.main > div.block-container {
 /* ══════════════════════════════════════════
    RESULTS TABLE
 ══════════════════════════════════════════ */
+# .stTable table {
+#     border-radius: 12px !important;
+#     overflow: hidden !important;
+#     border: 1px solid rgba(21,101,192,0.15) !important;
+#     width: 100% !important;
+# }
+
+# .stTable thead tr th {
+#     background: #0d47a1 !important;
+#     color: #e3f2fd !important;
+#     font-family: 'Manrope', sans-serif !important;
+#     font-weight: 800 !important;
+#     font-size: 0.75rem !important;
+#     letter-spacing: 0.14em !important;
+#     text-transform: uppercase !important;
+#     padding: 14px 16px !important;
+#     border: none !important;
+# }
+
+# .stTable tbody tr:nth-child(odd) td {
+#     background: #ffffff !important;
+#     color: #374151 !important;
+#     font-family: 'Manrope', sans-serif !important;
+#     font-weight: 500 !important;
+#     padding: 14px 16px !important;
+#     border-color: #e3f2fd !important;
+# }
+
+# .stTable tbody tr:nth-child(even) td {
+#     background: #f0f7ff !important;
+#     color: #4b5563 !important;
+#     font-family: 'Manrope', sans-serif !important;
+#     font-weight: 500 !important;
+#     padding: 14px 16px !important;
+#     border-color: #e3f2fd !important;
+# }
+
+# .stTable tbody tr:last-child td {
+#     background: #e3f2fd !important;
+#     color: #0d47a1 !important;
+#     font-weight: 800 !important;
+#     font-size: 1rem !important;
+# }
+
+/* Force consistent layout */
 .stTable table {
     border-radius: 12px !important;
     overflow: hidden !important;
     border: 1px solid rgba(21,101,192,0.15) !important;
     width: 100% !important;
+    table-layout: fixed !important;   /* Important */
+    border-collapse: collapse !important;
 }
 
+/* Make header + body identical in height */
+.stTable th,
+.stTable td {
+    padding: 14px 16px !important;
+    line-height: 1.4 !important;     /* Force uniform text height */
+    height: 56px !important;         /* Fixed row height */
+    vertical-align: middle !important;
+}
+
+/* Header Styling */
 .stTable thead tr th {
     background: #0d47a1 !important;
     color: #e3f2fd !important;
     font-family: 'Manrope', sans-serif !important;
-    font-weight: 800 !important;
+    font-weight: 700 !important;     /* Reduced slightly from 800 */
     font-size: 0.75rem !important;
-    letter-spacing: 0.14em !important;
+    letter-spacing: 0.08em !important; /* Reduced from 0.14em */
     text-transform: uppercase !important;
-    padding: 14px 16px !important;
     border: none !important;
 }
 
+/* Odd Rows */
 .stTable tbody tr:nth-child(odd) td {
     background: #ffffff !important;
     color: #374151 !important;
     font-family: 'Manrope', sans-serif !important;
     font-weight: 500 !important;
-    padding: 14px 16px !important;
     border-color: #e3f2fd !important;
 }
 
+/* Even Rows */
 .stTable tbody tr:nth-child(even) td {
     background: #f0f7ff !important;
     color: #4b5563 !important;
     font-family: 'Manrope', sans-serif !important;
     font-weight: 500 !important;
-    padding: 14px 16px !important;
     border-color: #e3f2fd !important;
 }
 
+/* Final Score Row */
 .stTable tbody tr:last-child td {
     background: #e3f2fd !important;
     color: #0d47a1 !important;
-    font-weight: 800 !important;
+    font-weight: 700 !important;
     font-size: 1rem !important;
 }
 
