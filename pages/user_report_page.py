@@ -227,9 +227,27 @@ section.main > div.block-container {
     letter-spacing: 0.08em;
 }
 
-.badge-low    { background: rgba(40,167,69,0.22);  color: #6bcf7f; border: 1.5px solid rgba(40,167,69,0.4); }
-.badge-medium { background: rgba(255,193,7,0.22);  color: #ffd93d; border: 1.5px solid rgba(255,193,7,0.4); }
-.badge-high   { background: rgba(220,53,69,0.22);  color: #ff6b6b; border: 1.5px solid rgba(220,53,69,0.4); }
+# .badge-low    { background: rgba(40,167,69,0.22);  color: #6bcf7f; border: 1.5px solid rgba(40,167,69,0.4); }
+# .badge-medium { background: rgba(255,193,7,0.22);  color: #ffd93d; border: 1.5px solid rgba(255,193,7,0.4); }
+# .badge-high   { background: rgba(220,53,69,0.22);  color: #ff6b6b; border: 1.5px solid rgba(220,53,69,0.4); }
+
+.badge-low {
+  background: rgba(25, 135, 84, 0.25);   /* darker green bg */
+  color: #0f5132;                        /* deep green text */
+  border: 1.5px solid #198754;           /* solid green border */
+}
+
+.badge-medium {
+  background: rgba(255, 140, 0, 0.25);   /* deeper amber/orange bg */
+  color: #7a4f00;                        /* dark amber text */
+  border: 1.5px solid #ff8c00;           /* strong amber border */
+}
+
+.badge-high {
+  background: rgba(200, 35, 51, 0.25);   /* richer red bg */
+  color: #58151c;                        /* deep red text */
+  border: 1.5px solid #c82333;           /* bold red border */
+}
 
 /* ══════════════════════════════════════════
    RESULTS TABLE
