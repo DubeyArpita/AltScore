@@ -12,26 +12,55 @@ st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Fraunces:ital,wght@0,700;0,900;1,700&display=swap');
 
-     /* ══════════════════════════════════════════
-       Hides the default Streamlit Page List
-    ══════════════════════════════════════════ */
-    [data-testid="stSidebarNav"] {
+    /* 1. HIDE THE DEFAULT MENU LIST */
+    [data-testid="stSidebarNav"], 
+    .st-emotion-cache-16idsys p {
         display: none !important;
     }
-    /* 2. FIX KEYBOARD_DOUBLE (The Arrow Fix) */
+
+    /* 2. FIX KEYBOARD_DOUBLE (THE ARROW FIX) */
+    /* Target the button and hide the text inside */
     [data-testid="collapsedControl"] {
         color: transparent !important;
-        overflow: visible !important;
     }
-    [data-testid="collapsedControl"]::before {
-        content: "»"; /* High-quality double arrow */
-        color: #90caf9;
-        font-size: 28px;
+
+    /* Force the arrow to show up */
+    [data-testid="collapsedControl"]::after {
+        content: "»"; 
+        color: #90caf9 !important;
+        font-size: 30px !important;
+        line-height: 1 !important;
         position: absolute;
-        left: 10px;
-        top: 5px;
-        visibility: visible;
+        left: 12px;
+        top: 4px;
+        visibility: visible !important;
     }
+
+    /* 3. SIDEBAR PANEL STYLING */
+    [data-testid="stSidebar"] {
+        background: #040d1a !important;
+        border-right: 1px solid rgba(21,101,192,0.22) !important;
+    }
+    #  /* ══════════════════════════════════════════
+    #    Hides the default Streamlit Page List
+    # ══════════════════════════════════════════ */
+    # [data-testid="stSidebarNav"] {
+    #     display: none !important;
+    # }
+    # /* 2. FIX KEYBOARD_DOUBLE (The Arrow Fix) */
+    # [data-testid="collapsedControl"] {
+    #     color: transparent !important;
+    #     overflow: visible !important;
+    # }
+    # [data-testid="collapsedControl"]::before {
+    #     content: "»"; /* High-quality double arrow */
+    #     color: #90caf9;
+    #     font-size: 28px;
+    #     position: absolute;
+    #     left: 10px;
+    #     top: 5px;
+    #     visibility: visible;
+    # }
     /* ══════════════════════════════════════════
        GLOBAL
     ══════════════════════════════════════════ */
