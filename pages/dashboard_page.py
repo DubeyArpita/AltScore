@@ -283,27 +283,27 @@ st.markdown("""
 
     /* Header row */
     [data-testid="stDataFrame"] thead tr th {
-        background: #1e0a3c !important;
-        color: #a78bfa !important;
+        background: #4c1d95 !important;
+        color: #e9d5ff !important;
         font-family: 'Manrope', sans-serif !important;
         font-weight: 800 !important;
         font-size: 0.72rem !important;
         letter-spacing: 0.12em !important;
         text-transform: uppercase !important;
-        border-bottom: 2px solid #3b1a7a !important;
+        border-bottom: 2px solid #7c3aed !important;
     }
 
-    /* Alternating rows */
+    /* Alternating rows — soft lavender palette, no black */
     [data-testid="stDataFrame"] tbody tr:nth-child(odd) td {
-        background: #f8f5ff !important;
-        color: #2d0f6b !important;
+        background: #faf8ff !important;
+        color: #3b1a7a !important;
     }
     [data-testid="stDataFrame"] tbody tr:nth-child(even) td {
-        background: #ede9fe !important;
-        color: #1e0a3c !important;
+        background: #f0ebff !important;
+        color: #2d0f6b !important;
     }
     [data-testid="stDataFrame"] tbody tr:hover td {
-        background: #ddd6fe !important;
+        background: #e4d9ff !important;
         color: #1e0a3c !important;
     }
 
@@ -312,16 +312,16 @@ st.markdown("""
         font-family: 'Manrope', sans-serif !important;
         font-size: 0.88rem !important;
         font-weight: 500 !important;
-        border-color: #ddd6fe !important;
+        border-color: #e4d9ff !important;
     }
 
     /* Index column */
     [data-testid="stDataFrame"] th:first-child,
     [data-testid="stDataFrame"] td:first-child {
-        background: #2d0f6b !important;
-        color: #c4b5fd !important;
+        background: #ede9fe !important;
+        color: #5b21b6 !important;
         font-weight: 700 !important;
-        border-right: 1px solid #4c1d95 !important;
+        border-right: 1px solid #c4b5fd !important;
     }
 
     /* ══════════════════════════════════════════
