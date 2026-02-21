@@ -97,7 +97,7 @@ section[data-testid="stSidebar"] .stButton > button:hover {
     # }
 
     .stApp {
-        background: linear-gradient(rgba(0,0,0,0.72), rgba(0,0,0,0.72)),
+        background: linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)),
                     url("https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=1772&q=80");
         background-size: cover;
         background-attachment: fixed;
