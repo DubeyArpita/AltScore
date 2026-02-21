@@ -383,13 +383,13 @@ def build_input_df_from_row(row: pd.Series) -> pd.DataFrame:
 # Sidebar
 # -------------------------------------
 with st.sidebar:
-     col1, col2, col3 = st.columns([1, 2, 1])
+    col1, col2, col3 = st.columns([1, 2, 1])
     with col2:
-        st.image("logo.jpeg", width=110)
+        st.image("/logo.jpeg", width=110)
 
     # st.image("logo.jpeg", width=100) 
     st.write("---")
-     st.markdown("<div class='sidebar-logo'>AltScore</div>", unsafe_allow_html=True)
+    st.markdown("<div class='sidebar-logo'>AltScore</div>", unsafe_allow_html=True)
     st.markdown("<div class='sidebar-sub'>Credit Beyond Cards</div>", unsafe_allow_html=True)
 
     if st.button("🏠 Home", use_container_width=True):
