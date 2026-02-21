@@ -17,6 +17,14 @@ st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Fraunces:ital,wght@0,700;0,900;1,700&display=swap');
 
+    
+     /* ══════════════════════════════════════════
+       Hides the default Streamlit Page List
+    ══════════════════════════════════════════ */
+    [data-testid="stSidebarNav"] {
+        display: none !important;
+    }
+    
     /* ══════════════════════════════════════════
        GLOBAL
     ══════════════════════════════════════════ */
