@@ -212,50 +212,106 @@ st.markdown("""
     }
 
     /* ══════════════════════════════════════════
-       KPI METRIC CARDS
+       KPI METRIC CARDS — per-card colour theming
     ══════════════════════════════════════════ */
     div.stMetric {
-        background: #faf8ff !important;
-        border: 1px solid #ede9fe !important;
         border-radius: 16px !important;
-        padding: 20px 18px !important;
-        box-shadow: 0 2px 12px rgba(109,40,217,0.06) !important;
-        position: relative;
-        overflow: hidden;
-    }
-
-    div.stMetric::before {
-        content: '';
-        position: absolute;
-        top: 0; left: 0; right: 0;
-        height: 3px;
-        background: linear-gradient(90deg, #7c3aed, #a78bfa, #c4b5fd);
-        border-radius: 16px 16px 0 0;
+        padding: 22px 20px !important;
+        position: relative !important;
+        overflow: hidden !important;
     }
 
     div[data-testid="stMetricValue"] {
-        color: #1e0a3c !important;
         font-family: 'Fraunces', serif !important;
-        font-size: 2rem !important;
+        font-size: 2.2rem !important;
         font-weight: 900 !important;
     }
 
     div[data-testid="stMetricLabel"] {
-        color: #6d28d9 !important;
         font-family: 'Manrope', sans-serif !important;
-        font-size: 0.78rem !important;
+        font-size: 0.75rem !important;
         font-weight: 800 !important;
-        letter-spacing: 0.1em !important;
+        letter-spacing: 0.12em !important;
         text-transform: uppercase !important;
     }
 
+    /* Card 1 — Total Users: deep indigo */
+    div.stMetric:nth-of-type(1) {
+        background: linear-gradient(135deg, #1e0a3c 0%, #3b1a7a 100%) !important;
+        border: 1px solid rgba(167,139,250,0.25) !important;
+        box-shadow: 0 4px 20px rgba(30,10,60,0.3) !important;
+    }
+    div.stMetric:nth-of-type(1) div[data-testid="stMetricValue"] { color: #e9d5ff !important; }
+    div.stMetric:nth-of-type(1) div[data-testid="stMetricLabel"] { color: #a78bfa !important; }
+
+    /* Card 2 — Low Risk: emerald green */
+    div.stMetric:nth-of-type(2) {
+        background: linear-gradient(135deg, #064e3b 0%, #065f46 100%) !important;
+        border: 1px solid rgba(52,211,153,0.25) !important;
+        box-shadow: 0 4px 20px rgba(6,78,59,0.3) !important;
+    }
+    div.stMetric:nth-of-type(2) div[data-testid="stMetricValue"] { color: #a7f3d0 !important; }
+    div.stMetric:nth-of-type(2) div[data-testid="stMetricLabel"] { color: #6ee7b7 !important; }
+
+    /* Card 3 — Medium Risk: amber/gold */
+    div.stMetric:nth-of-type(3) {
+        background: linear-gradient(135deg, #78350f 0%, #92400e 100%) !important;
+        border: 1px solid rgba(251,191,36,0.25) !important;
+        box-shadow: 0 4px 20px rgba(120,53,15,0.3) !important;
+    }
+    div.stMetric:nth-of-type(3) div[data-testid="stMetricValue"] { color: #fde68a !important; }
+    div.stMetric:nth-of-type(3) div[data-testid="stMetricLabel"] { color: #fcd34d !important; }
+
+    /* Card 4 — High Risk: crimson red */
+    div.stMetric:nth-of-type(4) {
+        background: linear-gradient(135deg, #7f1d1d 0%, #991b1b 100%) !important;
+        border: 1px solid rgba(252,165,165,0.25) !important;
+        box-shadow: 0 4px 20px rgba(127,29,29,0.3) !important;
+    }
+    div.stMetric:nth-of-type(4) div[data-testid="stMetricValue"] { color: #fecaca !important; }
+    div.stMetric:nth-of-type(4) div[data-testid="stMetricLabel"] { color: #fca5a5 !important; }
+
     /* ══════════════════════════════════════════
-       DATAFRAMES
+       DATAFRAMES — styled to match theme
     ══════════════════════════════════════════ */
     [data-testid="stDataFrame"] {
-        border-radius: 12px !important;
-        border: 1px solid #ede9fe !important;
+        border-radius: 14px !important;
+        border: 1px solid #ddd6fe !important;
         overflow: hidden !important;
+        box-shadow: 0 2px 16px rgba(109,40,217,0.08) !important;
+    }
+
+    /* Header row */
+    [data-testid="stDataFrame"] thead tr th {
+        background: linear-gradient(90deg, #5b21b6, #7c3aed) !important;
+        color: #fff !important;
+        font-family: 'Manrope', sans-serif !important;
+        font-weight: 800 !important;
+        font-size: 0.78rem !important;
+        letter-spacing: 0.08em !important;
+        text-transform: uppercase !important;
+        border-bottom: none !important;
+    }
+
+    /* Alternating rows */
+    [data-testid="stDataFrame"] tbody tr:nth-child(odd) td {
+        background: #faf8ff !important;
+        color: #1e0a3c !important;
+    }
+    [data-testid="stDataFrame"] tbody tr:nth-child(even) td {
+        background: #f3f0ff !important;
+        color: #1e0a3c !important;
+    }
+    [data-testid="stDataFrame"] tbody tr:hover td {
+        background: #ede9fe !important;
+    }
+
+    /* Cell text */
+    [data-testid="stDataFrame"] td {
+        font-family: 'Manrope', sans-serif !important;
+        font-size: 0.88rem !important;
+        font-weight: 600 !important;
+        border-color: #ede9fe !important;
     }
 
     /* ══════════════════════════════════════════
@@ -423,10 +479,10 @@ high_users  = (df_raw["credit_score"] < 40).sum()
 medium_users = df_raw["credit_score"].between(40, 70).sum()
 
 col1, col2, col3, col4 = st.columns(4)
-col1.metric("👥 Total Users",          f"{total_users}")
-col2.metric("🟢 Low Risk (≥70)",       f"{low_users}")
-col3.metric("🟡 Medium Risk (40–69)", f"{medium_users}")
-col4.metric("🔴 High Risk (<40)",      f"{high_users}")
+col1.metric("👥  Total Users",           f"{total_users}")
+col2.metric("✅  Low Risk  ≥ 70",       f"{low_users}")
+col3.metric("⚠️  Medium Risk  40–69",  f"{medium_users}")
+col4.metric("❌  High Risk  < 40",      f"{high_users}")
 
 st.markdown("<div style='height:28px'></div>", unsafe_allow_html=True)
 
