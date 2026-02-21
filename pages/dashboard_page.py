@@ -57,7 +57,7 @@ st.markdown("""
        SIDEBAR — deep dark purple
     ══════════════════════════════════════════ */
     [data-testid="stSidebar"] {
-        background: #12002e  !important;
+        background: #12002e !important;
         border-right: 1px solid rgba(139,92,246,0.2) !important;
         box-shadow: 4px 0 28px rgba(0,0,0,0.5) !important;
     }
@@ -74,7 +74,7 @@ st.markdown("""
 
     .sidebar-sub {
         text-align: center;
-        color: #3b1f6a;
+        color: #7c3aed;
         font-size: 0.63rem;
         letter-spacing: 0.28em;
         text-transform: uppercase;
@@ -82,9 +82,9 @@ st.markdown("""
     }
 
     section[data-testid="stSidebar"] .stButton > button {
-        background: rgba(167,139,250,0.05) !important;
-        border: 1px solid rgba(167,139,250,0.12) !important;
-        color: #4a2e7a !important;
+        background: rgba(124,58,237,0.08) !important;
+        border: 1px solid rgba(124,58,237,0.2) !important;
+        color: #c4b5fd !important;
         text-transform: none !important;
         letter-spacing: 0 !important;
         padding: 10px 16px !important;
@@ -96,9 +96,9 @@ st.markdown("""
     }
 
     section[data-testid="stSidebar"] .stButton > button:hover {
-        background: rgba(139,92,246,0.14) !important;
-        border-color: rgba(139,92,246,0.35) !important;
-        color: #c4b5fd !important;
+        background: rgba(124,58,237,0.22) !important;
+        border-color: #7c3aed !important;
+        color: #ffffff !important;
         transform: none !important;
         box-shadow: none !important;
     }
@@ -235,41 +235,41 @@ st.markdown("""
         text-transform: uppercase !important;
     }
 
-    /* Card 1 — Total Users: deep indigo */
+    /* Card 1 — Total Users: brand purple */
     div.stMetric:nth-of-type(1) {
-        background: linear-gradient(135deg, #1e0a3c 0%, #3b1a7a 100%) !important;
-        border: 1px solid rgba(167,139,250,0.25) !important;
-        box-shadow: 0 4px 20px rgba(30,10,60,0.3) !important;
+        background: linear-gradient(135deg, #5b21b6 0%, #7c3aed 100%) !important;
+        border: 1px solid rgba(196,181,253,0.3) !important;
+        box-shadow: 0 4px 20px rgba(124,58,237,0.35) !important;
     }
-    div.stMetric:nth-of-type(1) div[data-testid="stMetricValue"] { color: #e9d5ff !important; }
-    div.stMetric:nth-of-type(1) div[data-testid="stMetricLabel"] { color: #a78bfa !important; }
+    div.stMetric:nth-of-type(1) div[data-testid="stMetricValue"] { color: #ffffff !important; }
+    div.stMetric:nth-of-type(1) div[data-testid="stMetricLabel"] { color: #ddd6fe !important; }
 
-    /* Card 2 — Low Risk: emerald green */
+    /* Card 2 — Low Risk: purple tinted green */
     div.stMetric:nth-of-type(2) {
-        background: linear-gradient(135deg, #064e3b 0%, #065f46 100%) !important;
-        border: 1px solid rgba(52,211,153,0.25) !important;
-        box-shadow: 0 4px 20px rgba(6,78,59,0.3) !important;
+        background: linear-gradient(135deg, #7c3aed 0%, #059669 100%) !important;
+        border: 1px solid rgba(110,231,183,0.3) !important;
+        box-shadow: 0 4px 20px rgba(124,58,237,0.25) !important;
     }
-    div.stMetric:nth-of-type(2) div[data-testid="stMetricValue"] { color: #a7f3d0 !important; }
-    div.stMetric:nth-of-type(2) div[data-testid="stMetricLabel"] { color: #6ee7b7 !important; }
+    div.stMetric:nth-of-type(2) div[data-testid="stMetricValue"] { color: #ffffff !important; }
+    div.stMetric:nth-of-type(2) div[data-testid="stMetricLabel"] { color: #a7f3d0 !important; }
 
-    /* Card 3 — Medium Risk: amber/gold */
+    /* Card 3 — Medium Risk: purple tinted amber */
     div.stMetric:nth-of-type(3) {
-        background: linear-gradient(135deg, #78350f 0%, #92400e 100%) !important;
-        border: 1px solid rgba(251,191,36,0.25) !important;
-        box-shadow: 0 4px 20px rgba(120,53,15,0.3) !important;
+        background: linear-gradient(135deg, #7c3aed 0%, #d97706 100%) !important;
+        border: 1px solid rgba(253,230,138,0.3) !important;
+        box-shadow: 0 4px 20px rgba(124,58,237,0.25) !important;
     }
-    div.stMetric:nth-of-type(3) div[data-testid="stMetricValue"] { color: #fde68a !important; }
-    div.stMetric:nth-of-type(3) div[data-testid="stMetricLabel"] { color: #fcd34d !important; }
+    div.stMetric:nth-of-type(3) div[data-testid="stMetricValue"] { color: #ffffff !important; }
+    div.stMetric:nth-of-type(3) div[data-testid="stMetricLabel"] { color: #fde68a !important; }
 
-    /* Card 4 — High Risk: crimson red */
+    /* Card 4 — High Risk: purple tinted red */
     div.stMetric:nth-of-type(4) {
-        background: linear-gradient(135deg, #7f1d1d 0%, #991b1b 100%) !important;
-        border: 1px solid rgba(252,165,165,0.25) !important;
-        box-shadow: 0 4px 20px rgba(127,29,29,0.3) !important;
+        background: linear-gradient(135deg, #7c3aed 0%, #dc2626 100%) !important;
+        border: 1px solid rgba(252,165,165,0.3) !important;
+        box-shadow: 0 4px 20px rgba(124,58,237,0.25) !important;
     }
-    div.stMetric:nth-of-type(4) div[data-testid="stMetricValue"] { color: #fecaca !important; }
-    div.stMetric:nth-of-type(4) div[data-testid="stMetricLabel"] { color: #fca5a5 !important; }
+    div.stMetric:nth-of-type(4) div[data-testid="stMetricValue"] { color: #ffffff !important; }
+    div.stMetric:nth-of-type(4) div[data-testid="stMetricLabel"] { color: #fecaca !important; }
 
     /* ══════════════════════════════════════════
        DATAFRAMES — styled to match theme
