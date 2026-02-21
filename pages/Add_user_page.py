@@ -37,11 +37,11 @@ st.markdown("""
     /* ══════════════════════════════════════════
        SIDEBAR — deep navy dark
     ══════════════════════════════════════════ */
-    [data-testid="stSidebar"] {
-        background: #040d1a !important;
-        border-right: 1px solid rgba(21,101,192,0.22) !important;
-        box-shadow: 4px 0 28px rgba(0,0,0,0.45) !important;
-    }
+    # [data-testid="stSidebar"] {
+    #     background: #040d1a !important;
+    #     border-right: 1px solid rgba(21,101,192,0.22) !important;
+    #     box-shadow: 4px 0 28px rgba(0,0,0,0.45) !important;
+    # }
 
     .sidebar-logo {
         font-family: 'Fraunces', serif !important;
@@ -78,7 +78,7 @@ st.markdown("""
     section[data-testid="stSidebar"] .stButton > button:hover {
         background: rgba(21,101,192,0.2) !important;
         border-color: rgba(21,101,192,0.45) !important;
-        color: #90caf9 !important;
+        color: #ffffff !important;
         transform: none !important;
         box-shadow: none !important;
     }
