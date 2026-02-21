@@ -104,7 +104,7 @@ section[data-testid="stSidebar"] .stButton > button:hover {
     }
 
     .hero-container { text-align: center; padding-top: 60px; }
-    .app-name { font-size: 50px; font-weight: 900; letter-spacing: 6px; color: #00D1FF; margin-bottom: 16px; }
+    .app-name { font-size: 50px; font-weight: 900; letter-spacing: 6px; color: #1565c0; margin-bottom: 16px; }
     .hero-headline { font-size: 56px; font-weight: 800; color: #fff; margin-bottom: 10px; }
     .hero-subtext { font-size: 22px; color: #e0e0e0; max-width: 900px; margin: 0 auto; line-height: 1.6; }
 
