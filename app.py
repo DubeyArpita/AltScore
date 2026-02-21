@@ -21,6 +21,12 @@ with st.sidebar:
 # ---------- CSS ----------
 st.markdown(
     """
+    /* ══════════════════════════════════════════
+       Hides the default Streamlit Page List
+    ══════════════════════════════════════════ */
+    [data-testid="stSidebarNav"] {
+        display: none !important;
+    }
     <style>
      /* ══════════════════════════════════════════
    SIDEBAR — deep navy dark
