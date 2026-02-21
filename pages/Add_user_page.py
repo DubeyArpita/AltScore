@@ -10,14 +10,14 @@ st.set_page_config(page_title="AltScore | Register", layout="wide", page_icon="�
 
 st.markdown("""
     <style>
-    @import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,600;0,700;0,900;1,700&https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100..900&display=swap');
-    
+    @import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100..900&display=swap');
+    # https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,600;0,700;0,900;1,700&
 
     /* ══════════════════════════════════════════
        ROOT — purple/white theme
     ══════════════════════════════════════════ */
     .stApp {
-        background: #f8d4fa;
+        background: #dab9fa;
         font-family: 'Manrope', sans-serif;
         color: #1e0a3c;
     }
