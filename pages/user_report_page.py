@@ -242,6 +242,19 @@ section.main > div.block-container {
     width: 100% !important;
 }
 
+/* Style the index column (0,1,2,3) */
+.stTable tbody th {
+    color: #0d47a1 !important;          /* Dark blue */
+    background: #f0f7ff !important;     /* Light blue bg */
+    font-weight: 600 !important;
+    border-right: 1px solid #e3f2fd !important;
+}
+
+/* Header index cell (top-left empty cell) */
+.stTable thead th:first-child {
+    background: #0d47a1 !important;
+}
+
 .stTable thead tr th {
     background: #0d47a1 !important;
     color: #e3f2fd !important;
