@@ -18,7 +18,20 @@ st.markdown("""
     [data-testid="stSidebarNav"] {
         display: none !important;
     }
-    
+    /* 2. FIX KEYBOARD_DOUBLE (Replace text with Arrow) */
+    [data-testid="collapsedControl"] {
+        color: transparent !important;
+        overflow: visible !important;
+    }
+    [data-testid="collapsedControl"]::before {
+        content: "»"; /* High-quality arrow symbol */
+        color: #90caf9;
+        font-size: 28px;
+        position: absolute;
+        left: 10px;
+        top: 5px;
+        visibility: visible;
+    }
     /* ══════════════════════════════════════════
        GLOBAL
     ══════════════════════════════════════════ */
@@ -67,17 +80,6 @@ st.markdown("""
     letter-spacing: 0.28em;
     text-transform: uppercase;
     margin-bottom: 20px;
-}
-
-/* Fix for the keyboard_double icon issue */
-button[kind="header"] div:contains("keyboard_double") {
-    font-size: 0px !important;
-}
-
-button[kind="header"] div:contains("keyboard_double"):before {
-    content: "«"; /* This replaces the text with a double arrow symbol */
-    font-size: 24px !important;
-    color: #90caf9;
 }
 
 section[data-testid="stSidebar"] .stButton > button {
