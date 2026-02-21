@@ -18,7 +18,7 @@ st.markdown("""
     ══════════════════════════════════════════ */
     .stApp {
         background: #dab9fa;
-        font-family: 'Manrope', sans-serif;
+        font-family: 'Roboto+Slab';
         color: #1e0a3c;
     }
 
