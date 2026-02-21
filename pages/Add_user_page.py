@@ -10,155 +10,164 @@ st.set_page_config(page_title="AltScore | Register", layout="wide", page_icon="�
 
 st.markdown("""
     <style>
-    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100..900&display=swap');
 
-    /* ══════════════════════════════════════
-       GLOBAL — light grey background
-    ══════════════════════════════════════ */
-    * { font-family: 'Poppins', sans-serif !important; box-sizing: border-box; }
-
+    /* ══════════════════════════════════════════
+       ROOT — purple/white theme
+    ══════════════════════════════════════════ */
     .stApp {
-        background: #f0f2f8 !important;
-        color: #1a1f3c;
+        background: #b9fae5;
+        font-family: 'Roboto+Slab';
+        color: #b9fae5;
     }
 
-    /* ══════════════════════════════════════
-       SIDEBAR — dark navy, exact match
-    ══════════════════════════════════════ */
+    /* Subtle static purple radial tint in corners */
+    .stApp > div:first-child::before {
+        content: '';
+        position: fixed;
+        inset: 0;
+        background:
+            radial-gradient(ellipse 60vw 50vh at 0%   0%,   rgba(139,92,246,0.12) 0%, transparent 65%),
+            radial-gradient(ellipse 50vw 45vh at 100% 100%, rgba(109,40,217,0.10) 0%, transparent 65%),
+            radial-gradient(ellipse 40vw 40vh at 100% 0%,   rgba(196,181,253,0.15) 0%, transparent 60%);
+        pointer-events: none;
+        z-index: 0;
+    }
+
+    /* Finance SVG watermark — static, very subtle */
+    .stApp > div:first-child::after {
+        content: '';
+        position: fixed;
+        inset: 0;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='500' viewBox='0 0 800 500'%3E%3Cg opacity='0.045' stroke='%236d28d9' fill='none'%3E%3Cpolyline stroke-width='2' points='0,400 80,340 160,360 240,280 320,300 400,200 480,170 560,120 640,140 720,80 800,50'/%3E%3Cpolyline stroke-width='1.5' stroke='%238b5cf6' points='0,450 100,420 200,430 300,390 400,360 500,310 600,280 700,240 800,200'/%3E%3Cline x1='0' y1='166' x2='800' y2='166' stroke-width='0.8' stroke-dasharray='4 8'/%3E%3Cline x1='0' y1='333' x2='800' y2='333' stroke-width='0.8' stroke-dasharray='4 8'/%3E%3Cline x1='200' y1='0' x2='200' y2='500' stroke-width='0.8' stroke-dasharray='4 8'/%3E%3Cline x1='400' y1='0' x2='400' y2='500' stroke-width='0.8' stroke-dasharray='4 8'/%3E%3Cline x1='600' y1='0' x2='600' y2='500' stroke-width='0.8' stroke-dasharray='4 8'/%3E%3Ccircle cx='680' cy='400' r='48' stroke-width='1.5'/%3E%3Ccircle cx='680' cy='400' r='34' stroke-width='1'/%3E%3Ctext x='666' y='406' font-family='monospace' font-size='16' fill='%236d28d9' opacity='1'%3E%E2%82%B9%3C/text%3E%3Crect x='40' y='60' width='12' height='60' fill='%236d28d9'/%3E%3Crect x='65' y='40' width='12' height='80' fill='%238b5cf6'/%3E%3Crect x='90' y='70' width='12' height='50' fill='%236d28d9'/%3E%3Crect x='115' y='30' width='12' height='90' fill='%238b5cf6'/%3E%3Crect x='140' y='55' width='12' height='65' fill='%236d28d9'/%3E%3C/g%3E%3C/svg%3E");
+        background-size: 800px 500px;
+        background-repeat: repeat;
+        background-position: center;
+        pointer-events: none;
+        z-index: 0;
+    }
+
+    /* ══════════════════════════════════════════
+       SIDEBAR — deep dark purple
+    ══════════════════════════════════════════ */
     [data-testid="stSidebar"] {
-        background: #1a1f3c !important;
-        border-right: none !important;
-        box-shadow: 3px 0 18px rgba(0,0,0,0.35) !important;
-        min-width: 200px !important;
+        background: #12002e !important;
+        border-right: 1px solid rgba(139,92,246,0.2) !important;
+        box-shadow: 4px 0 28px rgba(0,0,0,0.5) !important;
     }
-
-    [data-testid="stSidebarNav"] { background: transparent !important; }
 
     .sidebar-logo {
-        font-size: 1.15rem;
-        font-weight: 700;
-        color: #ffffff;
+        font-family: 'Fraunces', serif;
+        font-size: 2rem;
+        font-weight: 900;
         text-align: center;
-        line-height: 1.3;
-        padding: 8px 4px 4px 4px;
-        letter-spacing: 0.01em;
+        color: #c4b5fd;
+        letter-spacing: 0.06em;
+        margin-bottom: 2px;
     }
 
-    .sidebar-logo span {
-        display: block;
-        font-size: 0.75rem;
-        font-weight: 400;
-        color: #8892b0;
-        margin-top: 2px;
-        letter-spacing: 0.05em;
+    .sidebar-sub {
+        text-align: center;
+        color: #3b1f6a;
+        font-size: 0.63rem;
+        letter-spacing: 0.28em;
+        text-transform: uppercase;
+        margin-bottom: 20px;
     }
 
-    /* Sidebar nav buttons — orange gradient like the screenshot */
     section[data-testid="stSidebar"] .stButton > button {
-        background: linear-gradient(135deg, #f7971e, #f4455a) !important;
-        border: none !important;
-        color: #ffffff !important;
-        font-size: 0.82rem !important;
-        font-weight: 600 !important;
-        font-family: 'Poppins', sans-serif !important;
-        border-radius: 8px !important;
-        padding: 9px 14px !important;
+        background: rgba(167,139,250,0.05) !important;
+        border: 1px solid rgba(167,139,250,0.12) !important;
+        color: #4a2e7a !important;
         text-transform: none !important;
-        letter-spacing: 0.01em !important;
-        box-shadow: 0 3px 10px rgba(244,69,90,0.3) !important;
-        transition: opacity 0.2s ease, transform 0.15s ease !important;
-        width: 100% !important;
+        letter-spacing: 0 !important;
+        padding: 10px 16px !important;
+        font-size: 0.92rem !important;
+        font-family: 'Manrope', sans-serif !important;
+        border-radius: 10px !important;
+        box-shadow: none !important;
+        transition: background 0.2s, border-color 0.2s, color 0.2s !important;
     }
 
     section[data-testid="stSidebar"] .stButton > button:hover {
-        opacity: 0.88 !important;
-        transform: translateY(-1px) !important;
-        box-shadow: 0 5px 14px rgba(244,69,90,0.4) !important;
-    }
-
-    /* ══════════════════════════════════════
-       MAIN CONTENT WRAPPER
-    ══════════════════════════════════════ */
-    section.main > div.block-container {
-        background: transparent !important;
-        border-radius: 0 !important;
-        border: none !important;
+        background: rgba(139,92,246,0.14) !important;
+        border-color: rgba(139,92,246,0.35) !important;
+        color: #c4b5fd !important;
+        transform: none !important;
         box-shadow: none !important;
-        padding: 0 28px 40px 28px !important;
-        margin: 0 !important;
-        max-width: 100% !important;
     }
 
-    /* ══════════════════════════════════════
-       HERO BANNER — coral-to-pink gradient
-    ══════════════════════════════════════ */
-    .hero-banner {
-        background: linear-gradient(135deg, #f7971e 0%, #f4455a 55%, #c850c0 100%);
-        border-radius: 18px;
-        padding: 38px 48px 36px 48px;
-        margin-bottom: 28px;
-        margin-top: 20px;
-        text-align: center;
-        box-shadow: 0 8px 32px rgba(244,69,90,0.22);
-        position: relative;
-        overflow: hidden;
+    /* ══════════════════════════════════════════
+       MAIN CONTENT — white card
+    ══════════════════════════════════════════ */
+    section.main > div.block-container {
+        background: #ffffff !important;
+        border-radius: 24px !important;
+        border: 1px solid #ede9fe !important;
+        box-shadow:
+            0 0 0 1px rgba(139,92,246,0.06),
+            0 8px 48px rgba(109,40,217,0.09),
+            0 2px 8px rgba(0,0,0,0.04) !important;
+        margin: 20px 20px 20px 8px !important;
+        padding: 44px 52px 52px 52px !important;
     }
 
-    /* subtle white shimmer overlay */
-    .hero-banner::before {
-        content: '';
-        position: absolute;
-        inset: 0;
-        background: linear-gradient(120deg, rgba(255,255,255,0.07) 0%, transparent 60%);
-        border-radius: 18px;
-    }
-
-    .hero-title {
-        font-size: clamp(1.8rem, 3.5vw, 2.8rem);
-        font-weight: 800;
-        color: #ffffff;
-        margin: 0 0 8px 0;
-        letter-spacing: -0.01em;
-        line-height: 1.15;
-        text-shadow: 0 2px 12px rgba(0,0,0,0.15);
-    }
-
-    .hero-sub {
-        font-size: 1rem;
-        font-weight: 400;
-        color: rgba(255,255,255,0.88);
-        margin: 0;
-        line-height: 1.6;
-        max-width: 520px;
-        margin: 0 auto;
-    }
-
-    .hero-badge {
-        display: inline-block;
-        background: rgba(255,255,255,0.18);
-        border: 1px solid rgba(255,255,255,0.3);
-        border-radius: 20px;
-        padding: 4px 14px;
-        font-size: 0.72rem;
-        font-weight: 600;
-        color: #fff;
-        letter-spacing: 0.18em;
+    /* ══════════════════════════════════════════
+       PAGE HEADER
+    ══════════════════════════════════════════ */
+    .page-eyebrow {
+        font-family: 'Manrope', sans-serif;
+        font-size: 0.95rem;
+        letter-spacing: 0.28em;
         text-transform: uppercase;
-        margin-bottom: 12px;
+        color: #7c3aed;
+        font-weight: 700;
+        margin-bottom: 10px;
+        display: block;
     }
 
-    /* ══════════════════════════════════════
-       SECTION CARDS — white with purple accent
-    ══════════════════════════════════════ */
+    .page-title {
+        font-family: 'Fraunces', serif;
+        font-size: clamp(2.8rem, 4.5vw, 4rem);
+        font-weight: 900;
+        color: #1e0a3c;
+        line-height: 1.08;
+        margin: 0 0 18px 0;
+        letter-spacing: -0.02em;
+    }
+
+    .page-title .grad {
+        color: #7c3aed;
+    }
+
+    .page-desc {
+        color: #3b1f5e;
+        font-size: 1.18rem;
+        font-weight: 500;
+        max-width: 600px;
+        line-height: 1.85;
+    }
+
+    .header-rule {
+        height: 2px;
+        background: linear-gradient(90deg, #7c3aed, #c4b5fd, transparent);
+        border-radius: 2px;
+        margin: 28px 0 36px 0;
+        opacity: 0.5;
+    }
+
+    /* ══════════════════════════════════════════
+       SECTION CARDS
+    ══════════════════════════════════════════ */
     .sec-card {
-        background: #ffffff;
-        border-radius: 14px;
-        padding: 22px 26px 14px 26px;
+        background: #faf8ff;
+        border: 1px solid #ede9fe;
+        border-radius: 16px;
+        padding: 22px 26px 10px 26px;
         margin-bottom: 18px;
-        box-shadow: 0 2px 14px rgba(26,31,60,0.07);
+        box-shadow: 0 2px 12px rgba(109,40,217,0.05);
         position: relative;
         overflow: hidden;
-        border: 1px solid rgba(108,92,231,0.08);
     }
 
     .sec-card::before {
@@ -166,78 +175,67 @@ st.markdown("""
         position: absolute;
         top: 0; left: 0; right: 0;
         height: 3px;
-        background: linear-gradient(90deg, #6c5ce7, #a29bfe);
-        border-radius: 14px 14px 0 0;
+        background: linear-gradient(90deg, #7c3aed, #a78bfa, #c4b5fd);
+        border-radius: 16px 16px 0 0;
     }
 
     .sec-title {
-        font-size: 0.72rem;
-        font-weight: 700;
-        letter-spacing: 0.2em;
+        font-family: 'Manrope', sans-serif;
+        font-size: 0.78rem;
+        font-weight: 800;
+        letter-spacing: 0.22em;
         text-transform: uppercase;
-        color: #6c5ce7;
+        color: #6d28d9;
         display: flex;
         align-items: center;
-        gap: 8px;
-        margin-bottom: 16px;
-        padding-bottom: 12px;
-        border-bottom: 1px solid #f0f0f8;
+        gap: 9px;
+        margin-bottom: 18px;
+        padding-bottom: 14px;
+        border-bottom: 1px solid #ede9fe;
     }
 
     .sec-icon {
-        width: 26px; height: 26px;
+        width: 28px; height: 28px;
         background: linear-gradient(135deg, #ede9fe, #ddd6fe);
-        border-radius: 7px;
+        border-radius: 8px;
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 0.82rem;
+        font-size: 0.85rem;
         flex-shrink: 0;
     }
 
-    /* ══════════════════════════════════════
-       INPUTS — clean white
-    ══════════════════════════════════════ */
+    /* ══════════════════════════════════════════
+       INPUTS — white, dark text
+    ══════════════════════════════════════════ */
     .stNumberInput input,
     .stTextInput input {
-        background: #f8f8fc !important;
-        color: #1a1f3c !important;
-        border: 1.5px solid #e0ddf7 !important;
-        border-radius: 9px !important;
-        font-size: 0.96rem !important;
-        font-weight: 500 !important;
+        background: #ffffff !important;
+        color: #1e0a3c !important;
+        border: 1.5px solid #ddd6fe !important;
+        border-radius: 10px !important;
+        font-family: 'Manrope', sans-serif !important;
+        font-size: 1rem !important;
+        font-weight: 600 !important;
+        box-shadow: 0 1px 3px rgba(109,40,217,0.06) !important;
         transition: border-color 0.2s, box-shadow 0.2s !important;
     }
 
     .stNumberInput input:focus,
     .stTextInput input:focus {
-        border-color: #6c5ce7 !important;
-        box-shadow: 0 0 0 3px rgba(108,92,231,0.1) !important;
-        background: #fff !important;
+        border-color: #7c3aed !important;
+        box-shadow: 0 0 0 3px rgba(124,58,237,0.12) !important;
     }
 
     .stSelectbox [data-baseweb="select"] > div:first-child {
-        background: #f8f8fc !important;
-        border: 1.5px solid #e0ddf7 !important;
-        border-radius: 9px !important;
-        color: #1a1f3c !important;
-        font-weight: 500 !important;
-        font-size: 0.96rem !important;
-    }
-
-    /* Dropdown menu */
-    [data-baseweb="popover"] [role="listbox"] {
-        background: #fff !important;
-        border: 1px solid #e0ddf7 !important;
+        background: #ffffff !important;
+        border: 1.5px solid #ddd6fe !important;
         border-radius: 10px !important;
-        box-shadow: 0 8px 24px rgba(26,31,60,0.12) !important;
-    }
-
-    [data-baseweb="popover"] [role="option"] { color: #1a1f3c !important; }
-    [data-baseweb="popover"] [role="option"]:hover,
-    [data-baseweb="popover"] [aria-selected="true"] {
-        background: #ede9fe !important;
-        color: #6c5ce7 !important;
+        color: #1e0a3c !important;
+        font-family: 'Manrope', sans-serif !important;
+        font-weight: 600 !important;
+        font-size: 1rem !important;
+        box-shadow: 0 1px 3px rgba(109,40,217,0.06) !important;
     }
 
     /* Labels */
@@ -248,50 +246,51 @@ st.markdown("""
     .stRadio > label,
     .stToggle label,
     div[data-testid="stWidgetLabel"] p {
-        color: #4a4a6a !important;
-        font-size: 0.88rem !important;
+        color: #3b1f5e !important;
+        font-size: 0.92rem !important;
+        font-weight: 700 !important;
+        font-family: 'Manrope', sans-serif !important;
+    }
+
+    /* Radio options */
+    .stRadio [role="radiogroup"] label div p {
+        color: #2d1450 !important;
+        font-size: 0.98rem !important;
         font-weight: 600 !important;
     }
 
-    .stRadio [role="radiogroup"] label div p {
-        color: #2d2d50 !important;
-        font-size: 0.92rem !important;
-        font-weight: 500 !important;
+    /* Slider thumb */
+    [data-baseweb="slider"] [role="slider"] {
+        background: #7c3aed !important;
+        border: 2px solid #fff !important;
+        box-shadow: 0 0 8px rgba(124,58,237,0.4) !important;
     }
 
-    /* Slider */
-    [data-baseweb="slider"] [role="slider"] {
-        background: #6c5ce7 !important;
-        border: 2px solid #fff !important;
-        box-shadow: 0 0 8px rgba(108,92,231,0.4) !important;
+    /* Slider track fill */
+    [data-baseweb="slider"] [data-testid="stSlider"] div[role="progressbar"] {
+        background: #7c3aed !important;
     }
 
     /* Info */
     [data-testid="stInfo"] {
         background: #f5f3ff !important;
         border: 1px solid #ddd6fe !important;
-        border-radius: 9px !important;
+        border-radius: 10px !important;
         color: #5b21b6 !important;
-        font-weight: 500 !important;
+        font-family: 'Manrope', sans-serif !important;
+        font-weight: 600 !important;
     }
 
     /* Toggle */
     div[data-testid="stToggle"] p {
-        color: #4a4a6a !important;
-        font-weight: 600 !important;
-        font-size: 0.88rem !important;
+        color: #3b1f5e !important;
+        font-weight: 700 !important;
+        font-size: 0.92rem !important;
     }
 
-    /* Number input step buttons */
-    .stNumberInput [data-testid="stNumberInputContainer"] button {
-        background: #ede9fe !important;
-        border-color: #e0ddf7 !important;
-        color: #6c5ce7 !important;
-    }
-
-    /* ══════════════════════════════════════
-       CENTERED SUBMIT BUTTON — purple gradient pill
-    ══════════════════════════════════════ */
+    /* ══════════════════════════════════════════
+       CENTERED SUBMIT BUTTON
+    ══════════════════════════════════════════ */
     .stForm [data-testid="stFormSubmitButton"] {
         display: flex !important;
         justify-content: center !important;
@@ -299,46 +298,48 @@ st.markdown("""
 
     .stForm [data-testid="stFormSubmitButton"] > button {
         width: auto !important;
-        min-width: 300px !important;
-        padding: 15px 60px !important;
+        min-width: 320px !important;
+        padding: 17px 60px !important;
         border-radius: 50px !important;
         border: none !important;
-        background: linear-gradient(135deg, #6c5ce7 0%, #a29bfe 100%) !important;
+        background: linear-gradient(135deg, #5b21b6 0%, #7c3aed 50%, #a78bfa 100%) !important;
         color: #ffffff !important;
-        font-size: 1rem !important;
-        font-weight: 700 !important;
-        letter-spacing: 0.08em !important;
+        font-family: 'Manrope', sans-serif !important;
+        font-size: 1.05rem !important;
+        font-weight: 800 !important;
+        letter-spacing: 0.1em !important;
         text-transform: uppercase !important;
         cursor: pointer !important;
-        box-shadow: 0 6px 24px rgba(108,92,231,0.35) !important;
+        box-shadow: 0 4px 24px rgba(109,40,217,0.3), 0 2px 8px rgba(0,0,0,0.1) !important;
         transition: transform 0.18s ease, box-shadow 0.18s ease !important;
     }
 
     .stForm [data-testid="stFormSubmitButton"] > button:hover {
         transform: translateY(-2px) !important;
-        box-shadow: 0 10px 32px rgba(108,92,231,0.5) !important;
+        box-shadow: 0 8px 36px rgba(109,40,217,0.45), 0 4px 12px rgba(0,0,0,0.12) !important;
     }
 
-    /* ══════════════════════════════════════
+    /* ══════════════════════════════════════════
        STATUS + MISC
-    ══════════════════════════════════════ */
+    ══════════════════════════════════════════ */
     [data-testid="stStatus"] {
-        background: #ffffff !important;
-        border: 1px solid #e0ddf7 !important;
+        background: #faf8ff !important;
+        border: 1px solid #ddd6fe !important;
         border-radius: 12px !important;
-        color: #6c5ce7 !important;
+        color: #5b21b6 !important;
+        font-family: 'Manrope', sans-serif !important;
     }
 
     hr {
         border: none !important;
-        border-top: 1px solid rgba(108,92,231,0.1) !important;
-        margin: 12px 0 !important;
+        border-top: 1px solid rgba(139,92,246,0.1) !important;
+        margin: 14px 0 !important;
     }
 
     ::-webkit-scrollbar { width: 5px; }
     ::-webkit-scrollbar-track { background: transparent; }
-    ::-webkit-scrollbar-thumb { background: rgba(108,92,231,0.2); border-radius: 3px; }
-    ::-webkit-scrollbar-thumb:hover { background: rgba(108,92,231,0.38); }
+    ::-webkit-scrollbar-thumb { background: rgba(124,58,237,0.2); border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: rgba(124,58,237,0.36); }
     </style>
 """, unsafe_allow_html=True)
 
@@ -396,7 +397,7 @@ def predict_all(input_df, lr_sess, xgb_sess, rf_sess):
     elif lr_risk == "Low Risk": final_score = max(xgb_score, rf_score)
     else: final_score = round((xgb_score + rf_score) / 2)
 
-    if final_score >= 70:   eligibility, risk_level = "✅ ELIGIBLE",    "Low Risk"
+    if final_score >= 70:  eligibility, risk_level = "✅ ELIGIBLE",    "Low Risk"
     elif final_score >= 40: eligibility, risk_level = "⚠️ CONDITIONAL", "Medium Risk"
     else:                   eligibility, risk_level = "❌ RISKY",        "High Risk"
 
@@ -413,32 +414,28 @@ employment_options, income_options, city_tier_options = get_dropdown_options_fro
 
 # --- Sidebar ---
 with st.sidebar:
-    st.markdown("""
-        <div class='sidebar-logo'>
-            Credit Analysis<br>
-            <span>Register User</span>
-        </div>
-    """, unsafe_allow_html=True)
+    st.markdown("<div class='sidebar-logo'>AltScore</div>", unsafe_allow_html=True)
+    st.markdown("<div class='sidebar-sub'>AI Credit Intelligence</div>", unsafe_allow_html=True)
     st.write("---")
-    if st.button("🏠  Back to Home",      use_container_width=True): st.switch_page("app.py")
-    if st.button("📝  New User Registration", use_container_width=True): st.switch_page("pages/register_page.py")
-    if st.button("📊  Dashboard",         use_container_width=True): st.switch_page("pages/dashboard_page.py")
+    if st.button("🏠  Home", use_container_width=True): st.switch_page("app.py")
+    if st.button("📊  Dashboard", use_container_width=True): st.switch_page("pages/dashboard_page.py")
     st.write("---")
-    st.markdown("<p style='text-align:center;color:#3d4270;font-size:0.62rem;letter-spacing:0.08em;'>v2.1 · Secure & Encrypted</p>", unsafe_allow_html=True)
+    st.markdown("<p style='text-align:center;color:#2a1550;font-size:0.65rem;letter-spacing:0.1em;'>v2.1 · Secure & Encrypted</p>", unsafe_allow_html=True)
 
-# --- Hero Banner ---
+# --- Page Header ---
 st.markdown("""
-    <div class='hero-banner'>
-        <div class='hero-badge'>✦ New Application</div>
-        <h1 class='hero-title'>Register New User Profile</h1>
-        <p class='hero-sub'>Complete the financial profile below to generate an instant AI-powered alternative credit score tailored to your unique financial footprint.</p>
+    <div style='margin-bottom: 0;'>
+        <span class='page-eyebrow'>✦ New Application</span>
+        <h1 class='page-title'>Register <span class='grad'>User Profile</span></h1>
+        <p class='page-desc'>Complete the financial profile below to generate an instant AI-powered alternative credit score tailored to your unique financial footprint.</p>
     </div>
+    <div class='header-rule'></div>
 """, unsafe_allow_html=True)
 
 # --- Form ---
 with st.form("user_registration_form", border=False):
 
-    # Section 1 — Basic Profile
+    # Section 1
     st.markdown("""<div class='sec-card'>
         <div class='sec-title'><div class='sec-icon'>📍</div>Basic Profile</div>
     </div>""", unsafe_allow_html=True)
@@ -449,7 +446,7 @@ with st.form("user_registration_form", border=False):
 
     st.markdown("<div style='height:6px'></div>", unsafe_allow_html=True)
 
-    # Section 2 — Financial Capacity
+    # Section 2
     st.markdown("""<div class='sec-card'>
         <div class='sec-title'><div class='sec-icon'>💰</div>Financial Capacity</div>
     </div>""", unsafe_allow_html=True)
@@ -463,7 +460,7 @@ with st.form("user_registration_form", border=False):
 
     st.markdown("<div style='height:6px'></div>", unsafe_allow_html=True)
 
-    # Section 3 — Digital Footprint
+    # Section 3
     st.markdown("""<div class='sec-card'>
         <div class='sec-title'><div class='sec-icon'>⚡</div>Digital Footprint & Reliability</div>
     </div>""", unsafe_allow_html=True)
@@ -487,17 +484,17 @@ with st.form("user_registration_form", border=False):
 if submitted:
     user_id  = generate_user_id()
     input_df = pd.DataFrame([{
-        "employment_type":         str(employment_type).strip().lower(),
-        "income_range":            str(income_range).strip().lower(),
-        "city_tier":               int(city_tier),
+        "employment_type":       str(employment_type).strip().lower(),
+        "income_range":          str(income_range).strip().lower(),
+        "city_tier":             int(city_tier),
         "bank_account_age_months": int(bank_account_age_months),
-        "num_bank_accounts":       int(num_bank_accounts),
-        "monthly_income":          float(monthly_income),
-        "rent_paid_on_time":       float(rent_paid_on_time),
-        "utility_delay_days":      float(utility_delay_days),
-        "upi_txn_count":           float(upi_txn_count),
-        "avg_month_end_balance":   float(avg_month_end_balance),
-        "overdraft_event":         1 if overdraft_event == "Yes" else 0,
+        "num_bank_accounts":     int(num_bank_accounts),
+        "monthly_income":        float(monthly_income),
+        "rent_paid_on_time":     float(rent_paid_on_time),
+        "utility_delay_days":    float(utility_delay_days),
+        "upi_txn_count":         float(upi_txn_count),
+        "avg_month_end_balance": float(avg_month_end_balance),
+        "overdraft_event":       1 if overdraft_event == "Yes" else 0,
     }])
 
     with st.status("🧠  Running AI analysis...", expanded=True) as status:
