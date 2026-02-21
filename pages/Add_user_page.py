@@ -6,13 +6,42 @@ import streamlit as st
 from onnx_utils import load_onnx_sessions, onnx_predict_regressor, onnx_predict_classifier_label_and_proba
 
 # --- Page Config ---
-# st.set_page_config(page_title="AltScore | Register", layout="wide", page_icon="📝")
-st.set_page_config(page_title="AltScore India | Home", layout="wide")
+st.set_page_config(page_title="AltScore | Register", layout="wide", page_icon="📝")
 
 st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Fraunces:ital,wght@0,700;0,900;1,700&display=swap');
 
+    /* 1. HIDE THE DEFAULT MENU LIST */
+    [data-testid="stSidebarNav"], 
+    .st-emotion-cache-16idsys p {
+        display: none !important;
+    }
+
+    /* 2. FIX KEYBOARD_DOUBLE (THE ARROW FIX) */
+    /* Target the button and hide the text inside */
+    [data-testid="collapsedControl"] {
+        color: transparent !important;
+    }
+
+    /* Force the arrow to show up */
+    [data-testid="collapsedControl"]::after {
+        content: "»"; 
+        color: #90caf9 !important;
+        font-size: 30px !important;
+        line-height: 1 !important;
+        position: absolute;
+        left: 12px;
+        top: 4px;
+        visibility: visible !important;
+    }
+
+    /* 3. SIDEBAR PANEL STYLING */
+    [data-testid="stSidebar"] {
+        background: #040d1a !important;
+        border-right: 1px solid rgba(21,101,192,0.22) !important;
+    }
+    
     /* ══════════════════════════════════════════
        GLOBAL
     ══════════════════════════════════════════ */
