@@ -466,12 +466,23 @@ employment_options, income_options, city_tier_options = get_dropdown_options_fro
 
 # --- Sidebar ---
 with st.sidebar:
+    col1, col2, col3 = st.columns([1, 2, 1])
+    with col2:
+        st.image("logo.jpeg", width=110)
+
+    # st.image("logo.jpeg", width=100) 
+    st.write("---")
     st.markdown("<div class='sidebar-logo'>AltScore</div>", unsafe_allow_html=True)
-    st.markdown("<div class='sidebar-sub'>AI Credit Intelligence</div>", unsafe_allow_html=True)
+    st.markdown("<div class='sidebar-sub'>Credit Beyond Cards</div>", unsafe_allow_html=True)
+
+    if st.button("🏠 Home", use_container_width=True):
+        st.switch_page("app.py")
+    if st.button("📊 Dashboard", use_container_width=True):
+        st.rerun()
+    if st.button("➕ New Registration", use_container_width=True):
+        st.switch_page("pages/Add_user_page.py")
     st.write("---")
-    if st.button("🏠  Home", use_container_width=True): st.switch_page("app.py")
-    if st.button("📊  Dashboard", use_container_width=True): st.switch_page("pages/dashboard_page.py")
-    st.write("---")
+
     st.markdown("<p style='text-align:center;color:#0d2a4a;font-size:0.65rem;letter-spacing:0.1em;'>v2.1 · Secure & Encrypted</p>", unsafe_allow_html=True)
 
 # --- Page Header ---
