@@ -12,32 +12,47 @@ st.set_page_config(page_title="AltScore India | Home", layout="wide")
 
 
 st.markdown("""
+    
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Fraunces:ital,wght@0,700;0,900;1,700&display=swap');
 
-    /* 1. HIDE THE DEFAULT MENU LIST */
-    [data-testid="stSidebarNav"], 
-    .st-emotion-cache-16idsys p {
-        display: none !important;
-    }
-
-    /* 2. FIX KEYBOARD_DOUBLE (THE ARROW FIX) */
-    /* Target the button and hide the text inside */
+    /* 1. KEYBOARD_DOUBLE WALA TEXT HATANE KE LIYE */
     [data-testid="collapsedControl"] {
-        color: transparent !important;
+        color: transparent !important; /* Purana text transparent kar diya */
     }
-
-    /* Force the arrow to show up */
     [data-testid="collapsedControl"]::after {
-        content: "»"; 
+        content: "➡️"; /* Wahan manual arrow daal diya */
         color: #90caf9 !important;
-        font-size: 30px !important;
-        line-height: 1 !important;
+        font-size: 20px !important;
         position: absolute;
-        left: 12px;
-        top: 4px;
+        left: 10px;
+        top: 5px;
         visibility: visible !important;
     }
+
+    /* 2. SIDEBAR KO DARK BLUE KARNE KE LIYE */
+    [data-testid="stSidebar"] {
+        background-color: #040d1a !important;
+        border-right: 1px solid rgba(21,101,192,0.2) !important;
+    }
+
+    /* 3. SIDEBAR BUTTONS KI STYLING */
+    section[data-testid="stSidebar"] .stButton > button {
+        background: rgba(21,101,192,0.15) !important;
+        border: 1px solid #1565c0 !important;
+        color: #90caf9 !important;
+        border-radius: 12px !important;
+        font-weight: 600 !important;
+        margin-bottom: 10px !important;
+        transition: 0.3s all ease !important;
+    }
+
+    section[data-testid="stSidebar"] .stButton > button:hover {
+        background: #90caf9 !important;
+        color: #040d1a !important;
+        border-color: #ffffff !important;
+    }
+
 
     /* 3. SIDEBAR PANEL STYLING */
     [data-testid="stSidebar"] {
