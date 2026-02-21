@@ -55,7 +55,7 @@ st.markdown("""
 
     .sidebar-sub {
         text-align: center;
-        color: #0d2a4a;
+        color: #ffffff;
         font-size: 0.63rem;
         letter-spacing: 0.28em;
         text-transform: uppercase;
