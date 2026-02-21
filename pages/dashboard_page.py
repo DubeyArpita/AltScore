@@ -3,21 +3,17 @@ import numpy as np
 import pandas as pd
 import streamlit as st
 from onnx_utils import load_onnx_sessions, onnx_predict_regressor, onnx_predict_classifier_label_and_proba
-
 # -------------------------------------
 # Page Config
 # -------------------------------------
 st.set_page_config(page_title="AltScore | Dashboard", layout="wide", page_icon="📊")
-
 DATA_FILE = "data/dataset.csv"
-
 # -------------------------------------
 # Custom CSS — matches Register page theme
 # -------------------------------------
 st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,600;0,700;0,900;1,700&family=Manrope:wght@400;500;600;700;800&display=swap');
-
     /* ══════════════════════════════════════════
        ROOT — purple/white theme
     ══════════════════════════════════════════ */
@@ -26,7 +22,6 @@ st.markdown("""
         font-family: 'Manrope', sans-serif;
         color: #1e0a3c;
     }
-
     /* Subtle static purple radial tint in corners */
     .stApp > div:first-child::before {
         content: '';
@@ -39,7 +34,6 @@ st.markdown("""
         pointer-events: none;
         z-index: 0;
     }
-
     /* Finance SVG watermark — static, very subtle */
     .stApp > div:first-child::after {
         content: '';
@@ -52,7 +46,6 @@ st.markdown("""
         pointer-events: none;
         z-index: 0;
     }
-
     /* ══════════════════════════════════════════
        SIDEBAR — deep dark purple
     ══════════════════════════════════════════ */
@@ -61,7 +54,6 @@ st.markdown("""
         border-right: 1px solid rgba(139,92,246,0.2) !important;
         box-shadow: 4px 0 28px rgba(0,0,0,0.5) !important;
     }
-
     .sidebar-logo {
         font-family: 'Fraunces', serif;
         font-size: 2rem;
@@ -71,7 +63,6 @@ st.markdown("""
         letter-spacing: 0.06em;
         margin-bottom: 2px;
     }
-
     .sidebar-sub {
         text-align: center;
         color: #7c3aed;
@@ -80,7 +71,6 @@ st.markdown("""
         text-transform: uppercase;
         margin-bottom: 20px;
     }
-
     section[data-testid="stSidebar"] .stButton > button {
         background: rgba(124,58,237,0.08) !important;
         border: 1px solid rgba(124,58,237,0.2) !important;
@@ -94,7 +84,6 @@ st.markdown("""
         box-shadow: none !important;
         transition: background 0.2s, border-color 0.2s, color 0.2s !important;
     }
-
     section[data-testid="stSidebar"] .stButton > button:hover {
         background: rgba(124,58,237,0.22) !important;
         border-color: #7c3aed !important;
@@ -102,7 +91,6 @@ st.markdown("""
         transform: none !important;
         box-shadow: none !important;
     }
-
     /* ══════════════════════════════════════════
        MAIN CONTENT — white card
     ══════════════════════════════════════════ */
@@ -117,7 +105,6 @@ st.markdown("""
         margin: 20px 20px 20px 8px !important;
         padding: 44px 52px 52px 52px !important;
     }
-
     /* ══════════════════════════════════════════
        PAGE HEADER
     ══════════════════════════════════════════ */
@@ -131,7 +118,6 @@ st.markdown("""
         margin-bottom: 10px;
         display: block;
     }
-
     .page-title {
         font-family: 'Fraunces', serif;
         font-size: clamp(2.8rem, 4.5vw, 4rem);
@@ -141,11 +127,9 @@ st.markdown("""
         margin: 0 0 18px 0;
         letter-spacing: -0.02em;
     }
-
     .page-title .grad {
         color: #7c3aed;
     }
-
     .page-desc {
         color: #3b1f5e;
         font-size: 1.18rem;
@@ -153,7 +137,6 @@ st.markdown("""
         max-width: 600px;
         line-height: 1.85;
     }
-
     .header-rule {
         height: 2px;
         background: linear-gradient(90deg, #7c3aed, #c4b5fd, transparent);
@@ -161,7 +144,6 @@ st.markdown("""
         margin: 28px 0 36px 0;
         opacity: 0.5;
     }
-
     /* ══════════════════════════════════════════
        SECTION CARDS
     ══════════════════════════════════════════ */
@@ -175,7 +157,6 @@ st.markdown("""
         position: relative;
         overflow: hidden;
     }
-
     .sec-card::before {
         content: '';
         position: absolute;
@@ -184,7 +165,6 @@ st.markdown("""
         background: linear-gradient(90deg, #7c3aed, #a78bfa, #c4b5fd);
         border-radius: 16px 16px 0 0;
     }
-
     .sec-title {
         font-family: 'Manrope', sans-serif;
         font-size: 0.78rem;
@@ -199,7 +179,6 @@ st.markdown("""
         padding-bottom: 14px;
         border-bottom: 1px solid #ede9fe;
     }
-
     .sec-icon {
         width: 28px; height: 28px;
         background: linear-gradient(135deg, #ede9fe, #ddd6fe);
@@ -210,7 +189,6 @@ st.markdown("""
         font-size: 0.85rem;
         flex-shrink: 0;
     }
-
     /* ══════════════════════════════════════════
        KPI METRIC CARDS — per-card colour theming
     ══════════════════════════════════════════ */
@@ -220,13 +198,11 @@ st.markdown("""
         position: relative !important;
         overflow: hidden !important;
     }
-
     div[data-testid="stMetricValue"] {
         font-family: 'Fraunces', serif !important;
         font-size: 2.2rem !important;
         font-weight: 900 !important;
     }
-
     div[data-testid="stMetricLabel"] {
         font-family: 'Manrope', sans-serif !important;
         font-size: 0.75rem !important;
@@ -234,8 +210,7 @@ st.markdown("""
         letter-spacing: 0.12em !important;
         text-transform: uppercase !important;
     }
-
-    /* Card 1 — Total Users: lighter brand purple */
+    /* Card 1 — Total Users */
     div.stMetric:nth-of-type(1) {
         background: linear-gradient(135deg, #7c3aed 0%, #a78bfa 100%) !important;
         border: 1px solid rgba(196,181,253,0.4) !important;
@@ -243,8 +218,7 @@ st.markdown("""
     }
     div.stMetric:nth-of-type(1) div[data-testid="stMetricValue"] { color: #ffffff !important; }
     div.stMetric:nth-of-type(1) div[data-testid="stMetricLabel"] { color: #ede9fe !important; }
-
-    /* Card 2 — Low Risk: lighter purple-green */
+    /* Card 2 — Low Risk */
     div.stMetric:nth-of-type(2) {
         background: linear-gradient(135deg, #a78bfa 0%, #34d399 100%) !important;
         border: 1px solid rgba(110,231,183,0.35) !important;
@@ -252,8 +226,7 @@ st.markdown("""
     }
     div.stMetric:nth-of-type(2) div[data-testid="stMetricValue"] { color: #ffffff !important; }
     div.stMetric:nth-of-type(2) div[data-testid="stMetricLabel"] { color: #d1fae5 !important; }
-
-    /* Card 3 — Medium Risk: lighter purple-amber */
+    /* Card 3 — Medium Risk */
     div.stMetric:nth-of-type(3) {
         background: linear-gradient(135deg, #a78bfa 0%, #fbbf24 100%) !important;
         border: 1px solid rgba(253,230,138,0.35) !important;
@@ -261,8 +234,7 @@ st.markdown("""
     }
     div.stMetric:nth-of-type(3) div[data-testid="stMetricValue"] { color: #ffffff !important; }
     div.stMetric:nth-of-type(3) div[data-testid="stMetricLabel"] { color: #fef3c7 !important; }
-
-    /* Card 4 — High Risk: lighter purple-red */
+    /* Card 4 — High Risk */
     div.stMetric:nth-of-type(4) {
         background: linear-gradient(135deg, #a78bfa 0%, #f87171 100%) !important;
         border: 1px solid rgba(252,165,165,0.35) !important;
@@ -272,60 +244,60 @@ st.markdown("""
     div.stMetric:nth-of-type(4) div[data-testid="stMetricLabel"] { color: #fee2e2 !important; }
 
     /* ══════════════════════════════════════════
-       DATAFRAMES — light, airy purple theme
+       DATAFRAMES — clean grey / white theme
     ══════════════════════════════════════════ */
     [data-testid="stDataFrame"] {
         border-radius: 14px !important;
-        border: 1px solid #ddd6fe !important;
+        border: 1px solid #e5e7eb !important;
         overflow: hidden !important;
-        box-shadow: 0 2px 16px rgba(109,40,217,0.08) !important;
+        box-shadow: 0 2px 16px rgba(0,0,0,0.06) !important;
     }
 
-    /* Header row — dark purple with soft white text */
+    /* Header row — dark charcoal with crisp white text */
     [data-testid="stDataFrame"] thead tr th {
-        background: #4c1d95 !important;
-        color: #ede9fe !important;
+        background: #374151 !important;
+        color: #f9fafb !important;
         font-family: 'Manrope', sans-serif !important;
         font-weight: 800 !important;
         font-size: 0.72rem !important;
         letter-spacing: 0.12em !important;
         text-transform: uppercase !important;
-        border-bottom: 2px solid #7c3aed !important;
+        border-bottom: 2px solid #4b5563 !important;
     }
 
-    /* Odd rows — very light lavender with mid-grey text */
+    /* Odd rows — pure white background, readable dark grey text */
     [data-testid="stDataFrame"] tbody tr:nth-child(odd) td {
-        background: #faf8ff !important;
-        color: #6b7280 !important;
+        background: #ffffff !important;
+        color: #374151 !important;
     }
 
-    /* Even rows — soft purple-white with slightly warmer grey */
+    /* Even rows — very light grey background, slightly softer text */
     [data-testid="stDataFrame"] tbody tr:nth-child(even) td {
-        background: #f5f3ff !important;
-        color: #7c7a8a !important;
+        background: #f3f4f6 !important;
+        color: #4b5563 !important;
     }
 
-    /* Hover — gentle purple tint, white text */
+    /* Hover — medium grey with near-black text for contrast */
     [data-testid="stDataFrame"] tbody tr:hover td {
-        background: #ede9fe !important;
-        color: #ffffff !important;
+        background: #d1d5db !important;
+        color: #111827 !important;
     }
 
-    /* Cell text base */
+    /* Cell base styles */
     [data-testid="stDataFrame"] td {
         font-family: 'Manrope', sans-serif !important;
         font-size: 0.88rem !important;
         font-weight: 500 !important;
-        border-color: #ede9fe !important;
+        border-color: #e5e7eb !important;
     }
 
-    /* Index column — soft lavender with muted purple text */
+    /* Index column — soft grey with muted text */
     [data-testid="stDataFrame"] th:first-child,
     [data-testid="stDataFrame"] td:first-child {
-        background: #ede9fe !important;
-        color: #8b5cf6 !important;
+        background: #e5e7eb !important;
+        color: #6b7280 !important;
         font-weight: 700 !important;
-        border-right: 1px solid #ddd6fe !important;
+        border-right: 1px solid #d1d5db !important;
     }
 
     /* ══════════════════════════════════════════
@@ -339,7 +311,6 @@ st.markdown("""
         font-family: 'Manrope', sans-serif !important;
         font-weight: 600 !important;
     }
-
     /* ══════════════════════════════════════════
        STATUS + MISC
     ══════════════════════════════════════════ */
@@ -348,22 +319,18 @@ st.markdown("""
         border-top: 1px solid rgba(139,92,246,0.1) !important;
         margin: 14px 0 !important;
     }
-
     ::-webkit-scrollbar { width: 5px; }
     ::-webkit-scrollbar-track { background: transparent; }
     ::-webkit-scrollbar-thumb { background: rgba(124,58,237,0.2); border-radius: 3px; }
     ::-webkit-scrollbar-thumb:hover { background: rgba(124,58,237,0.36); }
     </style>
 """, unsafe_allow_html=True)
-
-
 # -------------------------------------
 # Cached model sessions
 # -------------------------------------
 @st.cache_resource
 def load_models():
     return load_onnx_sessions()
-
 # -------------------------------------
 # Helpers
 # -------------------------------------
@@ -374,9 +341,9 @@ def compute_risk_level(score):
     else: return "High"
 
 def color_risk(val):
-    if val == "Low": return "background-color: #6bcf7f; color: white; font-weight: bold;"
-    elif val == "Medium": return "background-color: #FFD93D; color: #1e0a3c; font-weight: bold;"
-    elif val == "High": return "background-color: #FF6B6B; color: white; font-weight: bold;"
+    if val == "Low":      return "background-color: #6bcf7f; color: #ffffff; font-weight: bold;"
+    elif val == "Medium": return "background-color: #FFD93D; color: #374151; font-weight: bold;"
+    elif val == "High":   return "background-color: #FF6B6B; color: #ffffff; font-weight: bold;"
     return ""
 
 def build_input_df_from_row(row: pd.Series) -> pd.DataFrame:
@@ -393,7 +360,6 @@ def build_input_df_from_row(row: pd.Series) -> pd.DataFrame:
         "avg_month_end_balance": float(pd.to_numeric(row.get("avg_month_end_balance", 5000.0), errors="coerce") or 5000.0),
         "overdraft_event": int(pd.to_numeric(row.get("overdraft_event", 0), errors="coerce") or 0),
     }])
-
 # -------------------------------------
 # Sidebar
 # -------------------------------------
@@ -407,16 +373,12 @@ with st.sidebar:
         <div class='sidebar-sub' style='color:#a78bfa;'>Credit Beyond Cards</div>
     """, unsafe_allow_html=True)
     st.write("---")
-
     if st.button("🏠  Home", use_container_width=True):
         st.switch_page("app.py")
-
     if st.button("📊  Dashboard", use_container_width=True):
         st.rerun()
-
     st.write("---")
     st.markdown("<p style='text-align:center;color:#7c3aed;font-size:0.65rem;letter-spacing:0.1em;'>v2.1 · Secure & Encrypted</p>", unsafe_allow_html=True)
-
 # -------------------------------------
 # Page Header
 # -------------------------------------
@@ -427,7 +389,6 @@ st.markdown("""
     </div>
     <div class='header-rule'></div>
 """, unsafe_allow_html=True)
-
 # -------------------------------------
 # Data Load
 # -------------------------------------
@@ -435,25 +396,19 @@ os.makedirs("data", exist_ok=True)
 if not os.path.exists(DATA_FILE):
     st.warning("📭 Dataset file not found. Please add users first.")
     st.stop()
-
 df_raw = pd.read_csv(DATA_FILE)
 df_added_order = df_raw.copy()
-
 if df_raw.empty:
     st.warning("📭 Dataset is empty. Please register some users first.")
     st.stop()
-
 if "alt_credit_score" in df_raw.columns and "credit_score" not in df_raw.columns:
     df_raw = df_raw.rename(columns={"alt_credit_score": "credit_score"})
-
 if "credit_score" not in df_raw.columns:
     st.error("❌ Column 'credit_score' not found.")
     st.stop()
-
 df_raw["credit_score"] = pd.to_numeric(df_raw["credit_score"], errors="coerce")
 df_raw = df_raw.sort_values(by="credit_score", ascending=False, na_position="last").reset_index(drop=True)
 df_raw["risk_level"] = df_raw["credit_score"].apply(compute_risk_level)
-
 # -------------------------------------
 # Load ONNX models
 # -------------------------------------
@@ -462,61 +417,49 @@ try:
 except Exception as e:
     st.error(f"ONNX model loading error: {e}")
     st.stop()
-
 # -------------------------------------
 # Section: KPI Summary
 # -------------------------------------
 st.markdown("""<div class='sec-card'>
     <div class='sec-title'><div class='sec-icon'>📈</div>Portfolio Summary</div>
 </div>""", unsafe_allow_html=True)
-
 total_users = len(df_raw)
 low_users   = (df_raw["credit_score"] >= 70).sum()
 high_users  = (df_raw["credit_score"] < 40).sum()
 medium_users = df_raw["credit_score"].between(40, 70).sum()
-
 col1, col2, col3, col4 = st.columns(4)
 col1.metric("👥  Total Users",           f"{total_users}")
 col2.metric("✅  Low Risk  ≥ 70",       f"{low_users}")
 col3.metric("⚠️  Medium Risk  40–69",  f"{medium_users}")
 col4.metric("❌  High Risk  < 40",      f"{high_users}")
-
 st.markdown("<div style='height:28px'></div>", unsafe_allow_html=True)
-
 # -------------------------------------
 # Section: All Users Overview Table
 # -------------------------------------
 st.markdown("""<div class='sec-card'>
     <div class='sec-title'><div class='sec-icon'>👥</div>All Users Overview</div>
 </div>""", unsafe_allow_html=True)
-
 cols = [
     "user_id", "employment_type", "income_range", "city_tier", "monthly_income",
     "bank_account_age_months", "num_bank_accounts", "rent_paid_on_time",
     "utility_delay_days", "upi_txn_count", "avg_month_end_balance",
     "overdraft_event", "credit_score", "risk_level"
 ]
-
 display_df = df_raw.head(2000)[cols].copy()
 display_df.index = range(1, len(display_df) + 1)
-
 st.dataframe(
     display_df.style.map(color_risk, subset=["risk_level"]),
     use_container_width=True,
     height=500
 )
-
 st.markdown("<div style='height:28px'></div>", unsafe_allow_html=True)
-
 # -------------------------------------
 # Section: AI Predictions (Last 5 Users)
 # -------------------------------------
 st.markdown("""<div class='sec-card'>
     <div class='sec-title'><div class='sec-icon'>🤖</div>AI Predictions — Last 5 Registered Users</div>
 </div>""", unsafe_allow_html=True)
-
 df_predict = df_added_order.tail(5).copy().iloc[::-1].reset_index(drop=True)
-
 pred_rows = []
 for idx, row in df_predict.iterrows():
     try:
@@ -526,7 +469,6 @@ for idx, row in df_predict.iterrows():
         rf_score   = float(np.clip(onnx_predict_regressor(rf_sess, input_df), 0, 100))
     except Exception:
         lr_risk, xgb_score, rf_score = "Error", "Error", "Error"
-
     pred_rows.append({
         "User ID":           row.get("user_id", f"User_{idx+1}"),
         "Credit Score":      row.get("credit_score", np.nan),
@@ -535,10 +477,8 @@ for idx, row in df_predict.iterrows():
         "RF Score":          rf_score,
         "Risk Level":        compute_risk_level(row.get("credit_score", np.nan)),
     })
-
 pred_df = pd.DataFrame(pred_rows)
 pred_df.index = range(1, len(pred_df) + 1)
-
 st.dataframe(
     pred_df.style.map(color_risk, subset=["Risk Level"]),
     use_container_width=True,
