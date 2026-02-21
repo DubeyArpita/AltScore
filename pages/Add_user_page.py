@@ -54,6 +54,26 @@ st.markdown("""
         color: #071a2e;
     }
 
+/* ══════════════════════════════════════════
+   FIX KEYBOARD_DOUBLE (Arrow Navigation)
+══════════════════════════════════════════ */
+
+/* Hides the raw 'keyboard_double' text */
+[data-testid="collapsedControl"] {
+    color: transparent !important;
+    overflow: visible !important;
+}
+
+/* Injects a clean arrow icon in its place */
+[data-testid="collapsedControl"]::before {
+    content: "»"; /* High-quality double arrow symbol */
+    color: #90caf9; /* Matches your blue theme */
+    font-size: 28px;
+    position: absolute;
+    left: 10px;
+    top: 5px;
+    visibility: visible;
+}
     /* ══════════════════════════════════════════
    SIDEBAR — deep navy dark
 ══════════════════════════════════════════ */
