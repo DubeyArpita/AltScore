@@ -272,56 +272,83 @@ st.markdown("""
     div.stMetric:nth-of-type(4) div[data-testid="stMetricLabel"] { color: #fee2e2 !important; }
 
     /* ══════════════════════════════════════════
-       DATAFRAMES — styled to match theme
+       CUSTOM HTML TABLES
     ══════════════════════════════════════════ */
-    [data-testid="stDataFrame"] {
-        border-radius: 14px !important;
-        border: 1px solid #ddd6fe !important;
-        overflow: hidden !important;
-        box-shadow: 0 2px 16px rgba(109,40,217,0.08) !important;
+    .purple-table {
+        width: 100%;
+        border-collapse: collapse;
+        border-radius: 14px;
+        overflow: hidden;
+        font-family: 'Manrope', sans-serif;
+        font-size: 0.82rem;
+        box-shadow: 0 2px 16px rgba(109,40,217,0.10);
+        display: block;
+        overflow-x: auto;
+        overflow-y: auto;
     }
 
-    /* Header row */
-    [data-testid="stDataFrame"] thead tr th {
-        background: #4c1d95 !important;
-        color: #e9d5ff !important;
-        font-family: 'Manrope', sans-serif !important;
-        font-weight: 800 !important;
-        font-size: 0.72rem !important;
-        letter-spacing: 0.12em !important;
-        text-transform: uppercase !important;
-        border-bottom: 2px solid #7c3aed !important;
+    .purple-table thead tr th {
+        background: #4c1d95;
+        color: #e9d5ff;
+        font-weight: 800;
+        font-size: 0.68rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        padding: 11px 14px;
+        border-bottom: 2px solid #7c3aed;
+        white-space: nowrap;
+        text-align: left;
     }
 
-    /* Alternating rows — soft lavender palette, no black */
-    [data-testid="stDataFrame"] tbody tr:nth-child(odd) td {
-        background: #faf8ff !important;
-        color: #3b1a7a !important;
+    .purple-table tbody tr:nth-child(odd) td {
+        background: #faf8ff;
+        color: #3b1a7a;
     }
-    [data-testid="stDataFrame"] tbody tr:nth-child(even) td {
-        background: #f0ebff !important;
-        color: #2d0f6b !important;
+    .purple-table tbody tr:nth-child(even) td {
+        background: #f0ebff;
+        color: #2d0f6b;
     }
-    [data-testid="stDataFrame"] tbody tr:hover td {
-        background: #e4d9ff !important;
-        color: #1e0a3c !important;
-    }
-
-    /* Cell text */
-    [data-testid="stDataFrame"] td {
-        font-family: 'Manrope', sans-serif !important;
-        font-size: 0.88rem !important;
-        font-weight: 500 !important;
-        border-color: #e4d9ff !important;
+    .purple-table tbody tr:hover td {
+        background: #e4d9ff;
+        color: #1e0a3c;
     }
 
-    /* Index column */
-    [data-testid="stDataFrame"] th:first-child,
-    [data-testid="stDataFrame"] td:first-child {
-        background: #ede9fe !important;
-        color: #5b21b6 !important;
-        font-weight: 700 !important;
-        border-right: 1px solid #c4b5fd !important;
+    .purple-table td {
+        padding: 9px 14px;
+        border-bottom: 1px solid #e4d9ff;
+        font-weight: 500;
+        white-space: nowrap;
+    }
+
+    .purple-table td:first-child,
+    .purple-table th:first-child {
+        background: inherit;
+        color: #7c3aed;
+        font-weight: 700;
+        border-right: 1px solid #ddd6fe;
+        min-width: 40px;
+    }
+
+    .purple-table thead tr th:first-child {
+        background: #3b1a7a;
+        color: #c4b5fd;
+    }
+
+    .risk-low  { background: #d1fae5 !important; color: #065f46 !important; font-weight: 700 !important; border-radius: 6px; padding: 3px 10px; display:inline-block; }
+    .risk-med  { background: #fef3c7 !important; color: #92400e !important; font-weight: 700 !important; border-radius: 6px; padding: 3px 10px; display:inline-block; }
+    .risk-high { background: #fee2e2 !important; color: #991b1b !important; font-weight: 700 !important; border-radius: 6px; padding: 3px 10px; display:inline-block; }
+
+    .table-wrap {
+        max-height: 480px;
+        overflow-y: auto;
+        border-radius: 14px;
+        border: 1px solid #ddd6fe;
+    }
+    .table-wrap-sm {
+        max-height: 280px;
+        overflow-y: auto;
+        border-radius: 14px;
+        border: 1px solid #ddd6fe;
     }
 
     /* ══════════════════════════════════════════
@@ -497,11 +524,29 @@ cols = [
 display_df = df_raw.head(2000)[cols].copy()
 display_df.index = range(1, len(display_df) + 1)
 
-st.dataframe(
-    display_df.style.map(color_risk, subset=["risk_level"]),
-    use_container_width=True,
-    height=500
-)
+def risk_badge(val):
+    if val == "Low":   return f"<span class='risk-low'>✓ Low</span>"
+    if val == "Medium": return f"<span class='risk-med'>⚠ Medium</span>"
+    if val == "High":  return f"<span class='risk-high'>✕ High</span>"
+    return val
+
+def df_to_html(df, badge_col=None):
+    header = "<tr>" + "".join(f"<th>{'#' if c == df.index.name else c.replace('_',' ').title()}</th>" for c in ['#'] + list(df.columns)) + "</tr>"
+    rows = ""
+    for i, (idx, row) in enumerate(df.iterrows()):
+        cells = f"<td>{idx}</td>"
+        for col in df.columns:
+            val = row[col]
+            if badge_col and col == badge_col:
+                cells += f"<td>{risk_badge(str(val))}</td>"
+            elif isinstance(val, float):
+                cells += f"<td>{val:.1f}</td>"
+            else:
+                cells += f"<td>{val}</td>"
+        rows += f"<tr>{cells}</tr>"
+    return f"<div class='table-wrap'><table class='purple-table'><thead>{header}</thead><tbody>{rows}</tbody></table></div>"
+
+st.markdown(df_to_html(display_df, badge_col="risk_level"), unsafe_allow_html=True)
 
 st.markdown("<div style='height:28px'></div>", unsafe_allow_html=True)
 
@@ -536,8 +581,20 @@ for idx, row in df_predict.iterrows():
 pred_df = pd.DataFrame(pred_rows)
 pred_df.index = range(1, len(pred_df) + 1)
 
-st.dataframe(
-    pred_df.style.map(color_risk, subset=["Risk Level"]),
-    use_container_width=True,
-    height=300
-)
+def df_to_html_sm(df, badge_col=None):
+    header = "<tr>" + "".join(f"<th>{'#' if c == '#' else c}</th>" for c in ['#'] + list(df.columns)) + "</tr>"
+    rows = ""
+    for i, (idx, row) in enumerate(df.iterrows()):
+        cells = f"<td>{idx}</td>"
+        for col in df.columns:
+            val = row[col]
+            if badge_col and col == badge_col:
+                cells += f"<td>{risk_badge(str(val))}</td>"
+            elif isinstance(val, float) and col in ["XGB Score", "RF Score", "Credit Score"]:
+                cells += f"<td>{val:.1f}</td>"
+            else:
+                cells += f"<td>{val}</td>"
+        rows += f"<tr>{cells}</tr>"
+    return f"<div class='table-wrap-sm'><table class='purple-table'><thead>{header}</thead><tbody>{rows}</tbody></table></div>"
+
+st.markdown(df_to_html_sm(pred_df, badge_col="Risk Level"), unsafe_allow_html=True)
