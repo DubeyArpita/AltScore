@@ -34,7 +34,8 @@ st.markdown("""
     color: #071a2e;
 }
 
-/* ══════════════════════════════════════════
+
+    /* ══════════════════════════════════════════
    SIDEBAR — deep navy dark
 ══════════════════════════════════════════ */
 [data-testid="stSidebar"] {
@@ -55,7 +56,7 @@ st.markdown("""
 
 .sidebar-sub {
     text-align: center;
-    color: #0d2a4a;
+    color: #ffffff;
     font-size: 0.63rem;
     letter-spacing: 0.28em;
     text-transform: uppercase;
@@ -82,7 +83,6 @@ section[data-testid="stSidebar"] .stButton > button:hover {
     transform: none !important;
     box-shadow: none !important;
 }
-
 /* ══════════════════════════════════════════
    MAIN CONTENT — white frosted card
 ══════════════════════════════════════════ */
@@ -377,19 +377,10 @@ with st.sidebar:
     st.markdown("<div class='sidebar-logo'>AltScore</div>", unsafe_allow_html=True)
     st.markdown("<div class='sidebar-sub'>AI Credit Intelligence</div>", unsafe_allow_html=True)
     st.write("---")
-
-    if st.button("🏠  Home", use_container_width=True):
-        st.switch_page("app.py")
-
-    if st.button("📊  Dashboard", use_container_width=True):
-        st.switch_page("pages/dashboard_page.py")
-
-    if st.button("➕  New Registration", use_container_width=True):
-        st.switch_page("pages/Add_user_page.py")
-
+    if st.button("🏠  Home", use_container_width=True): st.switch_page("app.py")
+    if st.button("📊  Dashboard", use_container_width=True): st.switch_page("pages/dashboard_page.py")
     st.write("---")
     st.markdown("<p style='text-align:center;color:#0d2a4a;font-size:0.65rem;letter-spacing:0.1em;'>v2.1 · Secure & Encrypted</p>", unsafe_allow_html=True)
-
 # --------------------------------------------------
 # Prepare values
 # --------------------------------------------------
