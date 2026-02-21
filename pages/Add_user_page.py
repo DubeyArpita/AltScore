@@ -30,12 +30,6 @@ st.markdown("""
         visibility: visible !important;
     }
 
-    /* 3. SIDEBAR PANEL STYLING */
-    [data-testid="stSidebar"] {
-        background: #040d1a !important;
-        border-right: 1px solid rgba(21,101,192,0.22) !important;
-    }
-    
     /* ══════════════════════════════════════════
        GLOBAL
     ══════════════════════════════════════════ */
