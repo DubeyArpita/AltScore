@@ -22,22 +22,71 @@ with st.sidebar:
 st.markdown(
     """
     <style>
-    [data-testid="stSidebarNav"] { display: none; }
-    [data-testid="stSidebar"] { background-color: #0b0b0b !important; border-right: 1px solid #333; }
+     /* ══════════════════════════════════════════
+   SIDEBAR — deep navy dark
+══════════════════════════════════════════ */
+[data-testid="stSidebar"] {
+    background: #040d1a !important;
+    border-right: 1px solid rgba(21,101,192,0.22) !important;
+    box-shadow: 4px 0 28px rgba(0,0,0,0.45) !important;
+}
 
-    [data-testid="stSidebar"] .stButton button {
-        background-color: #00D1FF !important;
-        color: #000 !important;
-        border-radius: 10px !important;
-        font-weight: 800 !important;
-        border: none !important;
-        transition: 0.2s all ease;
-        margin-bottom: 8px !important;
-    }
-    [data-testid="stSidebar"] .stButton button:hover {
-        background-color: #fff !important;
-        transform: scale(1.02);
-    }
+.sidebar-logo {
+    font-family: 'Fraunces', serif !important;
+    font-size: 1.9rem;
+    font-weight: 900;
+    text-align: center;
+    color: #90caf9;
+    letter-spacing: 0.06em;
+    margin-bottom: 2px;
+}
+
+.sidebar-sub {
+    text-align: center;
+    color: #ffffff;
+    font-size: 0.63rem;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+}
+
+section[data-testid="stSidebar"] .stButton > button {
+    background: rgba(21,101,192,0.09) !important;
+    border: 1px solid rgba(21,101,192,0.2) !important;
+    color: #3a6ea8 !important;
+    text-transform: none !important;
+    letter-spacing: 0 !important;
+    padding: 10px 16px !important;
+    font-size: 0.9rem !important;
+    border-radius: 10px !important;
+    box-shadow: none !important;
+    transition: background 0.2s, border-color 0.2s, color 0.2s !important;
+}
+
+section[data-testid="stSidebar"] .stButton > button:hover {
+    background: rgba(21,101,192,0.2) !important;
+    border-color: rgba(21,101,192,0.45) !important;
+    color: #90caf9 !important;
+    transform: none !important;
+    box-shadow: none !important;
+}
+
+    # [data-testid="stSidebarNav"] { display: none; }
+    # [data-testid="stSidebar"] { background-color: #0b0b0b !important; border-right: 1px solid #333; }
+
+    # [data-testid="stSidebar"] .stButton button {
+    #     background-color: #00D1FF !important;
+    #     color: #000 !important;
+    #     border-radius: 10px !important;
+    #     font-weight: 800 !important;
+    #     border: none !important;
+    #     transition: 0.2s all ease;
+    #     margin-bottom: 8px !important;
+    # }
+    # [data-testid="stSidebar"] .stButton button:hover {
+    #     background-color: #fff !important;
+    #     transform: scale(1.02);
+    # }
 
     .stApp {
         background: linear-gradient(rgba(0,0,0,0.72), rgba(0,0,0,0.72)),
