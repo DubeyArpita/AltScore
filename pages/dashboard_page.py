@@ -422,7 +422,6 @@ with st.sidebar:
 # -------------------------------------
 st.markdown("""
     <div style='margin-bottom: 0;'>
-        <span class='page-eyebrow'>// Analytics Overview</span>
         <h1 class='page-title'>Credit <span class='grad'>Analytics Dashboard</span></h1>
         <p class='page-desc'>Monitor and assess user credit health with AI-powered insights across all registered profiles.</p>
     </div>
