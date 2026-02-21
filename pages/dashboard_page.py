@@ -492,38 +492,89 @@ st.dataframe(
 
 st.markdown("<div style='height:28px'></div>", unsafe_allow_html=True)
 
-# -------------------------------------
-# Section: AI Predictions (Last 5 Users)
-# -------------------------------------
-st.markdown("""<div class='sec-card'>
-    <div class='sec-title'><div class='sec-icon'>🤖</div>AI Predictions — Last 5 Registered Users</div>
-</div>""", unsafe_allow_html=True)
+# -----------------------------
+# Predictions for LAST 5 added users (latest form submissions)
+# -----------------------------
+st.subheader("🤖 AI Model Predictions (Last 5 Registered Users)")
 
+# Ensure same column name exists in df_added_order
+if "alt_credit_score" in df_added_order.columns and "credit_score" not in df_added_order.columns:
+    df_added_order = df_added_order.rename(columns={"alt_credit_score": "credit_score"})
+
+# Add risk_level in df_added_order if missing
+if "risk_level" not in df_added_order.columns and "credit_score" in df_added_order.columns:
+    df_added_order["credit_score"] = pd.to_numeric(df_added_order["credit_score"], errors="coerce")
+    df_added_order["risk_level"] = df_added_order["credit_score"].apply(compute_risk_level)
+
+# Take last 5 rows by insertion order, show newest on top
 df_predict = df_added_order.tail(5).copy().iloc[::-1].reset_index(drop=True)
+
 pred_rows = []
 for idx, row in df_predict.iterrows():
     try:
         input_df = build_input_df_from_row(row)
-        lr_risk, _ = onnx_predict_classifier_label_and_proba(lr_sess, input_df)
-        xgb_score  = float(np.clip(onnx_predict_regressor(xgb_sess, input_df), 0, 100))
-        rf_score   = float(np.clip(onnx_predict_regressor(rf_sess, input_df), 0, 100))
+
+        lr_risk, lr_probs = onnx_predict_classifier_label_and_proba(lr_sess, input_df)
+        xgb_score = float(np.clip(onnx_predict_regressor(xgb_sess, input_df), 0, 100))
+        rf_score  = float(np.clip(onnx_predict_regressor(rf_sess, input_df), 0, 100))
+
+        xgb_s = f"{xgb_score:.1f}"
+        rf_s  = f"{rf_score:.1f}"
     except Exception:
-        lr_risk, xgb_score, rf_score = "Error", "Error", "Error"
+        lr_risk, xgb_s, rf_s = "Error", "Error", "Error"
 
     pred_rows.append({
-        "User ID":           row.get("user_id", f"User_{idx+1}"),
-        "Credit Score":      row.get("credit_score", np.nan),
-        "Predicted LR Risk": lr_risk,
-        "XGB Score":         xgb_score,
-        "RF Score":          rf_score,
-        "Risk Level":        compute_risk_level(row.get("credit_score", np.nan)),
+        "User ID": row.get("user_id", f"User_{idx+1}"),
+        "Credit Score": row.get("credit_score", np.nan),
+        "Risk Level": row.get("risk_level", "Unknown"),
+        # "LR Risk": lr_risk,
+        # "XGB Score": xgb_s,
+        # "RF Score": rf_s,
     })
 
 pred_df = pd.DataFrame(pred_rows)
 pred_df.index = range(1, len(pred_df) + 1)
 
-st.dataframe(
-    pred_df.style.map(color_risk, subset=["Risk Level"]),
-    use_container_width=True,
-    height=300
+styled = (
+    pred_df.style
+    .map(color_risk, subset=["Risk Level"])
+    # .map(color_lr_risk, subset=["LR Risk"])
 )
+
+st.dataframe(styled, use_container_width=True)
+
+# -------------------------------------
+# Section: AI Predictions (Last 5 Users)
+# -------------------------------------
+# st.markdown("""<div class='sec-card'>
+#     <div class='sec-title'><div class='sec-icon'>🤖</div>AI Predictions — Last 5 Registered Users</div>
+# </div>""", unsafe_allow_html=True)
+
+# df_predict = df_added_order.tail(5).copy().iloc[::-1].reset_index(drop=True)
+# pred_rows = []
+# for idx, row in df_predict.iterrows():
+#     try:
+#         input_df = build_input_df_from_row(row)
+#         lr_risk, _ = onnx_predict_classifier_label_and_proba(lr_sess, input_df)
+#         xgb_score  = float(np.clip(onnx_predict_regressor(xgb_sess, input_df), 0, 100))
+#         rf_score   = float(np.clip(onnx_predict_regressor(rf_sess, input_df), 0, 100))
+#     except Exception:
+#         lr_risk, xgb_score, rf_score = "Error", "Error", "Error"
+
+#     pred_rows.append({
+#         "User ID":           row.get("user_id", f"User_{idx+1}"),
+#         "Credit Score":      row.get("credit_score", np.nan),
+#         "Predicted LR Risk": lr_risk,
+#         "XGB Score":         xgb_score,
+#         "RF Score":          rf_score,
+#         "Risk Level":        compute_risk_level(row.get("credit_score", np.nan)),
+#     })
+
+# pred_df = pd.DataFrame(pred_rows)
+# pred_df.index = range(1, len(pred_df) + 1)
+
+# st.dataframe(
+#     pred_df.style.map(color_risk, subset=["Risk Level"]),
+#     use_container_width=True,
+#     height=300
+# )
