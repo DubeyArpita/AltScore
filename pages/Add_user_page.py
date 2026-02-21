@@ -18,7 +18,7 @@ st.markdown("""
     .stApp {
         background: #f3f0ff;
         font-family: 'Roboto+Slab';
-        color: #0c0524;
+        color: #1e0a3c;
     }
 
     /* Subtle static purple radial tint in corners */
@@ -261,14 +261,14 @@ st.markdown("""
 
     /* Slider thumb */
     [data-baseweb="slider"] [role="slider"] {
-        background: #7c3aed !important;
+        background: #1e0a3c !important;
         border: 2px solid #fff !important;
         box-shadow: 0 0 8px rgba(124,58,237,0.4) !important;
     }
 
     /* Slider track fill */
     [data-baseweb="slider"] [data-testid="stSlider"] div[role="progressbar"] {
-        background: #7c3aed !important;
+        background: #1e0a3c !important;
     }
 
     /* Info */
@@ -283,7 +283,7 @@ st.markdown("""
 
     /* Toggle */
     div[data-testid="stToggle"] p {
-        color: #3b1f5e !important;
+        color: #1e0a3c !important;
         font-weight: 700 !important;
         font-size: 0.92rem !important;
     }
