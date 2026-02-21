@@ -9,26 +9,9 @@ from onnx_utils import load_onnx_sessions, onnx_predict_regressor, onnx_predict_
 # st.set_page_config(page_title="AltScore | Register", layout="wide", page_icon="📝")
 st.set_page_config(page_title="AltScore India | Home", layout="wide")
 
-
-
 st.markdown("""
-    
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Fraunces:ital,wght@0,700;0,900;1,700&display=swap');
-
-    /* 1. KEYBOARD_DOUBLE WALA TEXT HATANE KE LIYE */
-    [data-testid="collapsedControl"] {
-        color: transparent !important; /* Purana text transparent kar diya */
-    }
-    [data-testid="collapsedControl"]::after {
-        content: "➡️"; /* Wahan manual arrow daal diya */
-        color: #90caf9 !important;
-        font-size: 20px !important;
-        position: absolute;
-        left: 10px;
-        top: 5px;
-        visibility: visible !important;
-    }
 
     /* ══════════════════════════════════════════
        GLOBAL
