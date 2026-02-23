@@ -28,7 +28,7 @@ st.markdown("""
     /* ══════════════════════════════════════════
        GLOBAL
     ══════════════════════════════════════════ */
-    * { font-family: 'Manrope', sans-serif !important; box-sizing: border-box; }
+    * { font-family: 'Manrope', sans-serif; box-sizing: border-box; }
 
     /* ══════════════════════════════════════════
        APP BG — blue gradient + money SVG watermark
